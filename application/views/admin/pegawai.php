@@ -102,7 +102,7 @@
                                 <?php if ($userModal['id_poliklinik'] != 0) { ?>
                                     <div class="col-12">
                                         <label class="form-label">Poliklinik</label>
-                                        <input type="text" class="form-control" value="<?= $userModal['nama_klinik'] ?>" readonly>
+                                        <input type="text" class="form-control" value="<?= $userModal['nama_poliklinik'] ?>" readonly>
                                     </div>
                                 <?php } ?>
                                 <div class="col-12">
@@ -174,8 +174,8 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        centerTextInColumn('#example', 5); // 1 adalah indeks kolom "Age"
-        centerTextInColumn('#example', 6); // 1 adalah indeks kolom "Age"
-        centerTextInColumn('#example', 7); // 1 adalah indeks kolom "Age"
+        centerTextInColumn('#example', 5);
+        centerTextInColumn('#example', 6);
+        centerTextInColumn('#example', 7);
     });
 </script>

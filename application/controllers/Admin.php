@@ -40,10 +40,10 @@ class Admin extends CI_Controller
 
     public function pegawai()
     {
-        $this->db->select('t_pegawai.*, t_role.nama_role, poliklinik.nama_klinik');
+        $this->db->select('t_pegawai.*, t_role.nama_role, t_poliklinik.nama_poliklinik');
         $this->db->from('t_pegawai');
         $this->db->join('t_role', 't_pegawai.id_role = t_role.id_role');
-        $this->db->join('poliklinik', 't_pegawai.id_poliklinik = poliklinik.id_poliklinik', 'left');
+        $this->db->join('t_poliklinik', 't_pegawai.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
         $this->db->where('t_pegawai.id_role !=', 1);
         $data['users'] = $this->db->get()->result_array();
 
@@ -56,8 +56,8 @@ class Admin extends CI_Controller
 
     public function tambah_pegawai()
     {
-        $data['poliklinik'] = $this->db->get('poliklinik')->result();
-        $data['title'] = 'Manajemen User';
+        $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
+        $data['title'] = 'Manajemen Pegawai';
         $this->load->view('templates/main/header', $data);
         $this->load->view('templates/main/sidebar', $data);
         $this->load->view('admin/tambah_pegawai', $data);
@@ -75,8 +75,8 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[10]');
 
         if ($this->form_validation->run() == false) {
-            $data['poliklinik'] = $this->db->get('poliklinik')->result();
-            $data['title'] = 'Manajemen User';
+            $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
+            $data['title'] = 'Manajemen Pegawai';
             $this->load->view('templates/main/header', $data);
             $this->load->view('templates/main/sidebar', $data);
             $this->load->view('admin/tambah_pegawai', $data);
@@ -115,7 +115,7 @@ class Admin extends CI_Controller
         $query = $this->db->get('t_pegawai');
         $data['editUser'] = $query->result();
 
-        $data['poliklinik'] = $this->db->get('poliklinik')->result();
+        $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
         $data['title'] = 'Manajemen Pegawai';
         $this->load->view('templates/main/header', $data);
         $this->load->view('templates/main/sidebar', $data);
@@ -132,7 +132,7 @@ class Admin extends CI_Controller
         $this->db->where('id_pegawai', $id_pegawai);
         $query = $this->db->get('t_pegawai');
         $data['editUser'] = $query->result();
-        $data['poliklinik'] = $this->db->get('poliklinik')->result();
+        $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Manajemen Pegawai';
@@ -170,6 +170,165 @@ class Admin extends CI_Controller
                             </div>
                         </div>');
         redirect('admin/pegawai');
+    }
+
+    public function poliklinik()
+    {
+        $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
+
+        $data['title'] = 'Manajemen Poliklinik';
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/poliklinik', $data);
+        $this->load->view('templates/main/footer');
+    }
+
+    public function proses_tambah_poliklinik()
+    {
+        $this->db->insert('t_poliklinik', array('nama_poliklinik' => $this->input->post('nama_poliklinik')));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Poliklinik baru berhasil ditambahkan!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/poliklinik');
+    }
+
+    public function proses_edit_poliklinik()
+    {
+        $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
+        $this->db->update('t_poliklinik', array('nama_poliklinik' => $this->input->post('nama_poliklinik')));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Poliklinik berhasil dirubah!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/poliklinik');
+    }
+
+    public function hapus_poliklinik()
+    {
+        $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
+        $this->db->delete('t_poliklinik');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Poliklinik berhasil dihapus!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/poliklinik');
+    }
+
+    public function biaya()
+    {
+        $data['biaya'] = $this->db->get('t_biaya')->result();
+
+        $data['title'] = 'Manajemen Biaya';
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/biaya', $data);
+        $this->load->view('templates/main/footer');
+    }
+
+    public function proses_tambah_biaya()
+    {
+        $this->db->insert('t_biaya', array(
+            'nama_biaya' => $this->input->post('nama_biaya'),
+            'harga_biaya' => $this->input->post('harga_biaya')
+        ));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Biaya baru berhasil ditambahkan!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/biaya');
+    }
+
+    public function proses_edit_biaya()
+    {
+        $this->db->where('id_biaya', $this->input->post('id_biaya'));
+        $this->db->update('t_biaya', array(
+            'nama_biaya' => $this->input->post('nama_biaya'),
+            'harga_biaya' => $this->input->post('harga_biaya')
+        ));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Biaya berhasil dirubah!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/biaya');
+    }
+
+    public function hapus_biaya()
+    {
+        $this->db->where('id_biaya', $this->input->post('id_biaya'));
+        $this->db->delete('t_biaya');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Biaya berhasil dihapus!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/biaya');
+    }
+
+    public function obat()
+    {
+        $data['obat'] = $this->db->get('t_obat')->result();
+
+        $data['title'] = 'Manajemen Obat';
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/obat', $data);
+        $this->load->view('templates/main/footer');
+    }
+
+    public function proses_tambah_obat()
+    {
+        $this->db->insert('t_obat', array(
+            'nama_obat' => $this->input->post('nama_obat'),
+            'harga_obat' => $this->input->post('harga_obat')
+        ));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Obat baru berhasil ditambahkan!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/obat');
+    }
+
+    public function proses_edit_obat()
+    {
+        $this->db->where('id_obat', $this->input->post('id_obat'));
+        $this->db->update('t_obat', array(
+            'nama_obat' => $this->input->post('nama_obat'),
+            'harga_obat' => $this->input->post('harga_obat')
+        ));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Obat berhasil dirubah!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/obat');
+    }
+
+    public function hapus_obat()
+    {
+        $this->db->where('id_obat', $this->input->post('id_obat'));
+        $this->db->delete('t_obat');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Obat berhasil dihapus!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('admin/obat');
     }
 
     public function profil()

@@ -15,7 +15,7 @@ class Pendaftaran extends CI_Controller
             $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
             return;
         }
-        $this->db->select('pendaftaran.*, poliklinik.nama_klinik');
+        $this->db->select('pendaftaran.*, poliklinik.nama_poliklinik');
         $this->db->from('pendaftaran');
         $this->db->join('poliklinik', 'pendaftaran.id_poliklinik = poliklinik.id_poliklinik', 'left');
         $query = $this->db->get()->result();

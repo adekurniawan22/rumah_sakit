@@ -280,7 +280,7 @@
                                     <select id="poliklinik" class="form-select" aria-label="Default select example" name="id_poliklinik">
                                         <option value="" selected>Pilih Poliklinik</option>
                                         <?php foreach ($poliklinik as $p) : ?>
-                                            <option value="<?= $p->id_poliklinik ?>" <?php echo set_select('id_poliklinik', $p->id_poliklinik, $p->id_poliklinik == $pendaftaran[0]->id_poliklinik); ?>><?= $p->nama_klinik ?></option>
+                                            <option value="<?= $p->id_poliklinik ?>" <?php echo set_select('id_poliklinik', $p->id_poliklinik, $p->id_poliklinik == $pendaftaran[0]->id_poliklinik); ?>><?= $p->nama_poliklinik ?></option>
                                         <?php endforeach ?>
                                     </select>
                                     <?= form_error('id_poliklinik', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>

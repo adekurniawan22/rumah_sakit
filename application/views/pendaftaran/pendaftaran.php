@@ -37,7 +37,7 @@
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
                                             <td><?= date('d-M-Y', strtotime($data->waktu_pendaftaran))  ?></td>
-                                            <td><?= $data->nama_klinik ?></td>
+                                            <td><?= $data->nama_poliklinik ?></td>
                                             <td><?= $data->ketentuan_rs_ke_pasien ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPasien<?= $data->id_pendaftaran ?>">
@@ -244,7 +244,7 @@
                     <form class="row g-3">
                         <div class="col-12">
                             <label class="form-label">Poliklinik</label>
-                            <input type="text" class="form-control" value="<?= $dataModal->nama_klinik ?>" readonly>
+                            <input type="text" class="form-control" value="<?= $dataModal->nama_poliklinik ?>" readonly>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Nomor Antri</label>
@@ -264,11 +264,11 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Panggil fungsi centerTextInColumn untuk mengubah teks menjadi tengah dalam kolom "Age"
-        centerTextInColumn('#example', 4); // 1 adalah indeks kolom "Age"
-        centerTextInColumn('#example', 5); // 1 adalah indeks kolom "Age"
-        centerTextInColumn('#example', 6); // 1 adalah indeks kolom "Age"
-        centerTextInColumn('#example', 7); // 1 adalah indeks kolom "Age"
-        centerTextInColumn('#example', 8); // 1 adalah indeks kolom "Age"
-        centerTextInColumn('#example', 9); // 1 adalah indeks kolom "Age"
+        centerTextInColumn('#example', 4);
+        centerTextInColumn('#example', 5);
+        centerTextInColumn('#example', 6);
+        centerTextInColumn('#example', 7);
+        centerTextInColumn('#example', 8);
+        centerTextInColumn('#example', 9);
     });
 </script>

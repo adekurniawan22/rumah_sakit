@@ -18,6 +18,27 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Manajemen Poliklinik") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin/poliklinik">
+                    <i class="bi bi-hospital"></i>
+                    <span>Manajemen Poliklinik</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Manajemen Biaya") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin/biaya">
+                    <i class="bi bi-cash-coin"></i>
+                    <span>Manajemen Biaya</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Manajemen Obat") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin/obat">
+                    <i class="bi bi-cash-coin"></i>
+                    <span>Manajemen Obat</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin/profil">
                     <i class="bi bi-people-fill"></i>
                     <span>Profil</span>

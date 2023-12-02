@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Data Pemeriksaan <?= $user->nama_klinik ?></h1>
+        <h1>Data Pemeriksaan <?= $user->nama_poliklinik ?></h1>
     </div><!-- End Page Title -->
 
     <section class="section">

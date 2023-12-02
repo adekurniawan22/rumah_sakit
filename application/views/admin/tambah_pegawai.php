@@ -58,7 +58,7 @@
                                             <select class="form-select" aria-label="Default select example" name="id_poliklinik" id="id_poliklinik">
                                                 <option value="" selected>Pilih Klinik</option>
                                                 <?php foreach ($poliklinik as $p) : ?>
-                                                    <option value="<?= $p->id_poliklinik ?>" <?php echo set_select('id_poliklinik', $p->id_poliklinik); ?>><?= $p->nama_klinik ?></option>
+                                                    <option value="<?= $p->id_poliklinik ?>" <?php echo set_select('id_poliklinik', $p->id_poliklinik); ?>><?= $p->nama_poliklinik ?></option>
                                                 <?php endforeach ?>
                                             </select>
                                         </div>

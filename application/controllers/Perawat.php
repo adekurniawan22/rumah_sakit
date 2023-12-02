@@ -27,7 +27,7 @@ class Perawat extends CI_Controller
         $today_date = date('Y-m-d');
 
         $user_id = $this->session->userdata('user_id');
-        $this->db->select('user.*, poliklinik.nama_klinik');
+        $this->db->select('user.*, poliklinik.nama_poliklinik');
         $this->db->from('user');
         $this->db->join('poliklinik', 'user.id_poliklinik = poliklinik.id_poliklinik');
         $this->db->where('user.user_id', $user_id);
@@ -243,7 +243,7 @@ class Perawat extends CI_Controller
     public function pemeriksaan()
     {
         $user_id = $this->session->userdata('user_id');
-        $this->db->select('user.*, poliklinik.nama_klinik');
+        $this->db->select('user.*, poliklinik.nama_poliklinik');
         $this->db->from('user');
         $this->db->join('poliklinik', 'user.id_poliklinik = poliklinik.id_poliklinik');
         $this->db->where('user.user_id', $user_id);
