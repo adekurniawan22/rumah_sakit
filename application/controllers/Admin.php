@@ -7,94 +7,84 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+
+        //Middleware Role
+        if ($this->session->userdata('id_role') == 2) {
+            redirect('pendaftaran');
+        } elseif ($this->session->userdata('id_role') == 3) {
+            redirect('perawat');
+        } else {
+            if ($this->session->userdata('id_role') != 1) {
+                redirect(base_url('auth/login'));
+            }
+        }
     }
 
     public function index()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
-        $this->db->select('role.nama_role, COUNT(user.role_id) as jumlah_user');
-        $this->db->from('role');
-        $this->db->join('user', 'role.role_id = user.role_id', 'left');
-        $this->db->where_in('role.role_id', array(2, 3, 4, 5, 6, 7));
-        $this->db->group_by('role.nama_role');
+        $this->db->select('t_role.nama_role, COUNT(t_pegawai.id_role) as jumlah_pegawai');
+        $this->db->from('t_role');
+        $this->db->join('t_pegawai', 't_role.id_role = t_pegawai.id_role', 'left');
+        $this->db->where_in('t_role.id_role', array(2, 3, 4, 5, 6, 7));
+        $this->db->group_by('t_role.nama_role');
         $query = $this->db->get();
-        $result = $query->result(); // Simpan hasil query ke dalam variabel
+        $result = $query->result();
 
-        $data['title'] = "Dashboard";
+        $data['title'] = "Dashboard Pegawai";
         $this->load->view('templates/main/header', $data);
-        $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/index', ['result' => $result]); // Kirim hasil query ke tampilan
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/index', ['result' => $result]);
         $this->load->view('templates/main/footer');
     }
 
 
-    public function user()
+    public function pegawai()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
-        $this->db->select('user.*, role.nama_role, poliklinik.nama_klinik'); // Menambahkan kolom nama_poliklinik
-        $this->db->from('user');
-        $this->db->join('role', 'user.role_id = role.role_id');
-        $this->db->join('poliklinik', 'user.id_poliklinik = poliklinik.id_poliklinik', 'left'); // JOIN dengan tabel poliklinik
-        $this->db->where('user.role_id !=', 1);
+        $this->db->select('t_pegawai.*, t_role.nama_role, poliklinik.nama_klinik');
+        $this->db->from('t_pegawai');
+        $this->db->join('t_role', 't_pegawai.id_role = t_role.id_role');
+        $this->db->join('poliklinik', 't_pegawai.id_poliklinik = poliklinik.id_poliklinik', 'left');
+        $this->db->where('t_pegawai.id_role !=', 1);
         $data['users'] = $this->db->get()->result_array();
 
-
-        $data['title'] = "Manajemen User";
+        $data['title'] = "Manajemen Pegawai";
         $this->load->view('templates/main/header', $data);
-        $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/user');
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/pegawai');
         $this->load->view('templates/main/footer');
     }
 
-    public function tambah_user()
+    public function tambah_pegawai()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
         $data['poliklinik'] = $this->db->get('poliklinik')->result();
         $data['title'] = 'Manajemen User';
         $this->load->view('templates/main/header', $data);
-        $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/tambah_user', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/tambah_pegawai', $data);
         $this->load->view('templates/main/footer');
     }
 
-    public function proses_tambah_user()
+    public function proses_tambah_pegawai()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
         $this->form_validation->set_rules('nomor_pegawai', 'Nomor Pegawai', 'required|trim|integer');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
-        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[t_pegawai.username]');
         $this->form_validation->set_rules('role', 'Role', 'required');
         $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|min_length[3]|integer');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[3]');
+        $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|min_length[10]|integer');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[10]');
 
         if ($this->form_validation->run() == false) {
             $data['poliklinik'] = $this->db->get('poliklinik')->result();
             $data['title'] = 'Manajemen User';
             $this->load->view('templates/main/header', $data);
-            $this->load->view('admin/sidebar', $data);
-            $this->load->view('admin/tambah_user', $data);
+            $this->load->view('templates/main/sidebar', $data);
+            $this->load->view('admin/tambah_pegawai', $data);
             $this->load->view('templates/main/footer');
         } else {
             date_default_timezone_set('Asia/Jakarta');
             $datauser  = [
-                'role_id' => $this->input->post('role'),
+                'id_role' => $this->input->post('role'),
                 'id_poliklinik' => $this->input->post('id_poliklinik'),
                 'nomor_pegawai' => $this->input->post('nomor_pegawai'),
                 'username' => $this->input->post('username'),
@@ -108,126 +98,105 @@ class Admin extends CI_Controller
                 'tanggal_dibuat' => date('Y-m-d H:i:s')
             ];
 
-            $this->db->insert('user', $datauser);
+            $this->db->insert('t_pegawai', $datauser);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                User baru berhasil ditambahkan!
+                                Data Pegawai baru berhasil ditambahkan!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
-            redirect('admin/user');
+            redirect('admin/pegawai');
         }
     }
 
-    public function edit_user()
+    public function edit_pegawai()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
-        $user_id = $this->input->post('user_id');
-        $this->db->where('user_id', $user_id);
-        $query = $this->db->get('user');
+        $this->db->where('id_pegawai', $this->input->post('id_pegawai'));
+        $query = $this->db->get('t_pegawai');
         $data['editUser'] = $query->result();
 
         $data['poliklinik'] = $this->db->get('poliklinik')->result();
-        $data['title'] = 'Manajemen User';
+        $data['title'] = 'Manajemen Pegawai';
         $this->load->view('templates/main/header', $data);
-        $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/edit_user', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/edit_pegawai', $data);
         $this->load->view('templates/main/footer');
     }
 
-    public function proses_edit_user()
+    public function proses_edit_pegawai()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
         $this->form_validation->set_rules('role', 'Role', 'required');
         $this->form_validation->set_rules('status_aktif', 'Status Aktif', 'required');
 
-        $user_id = $this->input->post('user_id');
-        $this->db->where('user_id', $user_id);
-        $query = $this->db->get('user');
+        $id_pegawai = $this->input->post('id_pegawai');
+        $this->db->where('id_pegawai', $id_pegawai);
+        $query = $this->db->get('t_pegawai');
         $data['editUser'] = $query->result();
         $data['poliklinik'] = $this->db->get('poliklinik')->result();
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Manajemen User';
+            $data['title'] = 'Manajemen Pegawai';
             $this->load->view('templates/main/header', $data);
-            $this->load->view('admin/sidebar', $data);
-            $this->load->view('admin/edit_user', $data);
+            $this->load->view('templates/main/sidebar', $data);
+            $this->load->view('admin/edit_pegawai', $data);
             $this->load->view('templates/main/footer');
         } else {
             $data = array(
                 'id_poliklinik' => $this->input->post('id_poliklinik'),
-                'role_id' => $this->input->post('role'),
+                'id_role' => $this->input->post('role'),
                 'status_aktif'  => $this->input->post('status_aktif')
             );
 
-            $this->db->where('user_id', $user_id);
-            $this->db->update('user', $data);
+            $this->db->where('id_pegawai', $id_pegawai);
+            $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                User berhasil diubah!
+                                Data Pegawai berhasil diubah!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
-            redirect('admin/user');
+            redirect('admin/pegawai');
         }
     }
 
-    public function hapus_user()
+    public function hapus_pegawai()
     {
-        $this->db->where('user_id', $this->input->post('user_id'));
-        $this->db->delete('user');
+        $this->db->where('id_pegawai', $this->input->post('id_pegawai'));
+        $this->db->delete('t_pegawai');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                User berhasil dihapus!
+                                Data Pegawai berhasil dihapus!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
-        redirect('admin/user');
+        redirect('admin/pegawai');
     }
 
     public function profil()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
-        $this->db->select('user.*, role.nama_role');
-        $this->db->from('user');
-        $this->db->join('role', 'user.role_id = role.role_id', 'left');
-        $this->db->where('user_id', $this->session->userdata('user_id'));
+        $this->db->select('t_pegawai.*, t_role.nama_role');
+        $this->db->from('t_pegawai');
+        $this->db->join('t_role', 't_pegawai.id_role = t_role.id_role', 'left');
+        $this->db->where('id_pegawai', $this->session->userdata('id_pegawai'));
         $data['profile'] = $this->db->get()->result();
 
         $data['title'] = 'Profil';
         $this->load->view('templates/main/header', $data);
-        $this->load->view('admin/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('admin/profil', $data);
         $this->load->view('templates/main/footer');
     }
 
     public function edit_profil()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
         $this->db->select('*');
-        $this->db->from('user');  // Ganti "nama_tabel" dengan nama tabel sesuai kebutuhan
-        $this->db->where('user_id', $this->session->userdata('user_id'));
+        $this->db->from('t_pegawai');
+        $this->db->where('id_pegawai', $this->session->userdata('id_pegawai'));
         $data['profile'] = $this->db->get()->result();
 
         $data['title'] = 'Profil';
         $this->load->view('templates/main/header', $data);
-        $this->load->view('admin/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('admin/edit_profil', $data);
         $this->load->view('templates/main/footer');
     }
@@ -235,32 +204,26 @@ class Admin extends CI_Controller
 
     public function proses_edit_profil()
     {
-
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
-        $user_id = $this->session->userdata('user_id');
-        $check_username = $this->db->get_where('user', array('user_id' => $user_id))->row();
+        $id_pegawai = $this->session->userdata('id_pegawai');
+        $check_username = $this->db->get_where('t_pegawai', array('id_pegawai' => $id_pegawai))->row();
 
         if ($this->input->post('username') != $check_username->username) {
-            $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]');
+            $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[t_pegawai.username]');
         }
         $this->form_validation->set_rules('nomor_pegawai', 'Nomor Pegawai', 'required|trim|integer');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
         $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|min_length[3]|integer');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[3]');
+        $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|min_length[10]|integer');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[10]');
 
         if ($this->form_validation->run() == false) {
             $this->db->select('*');
-            $this->db->from('user');  // Ganti "nama_tabel" dengan nama tabel sesuai kebutuhan
-            $this->db->where('user_id', $this->session->userdata('user_id'));
+            $this->db->from('t_pegawai');  // Ganti "nama_tabel" dengan nama tabel sesuai kebutuhan
+            $this->db->where('id_pegawai', $this->session->userdata('id_pegawai'));
             $data['profile'] = $this->db->get()->result();
             $data['title'] = 'Profil';
             $this->load->view('templates/main/header', $data);
-            $this->load->view('admin/sidebar', $data);
+            $this->load->view('templates/main/sidebar', $data);
             $this->load->view('admin/edit_profil', $data);
             $this->load->view('templates/main/footer');
         } else {
@@ -278,8 +241,8 @@ class Admin extends CI_Controller
                     $foto = $foto_data['file_name'];
 
                     // // Update data user ke database termasuk nama foto baru
-                    $this->db->where('user_id', $user_id);
-                    $this->db->update('user', array('foto' => $foto));
+                    $this->db->where('id_pegawai', $id_pegawai);
+                    $this->db->update('t_pegawai', array('foto' => $foto));
                 } else {
                     // Jika gagal upload, tampilkan error
                     $error = array('error' => $this->upload->display_errors());
@@ -300,8 +263,8 @@ class Admin extends CI_Controller
                 'alamat'  => $this->input->post('alamat'),
                 'nomor_hp'  => $this->input->post('nomor_hp')
             );
-            $this->db->where('user_id', $user_id);
-            $this->db->update('user', $data);
+            $this->db->where('id_pegawai', $id_pegawai);
+            $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert" style="display: inline-block;">
                                 <div>
                                     Profile berhasil diubah!
@@ -314,33 +277,23 @@ class Admin extends CI_Controller
 
     public function ganti_password()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
         $data['title'] = 'Profil';
         $this->load->view('templates/main/header', $data);
-        $this->load->view('admin/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('admin/ganti_password', $data);
         $this->load->view('templates/main/footer');
     }
 
     public function proses_ganti_password()
     {
-        if ($this->session->userdata('role_id') != 1) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
         $this->form_validation->set_rules('password_sekarang', 'Password Sekarang', 'required|trim|callback_check_current_password');
         $this->form_validation->set_rules('password_baru', 'Password Baru', 'required|trim|callback_check_new_password');
         $this->form_validation->set_rules('konfirmasi_password_baru', 'Konfirmasi Password Baru', 'required|matches[password_baru]');
 
-
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Profil';
             $this->load->view('templates/main/header', $data);
-            $this->load->view('admin/sidebar', $data);
+            $this->load->view('templates/main/sidebar', $data);
             $this->load->view('admin/ganti_password', $data);
             $this->load->view('templates/main/footer');
         } else {
@@ -348,8 +301,8 @@ class Admin extends CI_Controller
             $data = array(
                 'password' => $hashed_password_baru
             );
-            $this->db->where('user_id', $this->session->userdata('user_id'));
-            $this->db->update('user', $data);
+            $this->db->where('id_pegawai', $this->session->userdata('id_pegawai'));
+            $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert" style="display: inline-block;">
                                 <div>
                                     Password berhasil diubah!
@@ -362,11 +315,11 @@ class Admin extends CI_Controller
 
     public function check_current_password($current_password)
     {
-        $user_id = $this->session->userdata('user_id'); // Gantilah dengan cara Anda menyimpan ID pengguna
+        $id_pegawai = $this->session->userdata('id_pegawai'); // Gantilah dengan cara Anda menyimpan ID pengguna
         $db_password = $this->db
             ->select('password')
-            ->where('user_id', $user_id)
-            ->get('user')
+            ->where('id_pegawai', $id_pegawai)
+            ->get('t_pegawai')
             ->row()
             ->password;
 

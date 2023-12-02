@@ -1,7 +1,6 @@
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-
         <li class="nav-item">
             <a class="nav-link <?php echo ($title == "Pendaftaran") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>pendaftaran">
                 <i class="bi bi-file-text-fill"></i>
@@ -22,7 +21,6 @@
                 <span>Logout</span>
             </a>
         </li><!-- End Login Page Nav -->
-
     </ul>
 
 </aside><!-- End Sidebar-->

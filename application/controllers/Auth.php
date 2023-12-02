@@ -24,23 +24,23 @@ class Auth extends CI_Controller
             $password = $this->input->post('password');
 
             $this->db->where('username', $username);
-            $user = $this->db->get('user')->row_array();
+            $user = $this->db->get('t_pegawai')->row_array();
             if ($user) {
                 if ($user['status_aktif'] == 1) {
                     if (password_verify($password, $user['password'])) {
                         $data = [
                             'username' => $user['username'],
-                            'role_id' => $user['role_id'],
-                            'user_id' => $user['user_id']
+                            'id_role' => $user['id_role'],
+                            'id_pegawai' => $user['id_pegawai']
                         ];
 
                         $this->session->set_userdata($data);
 
-                        if ($user['role_id'] == 1) {
+                        if ($user['id_role'] == 1) {
                             redirect('admin');
-                        } elseif ($user['role_id'] == 2) {
+                        } elseif ($user['id_role'] == 2) {
                             redirect('pendaftaran');
-                        } elseif ($user['role_id'] == 3) {
+                        } elseif ($user['id_role'] == 3) {
                             redirect('perawat');
                         }
                     } else {
@@ -77,8 +77,8 @@ class Auth extends CI_Controller
     {
         unset(
             $_SESSION['username'],
-            $_SESSION['role_id'],
-            $_SESSION['user_id'],
+            $_SESSION['id_role'],
+            $_SESSION['id_pegawai'],
         );
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
         <div class="d-flex justify-content-between align-items-center">

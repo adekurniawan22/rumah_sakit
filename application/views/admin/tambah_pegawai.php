@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Tambah user</h1>
+        <h1>Tambah Pegawai</h1>
     </div><!-- End Page Title -->
     <section class="section">
         <div class="row">
@@ -11,7 +11,7 @@
                     <div class="card-body mt-4">
 
                         <!-- General Form Elements -->
-                        <form role="form" action="<?= base_url() ?>admin/proses_tambah_user" method="post">
+                        <form role="form" action="<?= base_url() ?>admin/proses_tambah_pegawai" method="post">
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label">Nomor Pegawai</label>
                                 <div class="col-sm-10">
@@ -103,7 +103,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <a class="btn btn-primary" href="<?= base_url() ?>admin/user">Kembali</a>
+                                    <a class="btn btn-primary" href="<?= base_url() ?>admin/pegawai">Kembali</a>
                                     <button type="submit" class="btn btn-primary">Tambah</button>
                                 </div>
                             </div>

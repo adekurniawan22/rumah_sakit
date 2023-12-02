@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Data User</h1>
+        <h1>Data Pegawai</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-body mt-3">
                         <div class="pb-3">
-                            <a href="<?= base_url() ?>admin/tambah_user" class="btn btn-primary">+ Tambah user</a>
+                            <a href="<?= base_url() ?>admin/tambah_pegawai" class="btn btn-primary">+ Tambah Pegawai</a>
                         </div>
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
@@ -44,19 +44,19 @@
                                                 }
                                                 ?>
                                             </td>
-                                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUser<?= $user['user_id'] ?>">
+                                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUser<?= $user['id_pegawai'] ?>">
                                                     Detail <i class="bi bi-eye-fill"></i>
                                                 </button></td>
                                             <td>
-                                                <form action="<?= base_url() ?>admin/edit_user" method="post">
-                                                    <input type="hidden" name="user_id" value="<?= $user['user_id'] ?>">
+                                                <form action="<?= base_url() ?>admin/edit_pegawai" method="post">
+                                                    <input type="hidden" name="id_pegawai" value="<?= $user['id_pegawai'] ?>">
                                                     <button type="submit" class="btn btn-primary">
                                                         <i class=" bi bi-pencil-square"></i>
                                                     </button>
                                                 </form>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHapusUser<?= $user['user_id'] ?>">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHapusUser<?= $user['id_pegawai'] ?>">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             </td>
@@ -77,7 +77,7 @@
 <?php foreach ($users as $userModal) : ?>
 
     <!-- Modal Detail -->
-    <div class="modal fade" id="modalUser<?= $userModal['user_id'] ?>" tabindex="-1">
+    <div class="modal fade" id="modalUser<?= $userModal['id_pegawai'] ?>" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -151,7 +151,7 @@
     </div>
 
     <!-- Modal Hapus -->
-    <div class="modal fade" id="modalHapusUser<?= $userModal['user_id'] ?>" tabindex="-1">
+    <div class="modal fade" id="modalHapusUser<?= $userModal['id_pegawai'] ?>" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -161,9 +161,9 @@
                     Apakah kamu yakin untuk menghapus user ini?
                 </div>
                 <div class="modal-footer">
-                    <form action="<?= base_url() ?>admin/hapus_user" method="post">
+                    <form action="<?= base_url() ?>admin/hapus_pegawai" method="post">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                        <input type="hidden" name="user_id" value="<?= $userModal['user_id'] ?>">
+                        <input type="hidden" name="id_pegawai" value="<?= $userModal['id_pegawai'] ?>">
                         <button type="submit" class="btn btn-primary">Ya, lanjutkan</button>
                     </form>
                 </div>

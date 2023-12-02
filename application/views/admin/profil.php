@@ -20,7 +20,7 @@
                             <div class="col-sm-8">
                                 <h1><?= $profile[0]->nama_lengkap ?></h1>
                                 <p>Nomor Pegawai : <?= $profile[0]->nomor_pegawai ?> </p>
-                                <p>Role : <?= $profile[0]->role_id ?> </p>
+                                <p>Role : <?= $profile[0]->nama_role ?> </p>
                                 <p>Username : <?= $profile[0]->username ?> </p>
                                 <p>Jenis Kelamin : <?= $profile[0]->jenis_kelamin ?> </p>
                                 <p>Alamat : <?= $profile[0]->alamat ?></p>

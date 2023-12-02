@@ -7,6 +7,13 @@ class Perawat extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        if ($this->session->userdata('role_id') == 2) {
+            redirect('pendaftaran');
+        } elseif ($this->session->userdata('role_id') == 1) {
+            redirect('admin');
+        } else {
+            redirect(base_url('auth/login'));
+        }
     }
 
     public function index()

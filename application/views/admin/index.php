@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Dashboard User</h1>
+        <h1>Dashboard</h1>
     </div><!-- End Page Title -->
 
     <section class="section dashboard my-3">
@@ -22,7 +22,7 @@
                                             <i class="bi bi-people"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6><?= $count->jumlah_user ?></h6>
+                                            <h6><?= $count->jumlah_pegawai ?></h6>
                                         </div>
                                     </div>
                                 </div>
