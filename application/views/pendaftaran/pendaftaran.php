@@ -16,56 +16,66 @@
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
                             <!-- Table with stripped rows -->
-                            <table id="example" class="table datatable table-striped my-4">
+                            <table id="example" class="table table-striped my-4">
                                 <thead>
                                     <tr>
-                                        <th>No. Rekam Medis</th>
-                                        <th>Nama Pasien</th>
-                                        <th>Waktu Pendaftaran</th>
-                                        <th>Poliklinik</th>
-                                        <th>Ketentuan RS ke Pasien</th>
+                                        <th data-sortable="false">No. Rekam Medis</th>
+                                        <th>Tanggal Pendaftaran</th>
+                                        <th>Jam</th>
+                                        <th data-sortable="false">Poliklinik</th>
+                                        <th data-sortable="false">Ketentuan RS</th>
                                         <th data-sortable="false">Infromasi Pasien</th>
                                         <th data-sortable="false">Informasi Penanggung Jawab</th>
                                         <th data-sortable="false">Edit</th>
-                                        <th data-sortable="false">Hapus</th>
-                                        <th data-sortable="false">Cetak Antrian</th>
+                                        <th data-sortable="false">Cetak Nota</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($pendaftaran as $data) : ?>
                                         <tr>
                                             <td><?= $data->nomor_rekam_medis ?></td>
-                                            <td><?= $data->nama_lengkap_pasien ?></td>
-                                            <td><?= date('d-M-Y', strtotime($data->waktu_pendaftaran))  ?></td>
+                                            <td><?= date('d-m-Y', strtotime($data->waktu_pendaftaran))  ?></td>
+                                            <td><?= date('H:i', strtotime($data->waktu_pendaftaran)) ?></td>
                                             <td><?= $data->nama_poliklinik ?></td>
                                             <td><?= $data->ketentuan_rs_ke_pasien ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPasien<?= $data->id_pendaftaran ?>">
-                                                    Detail <i class="bi bi-eye-fill"></i>
+                                                    Detail
                                                 </button>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPJ<?= $data->id_pendaftaran ?>">
-                                                    Detail <i class="bi bi-eye-fill"></i>
+                                                    Detail
                                                 </button>
                                             </td>
                                             <td>
-                                                <form action="<?= base_url() ?>pendaftaran/edit_pendaftaran" method="post">
-                                                    <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran  ?>">
-                                                    <button type="submit" class="btn btn-primary">
-                                                        <i class="bi bi-pencil-square"></i>
+                                                <div class="d-flex">
+                                                    <form action="<?= base_url() ?>pendaftaran/edit_pendaftaran" method="post">
+                                                        <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
+                                                        <button type="submit" class="btn btn-primary me-2">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $data->id_pendaftaran ?>">
+                                                        <i class="bi bi-trash"></i>
                                                     </button>
-                                                </form>
+                                                </div>
                                             </td>
+
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $data->id_pendaftaran ?>">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAntrian<?= $data->id_pendaftaran ?>">
-                                                    <i class="bi bi-printer-fill"></i>
-                                                </button>
+                                                <?php if ($data->jenis_pembayaran == "BPJS") { ?>
+                                                    <span>Lunas</span>
+                                                <?php } else { ?>
+                                                    <form action="<?= base_url('pendaftaran/cetak_nota') ?>" target="_blank" method="post">
+                                                        <input type="hidden" name="nomor_rekam_medis" value="<?= $data->nomor_rekam_medis ?>">
+                                                        <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
+                                                        <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
+                                                        <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
+                                                        <button type="submit" class="btn btn-primary">
+                                                            <i class="bi bi-printer-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>
@@ -263,12 +273,8 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Panggil fungsi centerTextInColumn untuk mengubah teks menjadi tengah dalam kolom "Age"
-        centerTextInColumn('#example', 4);
-        centerTextInColumn('#example', 5);
-        centerTextInColumn('#example', 6);
+        centerTextInColumn('#example', 1);
         centerTextInColumn('#example', 7);
         centerTextInColumn('#example', 8);
-        centerTextInColumn('#example', 9);
     });
 </script>

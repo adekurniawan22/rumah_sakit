@@ -33,7 +33,7 @@
 
             <li class="nav-item">
                 <a class="nav-link <?php echo ($title == "Manajemen Obat") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin/obat">
-                    <i class="bi bi-cash-coin"></i>
+                    <i class="bi bi-capsule"></i>
                     <span>Manajemen Obat</span>
                 </a>
             </li>
@@ -83,7 +83,7 @@
     <!-- END SIDEBAR ROLE PETUGAS PENDAFTARAN -->
 
     <!-- SIDEBAR ROLE PERAWAT -->
-    <?php if ($this->session->userdata('id_role') == 2) { ?>
+    <?php if ($this->session->userdata('id_role') == 3) { ?>
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
                 <a class="nav-link <?php echo ($title == "Antrian") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>perawat">

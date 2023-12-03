@@ -9,6 +9,9 @@
 
                 <div class="card">
                     <div class="card-body">
+                        <div class="mt-4">
+                            <p>Apakah pasien sudah pernah berobat sebelumnya? <a href="<?= base_url() ?>pendaftaran/pasien">Klik jika iya</a></p>
+                        </div>
                         <h5 class="card-title">Identitas Pasien Baru</h5>
                         <!-- General Form Elements -->
                         <form role="form" action="<?= base_url() ?>pendaftaran/proses_tambah_pendaftaran" method="post">

@@ -29,7 +29,7 @@
                                     <?php foreach ($obat as $o) : ?>
                                         <tr>
                                             <td><?= $o->nama_obat ?></td>
-                                            <td><?= $o->harga_obat ?></td>
+                                            <td>Rp. <?= number_format($o->harga_obat, 0) ?></td>
                                             <td>
                                                 <div class="d-inline p-2">
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditObat<?= $o->id_obat ?>">

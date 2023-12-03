@@ -16,6 +16,7 @@
                                 <label for="nomor_rekam_medis" class="col-sm-2 col-form-label">No. Rekam Medis</label>
                                 <div class="col-sm-10">
                                     <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran[0]->id_pendaftaran ?>">
+                                    <input type="hidden" name="id_pasien" value="<?= $pendaftaran[0]->id_pasien ?>">
                                     <input type="text" class="form-control" name="nomor_rekam_medis" value="<?php echo set_value('nomor_rekam_medis', $pendaftaran[0]->nomor_rekam_medis); ?>">
                                     <?= form_error('nomor_rekam_medis', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>

@@ -7,6 +7,18 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+
+        // if ($_SESSION) {
+        //     if ($this->session->userdata('id_role') == 2) {
+        //         redirect('pendaftaran');
+        //     } elseif ($this->session->userdata('id_role') == 3) {
+        //         redirect('perawat');
+        //     } elseif ($this->session->userdata('id_role') == 1) {
+        //         redirect('admin');
+        //     }
+        // } else {
+        //     redirect(base_url());
+        // }
     }
 
     public function login()

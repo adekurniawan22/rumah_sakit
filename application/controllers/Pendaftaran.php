@@ -7,50 +7,46 @@ class Pendaftaran extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        if ($this->session->userdata('id_role') == 1) {
+            redirect('pendaftaran');
+        } elseif ($this->session->userdata('id_role') == 3) {
+            redirect('perawat');
+        } else {
+            if ($this->session->userdata('id_role') != 2) {
+                redirect(base_url('auth/login'));
+            }
+        }
     }
 
     public function index()
     {
-        if ($this->session->userdata('role_id') != 2) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-        $this->db->select('pendaftaran.*, poliklinik.nama_poliklinik');
-        $this->db->from('pendaftaran');
-        $this->db->join('poliklinik', 'pendaftaran.id_poliklinik = poliklinik.id_poliklinik', 'left');
+        $this->db->select('t_pendaftaran.*, t_poliklinik.nama_poliklinik, t_pasien.*');
+        $this->db->from('t_pendaftaran');
+        $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
+        $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien', 'left');
         $query = $this->db->get()->result();
         $data['pendaftaran'] = $query;
 
         $data['title'] = "Pendaftaran";
         $this->load->view('templates/main/header', $data);
-        $this->load->view('pendaftaran/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('pendaftaran/pendaftaran', $data);
         $this->load->view('templates/main/footer');
     }
 
     public function tambah_pendaftaran()
     {
-        if ($this->session->userdata('role_id') != 2) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
-        $data['poliklinik'] = $this->db->get('poliklinik')->result();
+        $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
 
         $data['title'] = "Pendaftaran";
         $this->load->view('templates/main/header', $data);
-        $this->load->view('pendaftaran/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('pendaftaran/tambah_pendaftaran', $data);
         $this->load->view('templates/main/footer');
     }
 
     public function proses_tambah_pendaftaran()
     {
-        if ($this->session->userdata('role_id') != 2) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
         $this->form_validation->set_rules('nomor_rekam_medis', 'Nomor Rekam Medis', 'required|trim|integer');
         $this->form_validation->set_rules('nama_lengkap_pasien', 'Nomor Lengkap Pasien', 'required|trim');
         $this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'required|trim');
@@ -79,7 +75,6 @@ class Pendaftaran extends CI_Controller
         $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|integer');
         $this->form_validation->set_rules('jenis_pembayaran', 'Jenis Pembayaran', 'required|trim');
 
-
         $this->form_validation->set_rules('penanggung_jawab', 'Penanggung Jawab', 'required');
         $this->form_validation->set_rules('nama_penanggung_jawab', 'Nama Penanggung Jawab', 'required|trim');
         $this->form_validation->set_rules('hubungan', 'Hubungan Penanggung Jawab', 'required|trim');
@@ -101,16 +96,14 @@ class Pendaftaran extends CI_Controller
         $this->form_validation->set_rules('ketentuan_rs_ke_pasien', 'Ketentuan Rumah Sakit ke Pasien / Keluarga', 'required');
 
         if ($this->form_validation->run() == false) {
-            $data['poliklinik'] = $this->db->get('poliklinik')->result();
+            $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
             $data['title'] = 'Pendaftaran';
-            $data['tanggal_lahir'] = $_POST['nomor_kartu_identitas'];
             $this->load->view('templates/main/header', $data);
-            $this->load->view('pendaftaran/sidebar', $data);
+            $this->load->view('templates/main/sidebar', $data);
             $this->load->view('pendaftaran/tambah_pendaftaran', $data);
             $this->load->view('templates/main/footer');
         } else {
-            date_default_timezone_set('Asia/Jakarta');
-            $data_pendaftaran  = [
+            $data_pasien = [
                 'nomor_rekam_medis' => $this->input->post('nomor_rekam_medis'),
                 'nama_lengkap_pasien' => $this->input->post('nama_lengkap_pasien'),
                 'tempat_lahir' => $this->input->post('tempat_lahir'),
@@ -127,56 +120,223 @@ class Pendaftaran extends CI_Controller
                 'bahasa' => $this->input->post('bahasa'),
                 'pendidikan' => $this->input->post('pendidikan'),
                 'nomor_hp' => $this->input->post('nomor_hp'),
-                'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
+            ];
 
+            $this->db->insert('t_pasien', $data_pasien);
+            $id_pasien = $this->db->insert_id();
+
+            date_default_timezone_set('Asia/Jakarta');
+            $data_pendaftaran  = [
+                'id_pasien' => $id_pasien,
+                'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
                 'penanggung_jawab' => $this->input->post('penanggung_jawab'),
                 'nama_penanggung_jawab' => $this->input->post('nama_penanggung_jawab'),
                 'hubungan' => $this->input->post('hubungan'),
                 'alamat_penanggung_jawab' => $_POST['alamat_penanggung_jawab'] . ', RT ' . $_POST['rt_penanggung_jawab'] . ', RW ' . $_POST['rw_penanggung_jawab'] . ', Kelurahan ' . $_POST['kelurahan_penanggung_jawab'] . ', Kecamatan ' . $_POST['kecamatan_penanggung_jawab'] . ', Kabupaten ' . $_POST['kabupaten_penanggung_jawab'] . ', Provinsi ' . $_POST['provinsi_penanggung_jawab'],
                 'nomor_hp_penanggung_jawab' => $this->input->post('nomor_hp_penanggung_jawab'),
-                'id_poliklinik' => $this->input->post('id_poliklinik'),
-                'ketentuan_rs_ke_pasien' => $this->input->post('ketentuan_rs_ke_pasien'),
                 'waktu_pendaftaran' => date('Y-m-d H:i:s'),
-                'status_pemeriksaan' => '0',
-                'user_id' => $this->session->userdata('user_id'),
-            ];
-
-            $this->db->insert('pendaftaran', $data_pendaftaran);
-            $id_terakhir = $this->db->insert_id();
-
-            $this->db->select_max('nomor_antri');
-            $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
-            $nomor_antri = $this->db->get('antrian')->row()->nomor_antri + 1;
-
-            $this->db->where('id_pendaftaran', $id_terakhir);
-            $this->db->update('pendaftaran', array('nomor_antri' => $nomor_antri));
-
-            $data_nomor_antri = [
-                'id_pendaftaran' => $id_terakhir,
+                'ketentuan_rs_ke_pasien' => $this->input->post('ketentuan_rs_ke_pasien'),
                 'id_poliklinik' => $this->input->post('id_poliklinik'),
-                'nomor_antri' => $nomor_antri
+                'id_pegawai' => $this->session->userdata('id_pegawai'),
+                'status_pembayaran' => '0',
+                'status_pemeriksaan1' => '0',
+                'status_pemeriksaan2' => '0',
             ];
-            $this->db->insert('antrian', $data_nomor_antri);
+
+            $this->db->insert('t_pendaftaran', $data_pendaftaran);
+
+            //     $this->db->select_max('nomor_antri');
+            //     $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
+            //     $nomor_antri = $this->db->get('antrian')->row()->nomor_antri + 1;
+
+            //     $this->db->where('id_pendaftaran', $id_terakhir);
+            //     $this->db->update('pendaftaran', array('nomor_antri' => $nomor_antri));
+
+            //     $data_nomor_antri = [
+            //         'id_pendaftaran' => $id_terakhir,
+            //         'id_poliklinik' => $this->input->post('id_poliklinik'),
+            //         'nomor_antri' => $nomor_antri
+            //     ];
+            //     $this->db->insert('antrian', $data_nomor_antri);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                                    <div>
+                                        Pendaftaran pasien baru berhasil ditambahkan!
+                                        <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                                    </div>
+                                </div>');
+            redirect('pendaftaran');
+        }
+    }
+
+    public function pasien()
+    {
+        $data['title'] = "Pendaftaran";
+        $data['pasien'] = $this->db->get('t_pasien')->result();
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('pendaftaran/pasien', $data);
+        $this->load->view('templates/main/footer');
+    }
+
+    public function tambah_pendaftaran_pasien_lama()
+    {
+        $data['id_pasien'] = $this->input->post('id_pasien');
+        $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
+
+        $data['title'] = "Pendaftaran";
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('pendaftaran/tambah_pendaftaran_pasien_lama', $data);
+        $this->load->view('templates/main/footer');
+    }
+
+    public function proses_tambah_pendaftaran_pasien_lama()
+    {
+        $this->form_validation->set_rules('jenis_pembayaran', 'Jenis Pembayaran', 'required|trim');
+        $this->form_validation->set_rules('penanggung_jawab', 'Penanggung Jawab', 'required');
+        $this->form_validation->set_rules('nama_penanggung_jawab', 'Nama Penanggung Jawab', 'required|trim');
+        $this->form_validation->set_rules('hubungan', 'Hubungan Penanggung Jawab', 'required|trim');
+        $this->form_validation->set_rules('penanggung_jawab', 'Penanggung Jawab', 'required|trim');
+        $this->form_validation->set_rules('penanggung_jawab', 'Penanggung Jawab', 'required|trim');
+        $this->form_validation->set_rules('alamat_penanggung_jawab', 'Alamat Lengkap Penanggung Jawab', 'required|trim');
+        $this->form_validation->set_rules('rt_penanggung_jawab', 'RT', 'required|regex_match[/^[0-9-]+$/]|trim', array(
+            'regex_match' => 'Kolom RT harus berisi bulangan bilat atau tanda strip "-"'
+        ));
+        $this->form_validation->set_rules('rw_penanggung_jawab', 'RW', 'required|regex_match[/^[0-9-]+$/]|trim', array(
+            'regex_match' => 'Kolom RW harus berisi bulangan bilat atau tanda strip "-"'
+        ));
+        $this->form_validation->set_rules('kelurahan_penanggung_jawab', 'Kelurahan', 'required|trim');
+        $this->form_validation->set_rules('kecamatan_penanggung_jawab', 'Kecamatan', 'required|trim');
+        $this->form_validation->set_rules('kabupaten_penanggung_jawab', 'Kabupaten', 'required|trim');
+        $this->form_validation->set_rules('provinsi_penanggung_jawab', 'Provinsi', 'required|trim');
+        $this->form_validation->set_rules('nomor_hp_penanggung_jawab', 'Nomor HP Penanggung Jawab', 'required|trim|integer');
+        $this->form_validation->set_rules('id_poliklinik', 'Poliklinik', 'required');
+        $this->form_validation->set_rules('ketentuan_rs_ke_pasien', 'Ketentuan Rumah Sakit ke Pasien / Keluarga', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $data['id_pasien'] = $this->input->post('id_pasien');
+            $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
+            $data['title'] = 'Pendaftaran';
+            $this->load->view('templates/main/header', $data);
+            $this->load->view('templates/main/sidebar', $data);
+            $this->load->view('pendaftaran/tambah_pendaftaran_pasien_lama', $data);
+            $this->load->view('templates/main/footer');
+        } else {
+            date_default_timezone_set('Asia/Jakarta');
+            $data_pendaftaran  = [
+                'id_pasien' => $this->input->post('id_pasien'),
+                'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
+                'penanggung_jawab' => $this->input->post('penanggung_jawab'),
+                'nama_penanggung_jawab' => $this->input->post('nama_penanggung_jawab'),
+                'hubungan' => $this->input->post('hubungan'),
+                'alamat_penanggung_jawab' => $_POST['alamat_penanggung_jawab'] . ', RT ' . $_POST['rt_penanggung_jawab'] . ', RW ' . $_POST['rw_penanggung_jawab'] . ', Kelurahan ' . $_POST['kelurahan_penanggung_jawab'] . ', Kecamatan ' . $_POST['kecamatan_penanggung_jawab'] . ', Kabupaten ' . $_POST['kabupaten_penanggung_jawab'] . ', Provinsi ' . $_POST['provinsi_penanggung_jawab'],
+                'nomor_hp_penanggung_jawab' => $this->input->post('nomor_hp_penanggung_jawab'),
+                'waktu_pendaftaran' => date('Y-m-d H:i:s'),
+                'ketentuan_rs_ke_pasien' => $this->input->post('ketentuan_rs_ke_pasien'),
+                'id_poliklinik' => $this->input->post('id_poliklinik'),
+                'id_pegawai' => $this->session->userdata('id_pegawai'),
+                'status_pembayaran' => '0',
+                'status_pemeriksaan1' => '0',
+                'status_pemeriksaan2' => '0',
+            ];
+            $this->db->insert('t_pendaftaran', $data_pendaftaran);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+            <div>
+                Pendaftaran pasien berhasil ditambahkan!
+                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+            </div>
+        </div>');
+            redirect('pendaftaran');
+        }
+    }
+
+    public function edit_pasien()
+    {
+        $this->db->where('id_pasien', $this->input->post('id_pasien'));
+        $data['pasien'] = $this->db->get('t_pasien')->result();
+
+        $data['title'] = "Pendaftaran";
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('pendaftaran/edit_pasien', $data);
+        $this->load->view('templates/main/footer');
+    }
+
+    public function proses_edit_pasien()
+    {
+        $this->form_validation->set_rules('nomor_rekam_medis', 'Nomor Rekam Medis', 'required|trim|integer');
+        $this->form_validation->set_rules('nama_lengkap_pasien', 'Nomor Lengkap Pasien', 'required|trim');
+        $this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'required|trim');
+        $this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'required|callback_validate_date');
+        $this->form_validation->set_rules('kartu_identitas', 'Kartu Identitas', 'required');
+        $this->form_validation->set_rules('nomor_kartu_identitas', 'Nomor Kartu Identitas', 'required|trim|integer');
+        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
+        $this->form_validation->set_rules('pekerjaan', 'Nomor Lengkap Pasien', 'required|trim');
+        $this->form_validation->set_rules('warga_negara', 'Warga Negara', 'required|trim');
+        $this->form_validation->set_rules('suku', 'Suku', 'required|trim');
+        $this->form_validation->set_rules('alamat_lengkap', 'Alamat Lengkap', 'required|trim');
+        $this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'required');
+        $this->form_validation->set_rules('agama', 'Agama', 'required');
+        $this->form_validation->set_rules('bahasa', 'Bahasa', 'required|trim');
+        $this->form_validation->set_rules('pendidikan', 'Pendidikan', 'required|trim');
+        $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|integer');
+
+        if ($this->form_validation->run() == false) {
+            $this->db->where('id_pasien', $this->input->post('id_pasien'));
+            $data['pasien'] = $this->db->get('t_pasien')->result();
+
+            $data['title'] = "Pendaftaran";
+            $this->load->view('templates/main/header', $data);
+            $this->load->view('templates/main/sidebar', $data);
+            $this->load->view('pendaftaran/edit_pasien', $data);
+            $this->load->view('templates/main/footer');
+        } else {
+            $data_edit_pasien = [
+                'nomor_rekam_medis' => $this->input->post('nomor_rekam_medis'),
+                'nama_lengkap_pasien' => $this->input->post('nama_lengkap_pasien'),
+                'tempat_lahir' => $this->input->post('tempat_lahir'),
+                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                'kartu_identitas' => $this->input->post('kartu_identitas'),
+                'nomor_kartu_identitas' => $this->input->post('nomor_kartu_identitas'),
+                'jenis_kelamin' => $_POST['jenis_kelamin'],
+                'pekerjaan' => $this->input->post('pekerjaan'),
+                'warga_negara' => $this->input->post('warga_negara'),
+                'suku' => $this->input->post('suku'),
+                'alamat_lengkap' => $_POST['alamat_lengkap'],
+                'status_perkawinan' => $this->input->post('status_perkawinan'),
+                'agama' => $this->input->post('agama'),
+                'bahasa' => $this->input->post('bahasa'),
+                'pendidikan' => $this->input->post('pendidikan'),
+                'nomor_hp' => $this->input->post('nomor_hp'),
+            ];
+
+            $this->db->where('id_pasien', $this->input->post('id_pasien'));
+            $this->db->update('t_pasien', $data_edit_pasien);
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                                 <div>
-                                    Pendaftaran pasien baru berhasil ditambahkan!
+                                    Data pasien berhasil diubah!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');
-            redirect('pendaftaran');
+            redirect('pendaftaran/pasien');
         }
     }
 
     public function edit_pendaftaran()
     {
-
+        $this->db->select('t_pendaftaran.*, t_poliklinik.nama_poliklinik, t_pasien.*');
+        $this->db->from('t_pendaftaran');
+        $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
+        $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien', 'left');
         $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
-        $data['pendaftaran'] = $this->db->get('pendaftaran')->result();
+        $query = $this->db->get()->result();
+        $data['pendaftaran'] = $query;
 
         $data['title'] = "Pendaftaran";
-        $data['poliklinik'] = $this->db->get('poliklinik')->result();
+        $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
         $this->load->view('templates/main/header', $data);
-        $this->load->view('pendaftaran/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('pendaftaran/edit_pendaftaran', $data);
         $this->load->view('templates/main/footer');
     }
@@ -212,17 +372,22 @@ class Pendaftaran extends CI_Controller
         $this->form_validation->set_rules('ketentuan_rs_ke_pasien', 'Ketentuan Rumah Sakit ke Pasien / Keluarga', 'required');
 
         if ($this->form_validation->run() == false) {
+            $this->db->select('t_pendaftaran.*, t_poliklinik.nama_poliklinik, t_pasien.*');
+            $this->db->from('t_pendaftaran');
+            $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
+            $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien', 'left');
             $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
-            $data['pendaftaran'] = $this->db->get('pendaftaran')->result();
+            $query = $this->db->get()->result();
+            $data['pendaftaran'] = $query;
+
             $data['title'] = "Pendaftaran";
-            $data['poliklinik'] = $this->db->get('poliklinik')->result();
+            $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
             $this->load->view('templates/main/header', $data);
-            $this->load->view('pendaftaran/sidebar', $data);
+            $this->load->view('templates/main/sidebar', $data);
             $this->load->view('pendaftaran/edit_pendaftaran', $data);
             $this->load->view('templates/main/footer');
         } else {
-
-            $data_edit_pendaftaran  = [
+            $data_edit_pasien = [
                 'nomor_rekam_medis' => $this->input->post('nomor_rekam_medis'),
                 'nama_lengkap_pasien' => $this->input->post('nama_lengkap_pasien'),
                 'tempat_lahir' => $this->input->post('tempat_lahir'),
@@ -239,8 +404,10 @@ class Pendaftaran extends CI_Controller
                 'bahasa' => $this->input->post('bahasa'),
                 'pendidikan' => $this->input->post('pendidikan'),
                 'nomor_hp' => $this->input->post('nomor_hp'),
-                'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
+            ];
 
+            $data_edit_pendaftaran  = [
+                'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
                 'penanggung_jawab' => $this->input->post('penanggung_jawab'),
                 'nama_penanggung_jawab' => $this->input->post('nama_penanggung_jawab'),
                 'hubungan' => $this->input->post('hubungan'),
@@ -250,25 +417,15 @@ class Pendaftaran extends CI_Controller
                 'ketentuan_rs_ke_pasien' => $this->input->post('ketentuan_rs_ke_pasien'),
             ];
 
-            $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
-            $this->db->update('pendaftaran', $data_edit_pendaftaran);
-
-            $this->db->select_max('nomor_antri');
-            $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
-            $nomor_antri = $this->db->get('antrian')->row()->nomor_antri + 1;
+            $this->db->where('id_pasien', $this->input->post('id_pasien'));
+            $this->db->update('t_pasien', $data_edit_pasien);
 
             $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
-            $this->db->update('pendaftaran', array('nomor_antri' => $nomor_antri));
+            $this->db->update('t_pendaftaran', $data_edit_pendaftaran);
 
-            $data_nomor_antri = [
-                'id_poliklinik' => $this->input->post('id_poliklinik'),
-                'nomor_antri' => $nomor_antri
-            ];
-            $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
-            $this->db->update('antrian', $data_nomor_antri);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                                 <div>
-                                    Pendaftaran pasien berhasil diubah!
+                                    Data pendaftaran pasien berhasil diubah!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');
@@ -279,7 +436,7 @@ class Pendaftaran extends CI_Controller
     public function hapus_pendaftaran()
     {
         $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
-        $this->db->delete('pendaftaran');
+        $this->db->delete('t_pendaftaran');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
                                 User berhasil dihapus!
@@ -289,41 +446,43 @@ class Pendaftaran extends CI_Controller
         redirect('pendaftaran');
     }
 
+    public function cetak_nota()
+    {
+        $data['nomor_rekam_medis'] = $this->input->post('nomor_rekam_medis');
+        $data['nama_lengkap_pasien'] = $this->input->post('nama_lengkap_pasien');
+        $data['nama_poliklinik'] = $this->input->post('nama_poliklinik');
+
+        $this->db->where('nama_biaya', "Pemeriksaan");
+        $data['nota'] = $this->db->get('t_biaya')->result();
+
+        $this->load->view('pendaftaran/cetak_nota', $data);
+    }
+
     public function profil()
     {
-        if ($this->session->userdata('role_id') != 2) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
-        $this->db->select('user.*, role.nama_role');
-        $this->db->from('user');
-        $this->db->join('role', 'user.role_id = role.role_id', 'left');
-        $this->db->where('user_id', $this->session->userdata('user_id'));
+        $this->db->select('t_pegawai.*, t_role.nama_role');
+        $this->db->from('t_pegawai');
+        $this->db->join('t_role', 't_pegawai.id_role = t_role.id_role', 'left');
+        $this->db->where('id_pegawai', $this->session->userdata('id_pegawai'));
         $data['profile'] = $this->db->get()->result();
 
         $data['title'] = 'Profil';
         $this->load->view('templates/main/header', $data);
-        $this->load->view('pendaftaran/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('pendaftaran/profil', $data);
         $this->load->view('templates/main/footer');
     }
 
     public function edit_profil()
     {
-        if ($this->session->userdata('role_id') != 2) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
         $this->db->select('*');
-        $this->db->from('user');  // Ganti "nama_tabel" dengan nama tabel sesuai kebutuhan
-        $this->db->where('user_id', $this->session->userdata('user_id'));
+        $this->db->from('t_pegawai');
+        $this->db->where('id_pegawai', $this->session->userdata('id_pegawai'));
         $data['profile'] = $this->db->get()->result();
 
         $data['title'] = 'Profil';
         $this->load->view('templates/main/header', $data);
-        $this->load->view('pendaftaran/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('pendaftaran/edit_profil', $data);
         $this->load->view('templates/main/footer');
     }
@@ -331,32 +490,26 @@ class Pendaftaran extends CI_Controller
 
     public function proses_edit_profil()
     {
-
-        if ($this->session->userdata('role_id') != 2) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
-        $user_id = $this->session->userdata('user_id');
-        $check_username = $this->db->get_where('user', array('user_id' => $user_id))->row();
+        $id_pegawai = $this->session->userdata('id_pegawai');
+        $check_username = $this->db->get_where('t_pegawai', array('id_pegawai' => $id_pegawai))->row();
 
         if ($this->input->post('username') != $check_username->username) {
-            $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]');
+            $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[t_pegawai.username]');
         }
         $this->form_validation->set_rules('nomor_pegawai', 'Nomor Pegawai', 'required|trim|integer');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
         $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|min_length[3]|integer');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[3]');
+        $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|min_length[10]|integer');
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim|min_length[10]');
 
         if ($this->form_validation->run() == false) {
             $this->db->select('*');
-            $this->db->from('user');  // Ganti "nama_tabel" dengan nama tabel sesuai kebutuhan
-            $this->db->where('user_id', $this->session->userdata('user_id'));
+            $this->db->from('t_pegawai');  // Ganti "nama_tabel" dengan nama tabel sesuai kebutuhan
+            $this->db->where('id_pegawai', $this->session->userdata('id_pegawai'));
             $data['profile'] = $this->db->get()->result();
             $data['title'] = 'Profil';
             $this->load->view('templates/main/header', $data);
-            $this->load->view('pendaftaran/sidebar', $data);
+            $this->load->view('templates/main/sidebar', $data);
             $this->load->view('pendaftaran/edit_profil', $data);
             $this->load->view('templates/main/footer');
         } else {
@@ -374,8 +527,8 @@ class Pendaftaran extends CI_Controller
                     $foto = $foto_data['file_name'];
 
                     // // Update data user ke database termasuk nama foto baru
-                    $this->db->where('user_id', $user_id);
-                    $this->db->update('user', array('foto' => $foto));
+                    $this->db->where('id_pegawai', $id_pegawai);
+                    $this->db->update('t_pegawai', array('foto' => $foto));
                 } else {
                     // Jika gagal upload, tampilkan error
                     $error = array('error' => $this->upload->display_errors());
@@ -396,8 +549,8 @@ class Pendaftaran extends CI_Controller
                 'alamat'  => $this->input->post('alamat'),
                 'nomor_hp'  => $this->input->post('nomor_hp')
             );
-            $this->db->where('user_id', $user_id);
-            $this->db->update('user', $data);
+            $this->db->where('id_pegawai', $id_pegawai);
+            $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert" style="display: inline-block;">
                                 <div>
                                     Profile berhasil diubah!
@@ -410,24 +563,15 @@ class Pendaftaran extends CI_Controller
 
     public function ganti_password()
     {
-        if ($this->session->userdata('role_id') != 2) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
-
         $data['title'] = 'Profil';
         $this->load->view('templates/main/header', $data);
-        $this->load->view('pendaftaran/sidebar', $data);
+        $this->load->view('templates/main/sidebar', $data);
         $this->load->view('pendaftaran/ganti_password', $data);
         $this->load->view('templates/main/footer');
     }
 
     public function proses_ganti_password()
     {
-        if ($this->session->userdata('role_id') != 2) {
-            $this->load->view('errors/html/error_403'); // Menampilkan halaman error 403
-            return;
-        }
         $this->form_validation->set_rules('password_sekarang', 'Password Sekarang', 'required|trim|callback_check_current_password');
         $this->form_validation->set_rules('password_baru', 'Password Baru', 'required|trim|callback_check_new_password');
         $this->form_validation->set_rules('konfirmasi_password_baru', 'Konfirmasi Password Baru', 'required|matches[password_baru]');
@@ -435,7 +579,7 @@ class Pendaftaran extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Profil';
             $this->load->view('templates/main/header', $data);
-            $this->load->view('pendaftaran/sidebar', $data);
+            $this->load->view('templates/main/sidebar', $data);
             $this->load->view('pendaftaran/ganti_password', $data);
             $this->load->view('templates/main/footer');
         } else {
@@ -443,8 +587,8 @@ class Pendaftaran extends CI_Controller
             $data = array(
                 'password' => $hashed_password_baru
             );
-            $this->db->where('user_id', $this->session->userdata('user_id'));
-            $this->db->update('user', $data);
+            $this->db->where('id_pegawai', $this->session->userdata('id_pegawai'));
+            $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert" style="display: inline-block;">
                                 <div>
                                     Password berhasil diubah!
@@ -457,11 +601,11 @@ class Pendaftaran extends CI_Controller
 
     public function check_current_password($current_password)
     {
-        $user_id = $this->session->userdata('user_id'); // Gantilah dengan cara Anda menyimpan ID pengguna
+        $id_pegawai = $this->session->userdata('id_pegawai'); // Gantilah dengan cara Anda menyimpan ID pengguna
         $db_password = $this->db
             ->select('password')
-            ->where('user_id', $user_id)
-            ->get('user')
+            ->where('id_pegawai', $id_pegawai)
+            ->get('t_pegawai')
             ->row()
             ->password;
 
