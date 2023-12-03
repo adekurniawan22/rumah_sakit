@@ -487,7 +487,6 @@ class Pendaftaran extends CI_Controller
         $this->load->view('templates/main/footer');
     }
 
-
     public function proses_edit_profil()
     {
         $id_pegawai = $this->session->userdata('id_pegawai');
