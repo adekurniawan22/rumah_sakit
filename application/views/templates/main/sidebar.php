@@ -127,14 +127,21 @@
     <?php if ($this->session->userdata('id_role') == 5) { ?>
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link <?php echo ($title == "Kasir") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>perawat">
+                <a class="nav-link <?php echo ($title == "Antrian Pembayaran") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>kasir">
+                    <i class="bi bi-ticket-detailed-fill"></i>
+                    <span>Antrian Pembayaran</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Data Pembayaran") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>kasir/pembayaran">
                     <i class="bi bi-receipt"></i>
-                    <span>Pembayaran</span>
+                    <span>Data Pembayaran</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>perawat/profil">
+                <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>kasir/profil">
                     <i class="bi bi-person-fill"></i>
                     <span>Profil</span>
                 </a>

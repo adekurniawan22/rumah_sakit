@@ -64,7 +64,7 @@
 
                                             <td class="text-center">
                                                 <div class="class=" d-inline-block me-1 mb-1"">
-                                                    <?php if ($data->jenis_pembayaran == "BPJS") { ?>
+                                                    <?php if ($data->status_pembayaran == "1") { ?>
                                                         <span>Lunas</span>
                                                     <?php } else { ?>
                                                         <form action="<?= base_url('pendaftaran/cetak_nota') ?>" target="_blank" method="post" class="">
