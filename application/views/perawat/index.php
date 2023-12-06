@@ -35,7 +35,7 @@
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
                             <!-- Table with stripped rows -->
-                            <table class="table table-striped my-4">
+                            <table class="table  my-4">
                                 <thead>
                                     <tr>
                                         <th>Nomor Rekam Medis</th>
@@ -160,7 +160,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>

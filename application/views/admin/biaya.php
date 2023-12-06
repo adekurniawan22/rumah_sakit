@@ -16,13 +16,13 @@
                         </div>
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
-                        <div class="table-container">
-                            <table id="example" class="table datatable table-striped my-4">
+                        <div class="table-table-container mt-2">
+                            <table id="example" class="table  mt-4">
                                 <thead>
                                     <tr>
                                         <th>Nama Biaya</th>
                                         <th>Harga Biaya</th>
-                                        <th data-sortable="false">Aksi</th>
+                                        <th class="text-center" style="width: 20%;" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -30,17 +30,14 @@
                                         <tr>
                                             <td><?= $b->nama_biaya ?></td>
                                             <td>Rp. <?= number_format($b->harga_biaya, 0) ?></td>
-                                            <td>
-                                                <div class="d-inline p-2">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditBiaya<?= $b->id_biaya ?>">
-                                                        <i class=" bi bi-pencil-square"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="d-inline p-2">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHapusBiaya<?= $b->id_biaya ?>">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </div>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1 " data-bs-toggle="modal" data-bs-target="#modalEditBiaya<?= $b->id_biaya ?>">
+                                                    <i class=" bi bi-pencil-square"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusBiaya<?= $b->id_biaya ?>">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>
@@ -79,7 +76,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
                 <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>
             </div>
@@ -113,7 +110,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
                     <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
                 </div>
@@ -141,9 +138,3 @@
         </div>
     </div>
 <?php endforeach ?>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        centerTextInColumn('#example', 2);
-    });
-</script>

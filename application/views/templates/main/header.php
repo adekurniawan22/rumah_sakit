@@ -31,20 +31,30 @@
     <!-- Template Main CSS File -->
     <link href="<?php echo base_url() ?>assets/bootstrap/assets/css/style.css" rel="stylesheet">
     <style>
-        /* Tambahkan class "table-responsive" ke container tabel */
-        .table-container {
-            overflow-x: auto;
-        }
-
-        /* Tambahkan class "table" ke tabel Anda */
-        .table {
-            min-width: 100%;
-            /* Pastikan tabel memiliki lebar minimal 100% */
-        }
-
         .dataTables_length select {
-            padding-right: 20px;
-            /* Sesuaikan dengan nilai yang Anda inginkan */
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding-right: 10px;
+        }
+
+        .dataTables_wrapper .dataTables_length {
+            margin-bottom: 10px;
+            /* Mengatur jarak antara "Show [n] entries" dengan tabel */
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            margin-bottom: 10px;
+            /* Mengatur jarak antara pencarian dengan tabel */
+        }
+
+        .dataTables_info {
+            margin-top: 30px !important;
+        }
+
+        .dataTables_paginate {
+            margin-top: 30px !important;
         }
     </style>
 </head>

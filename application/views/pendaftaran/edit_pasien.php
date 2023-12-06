@@ -196,7 +196,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <a class="btn btn-primary" href="<?= base_url() ?>pendaftaran">Kembali</a>
+                                    <a class="btn btn-primary" href="<?= base_url() ?>pendaftaran/pasien">Kembali</a>
                                     <button type="submit" class="btn btn-primary">Edit</button>
                                 </div>
                             </div>

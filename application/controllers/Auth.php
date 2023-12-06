@@ -54,6 +54,14 @@ class Auth extends CI_Controller
                             redirect('pendaftaran');
                         } elseif ($user['id_role'] == 3) {
                             redirect('perawat');
+                        } elseif ($user['id_role'] == 4) {
+                            redirect('dokter');
+                        } elseif ($user['id_role'] == 5) {
+                            redirect('kasir');
+                        } elseif ($user['id_role'] == 6) {
+                            redirect('rekam_medis');
+                        } elseif ($user['id_role'] == 7) {
+                            redirect('farmasi');
                         }
                     } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">

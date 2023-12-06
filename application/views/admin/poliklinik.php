@@ -16,36 +16,31 @@
                         </div>
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
-                        <div class="table-container">
-                            <table id="example" class="table datatable table-striped my-4">
+                        <div class="table-container mt-2">
+                            <table id="example" class="table  my-4">
                                 <thead>
                                     <tr>
-                                        <th>Nama Poliklinik</th>
-                                        <?php for ($i = 0; $i <= 10; $i++) { ?>
-                                            <th data-sortable="false"></th>
-                                        <?php } ?>
-                                        <th data-sortable="false">Aksi</th>
+                                        <th style="width: 80%;">Nama Poliklinik</th>
+                                        <th class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($poliklinik as $p) : ?>
                                         <tr>
                                             <td><?= $p->nama_poliklinik ?></td>
-                                            <?php for ($i = 0; $i <= 10; $i++) { ?>
-                                                <td data-sortable="false"></td>
-                                            <?php } ?>
-                                            <td>
-                                                <div class="d-inline p-2">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditPoliklinik<?= $p->id_poliklinik ?>">
-                                                        <i class=" bi bi-pencil-square"></i>
-                                                    </button>
-                                                </div>
-                                                <div class="d-inline p-2">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHapusPoliklinik<?= $p->id_poliklinik ?>">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </div>
+                                            <td class="text-center">
+                                                <!-- <div class="d-inline p-2"> -->
+                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalEditPoliklinik<?= $p->id_poliklinik ?>">
+                                                    Edit <i class=" bi bi-pencil-square"></i>
+                                                </button>
+                                                <!-- </div> -->
+                                                <!-- <div class="d-inline p-2"> -->
+                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusPoliklinik<?= $p->id_poliklinik ?>">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                                <!-- </div> -->
                                             </td>
+
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -79,7 +74,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
                 <button type="submit" class="btn btn-primary">Tambah</button>
                 </form>
             </div>
@@ -109,7 +104,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
                     <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
                 </div>
@@ -137,9 +132,3 @@
         </div>
     </div>
 <?php endforeach ?>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        centerTextInColumn('#example', 12);
-    });
-</script>

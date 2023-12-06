@@ -14,9 +14,9 @@
                         </div>
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
-                        <div class="table-container">
+                        <div class="table-container mt-2">
                             <!-- Table with stripped rows -->
-                            <table id="example" class="table datatable table-striped my-4">
+                            <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
@@ -24,9 +24,7 @@
                                         <th>NP</th>
                                         <th>Role</th>
                                         <th>Status Akun</th>
-                                        <th data-sortable="false">Informasi</th>
-                                        <th data-sortable="false">Edit</th>
-                                        <th data-sortable="false">Hapus</th>
+                                        <th style="width: 25%;" class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,19 +42,19 @@
                                                 }
                                                 ?>
                                             </td>
-                                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUser<?= $user['id_pegawai'] ?>">
-                                                    Detail <i class="bi bi-eye-fill"></i>
-                                                </button></td>
                                             <td>
-                                                <form action="<?= base_url() ?>admin/edit_pegawai" method="post">
+                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalUser<?= $user['id_pegawai'] ?>">
+                                                    Detail <i class="bi bi-eye-fill"></i>
+                                                </button>
+
+                                                <form action="<?= base_url() ?>admin/edit_pegawai" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_pegawai" value="<?= $user['id_pegawai'] ?>">
-                                                    <button type="submit" class="btn btn-primary">
-                                                        <i class=" bi bi-pencil-square"></i>
+                                                    <button type="submit" class="btn btn-primary me-3 mb-1">
+                                                        Edit <i class="bi bi-pencil-square"></i>
                                                     </button>
                                                 </form>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHapusUser<?= $user['id_pegawai'] ?>">
+
+                                                <button type="button" class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#modalHapusUser<?= $user['id_pegawai'] ?>">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             </td>
@@ -81,7 +79,7 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Informasi User</h5>
+                    <h5 class="modal-title">Informasi Pegawai</h5>
                 </div>
                 <div class="modal-body">
                     <div class="card">
@@ -144,7 +142,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                 </div>
             </div>
         </div>
@@ -155,10 +153,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus User</h5>
+                    <h5 class="modal-title">Hapus Pegawai</h5>
                 </div>
                 <div class="modal-body">
-                    Apakah kamu yakin untuk menghapus user ini?
+                    Apakah kamu yakin untuk menghapus pegawai ini?
                 </div>
                 <div class="modal-footer">
                     <form action="<?= base_url() ?>admin/hapus_pegawai" method="post">
@@ -171,11 +169,3 @@
         </div>
     </div><!-- End Basic Modal-->
 <?php endforeach ?>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        centerTextInColumn('#example', 5);
-        centerTextInColumn('#example', 6);
-        centerTextInColumn('#example', 7);
-    });
-</script>

@@ -183,6 +183,17 @@ class Admin extends CI_Controller
         $this->load->view('templates/main/footer');
     }
 
+    public function biaya()
+    {
+        $data['biaya'] = $this->db->get('t_biaya')->result();
+
+        $data['title'] = 'Manajemen Biaya';
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/biaya', $data);
+        $this->load->view('templates/main/footer');
+    }
+
     public function proses_tambah_poliklinik()
     {
         $this->db->insert('t_poliklinik', array('nama_poliklinik' => $this->input->post('nama_poliklinik')));
@@ -221,16 +232,8 @@ class Admin extends CI_Controller
         redirect('admin/poliklinik');
     }
 
-    public function biaya()
-    {
-        $data['biaya'] = $this->db->get('t_biaya')->result();
 
-        $data['title'] = 'Manajemen Biaya';
-        $this->load->view('templates/main/header', $data);
-        $this->load->view('templates/main/sidebar', $data);
-        $this->load->view('admin/biaya', $data);
-        $this->load->view('templates/main/footer');
-    }
+
 
     public function proses_tambah_biaya()
     {

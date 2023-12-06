@@ -12,7 +12,7 @@
 
             <li class="nav-item">
                 <a class="nav-link <?php echo ($title == "Manajemen Pegawai") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin/pegawai">
-                    <i class="bi bi-people-fill"></i>
+                    <i class="bi bi-person-fill"></i>
                     <span>Manajemen Pegawai</span>
                 </a>
             </li>
@@ -40,7 +40,7 @@
 
             <li class="nav-item">
                 <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin/profil">
-                    <i class="bi bi-people-fill"></i>
+                    <i class="bi bi-person-fill"></i>
                     <span>Profil</span>
                 </a>
             </li>
@@ -66,8 +66,15 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>pendaftaran/profil">
+                <a class="nav-link <?php echo ($title == "Pasien") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>pendaftaran/pasien">
                     <i class="bi bi-people-fill"></i>
+                    <span>Pasien</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>pendaftaran/profil">
+                    <i class="bi bi-person-fill"></i>
                     <span>Profil</span>
                 </a>
             </li><!-- End Profile Page Nav -->
@@ -101,7 +108,7 @@
 
             <li class="nav-item">
                 <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>perawat/profil">
-                    <i class="bi bi-people-fill"></i>
+                    <i class="bi bi-person-fill"></i>
                     <span>Profil</span>
                 </a>
             </li><!-- End Profile Page Nav -->
@@ -114,6 +121,33 @@
             </li><!-- End Login Page Nav -->
         </ul>
         <!-- END SIDEBAR ROLE PERAWAT -->
+    <?php } ?>
+
+    <!-- SIDEBAR ROLE KASIR -->
+    <?php if ($this->session->userdata('id_role') == 5) { ?>
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Kasir") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>perawat">
+                    <i class="bi bi-receipt"></i>
+                    <span>Pembayaran</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>perawat/profil">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profil</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#basicModal" href="">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Logout</span>
+                </a>
+            </li><!-- End Login Page Nav -->
+        </ul>
+        <!-- END SIDEBAR ROLE KASIR -->
     <?php } ?>
 </aside>
 

@@ -13,35 +13,41 @@
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
                             <!-- Table with stripped rows -->
-                            <table id="example" class="table datatable">
+                            <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
+                                        <th>Nama Pasien</th>
                                         <th>Kartu Identitas</th>
                                         <th>No. Kartu Identitas</th>
-                                        <th>Nama Pasien</th>
-                                        <th data-sortable="false">Aksi</th>
+                                        <th style="width: 40%;" class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($pasien as $data) : ?>
                                         <tr>
+                                            <td><?= $data->nama_lengkap_pasien ?></td>
                                             <td><?= $data->kartu_identitas ?></td>
                                             <td><?= $data->nomor_kartu_identitas ?></td>
-                                            <td><?= $data->nama_lengkap_pasien ?></td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalPasien<?= $data->id_pasien ?>">
+                                            <td class="text-center">
+                                                <div class="d-inline-block me-1 mb-1">
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPasien<?= $data->id_pasien ?>">
                                                         Detail
                                                     </button>
+                                                </div>
+
+                                                <div class="d-inline-block me-1 mb-1">
                                                     <form action="<?= base_url() ?>pendaftaran/edit_pasien" method="post">
                                                         <input type="hidden" name="id_pasien" value="<?= $data->id_pasien ?>">
-                                                        <button type="submit" class="btn btn-primary me-2">
+                                                        <button type="submit" class="btn btn-primary">
                                                             Edit <i class="bi bi-pencil-square"></i>
                                                         </button>
                                                     </form>
+                                                </div>
+
+                                                <div class="d-inline-block me-1 mb-1">
                                                     <form action="<?= base_url('pendaftaran/tambah_pendaftaran_pasien_lama') ?>" method="post">
                                                         <input type="hidden" name="id_pasien" value="<?= $data->id_pasien ?>">
-                                                        <button type="submit" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $data->id_pasien ?>">
+                                                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $data->id_pasien ?>">
                                                             + Tambahkan Ke Pendaftaran
                                                         </button>
                                                     </form>
@@ -61,7 +67,6 @@
 </main><!-- End #main -->
 
 <?php foreach ($pasien as $dataModal) : ?>
-
     <!-- Modal Pasien -->
     <div class="modal fade" id="modalPasien<?= $dataModal->id_pasien ?>" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -145,11 +150,3 @@
         </div>
     </div>
 <?php endforeach ?>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Panggil fungsi centerTextInColumn untuk mengubah teks menjadi tengah dalam kolom "Age"
-        // centerTextInColumn('#example', 1);
-    });
-</script>
