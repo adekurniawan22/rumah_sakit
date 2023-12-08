@@ -726,10 +726,9 @@
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Pemeriksaan Fisik</h5>
                             <form class="row g-3">
                                 <div class="col-12">
-                                    <label class="form-label">Keluhan Umum</label>
+                                    <label class="form-label mt-3">Keluhan Umum</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->keluhan_umum ?>" readonly>
                                 </div>
                                 <div class="col-12">
@@ -776,6 +775,13 @@
                                     <label class="form-label">Edukasi</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->edukasi ?>" readonly>
                                 </div>
+                            </form>
+                        </div>
+
+                        <div class="card-body">
+                            <hr class="border border-primary border-3 opacity-50 ">
+                            <h5 class="card-title">Rencana Pulang / Discharge Planning</h5>
+                            <form class="row g-3">
                                 <div class="col-12">
                                     <label class="form-label">Rencana Kontrol</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->rencana_kontrol ?>" readonly>
@@ -814,9 +820,7 @@
                                 </div>
                             </form>
                         </div>
-
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

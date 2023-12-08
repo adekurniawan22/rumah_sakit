@@ -40,7 +40,7 @@ class Perawat extends CI_Controller
         $this->db->where('status_pemeriksaan1', "0");
         $this->db->where('status_pembayaran', "1");
         // $this->db->where("DATE(waktu_pendaftaran) = '$today_date'");
-        $this->db->order_by('t_pendaftaran.id_pendaftaran', 'ASC'); // Urutkan berdasarkan id_pendaftaran terkecil
+        $this->db->order_by('t_pembayaran.nomor_antri', 'ASC'); // Urutkan berdasarkan id_pendaftaran terkecil
         $this->db->limit(1);
         $data['antrian'] = $this->db->get()->result();
 

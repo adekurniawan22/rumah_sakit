@@ -33,8 +33,9 @@ class Dokter extends CI_Controller
         $this->db->join('t_pemeriksaan1', 't_pendaftaran.id_pendaftaran = t_pemeriksaan1.id_pendaftaran');
         $this->db->where('id_poliklinik', $data['pegawai']->id_poliklinik);
         $this->db->where('status_pemeriksaan1', "1");
+        $this->db->where('status_pemeriksaan2', "0");
         $this->db->where('status_pembayaran', "1");
-        // $this->db->limit(1);
+        $this->db->limit(1);
         $data['antrian'] = $this->db->get()->result();
 
         $data['title'] = "Antrian Pemeriksaan 2";
@@ -136,9 +137,16 @@ class Dokter extends CI_Controller
             ];
 
             $this->db->insert('t_pemeriksaan2', $data_pemeriksaan2);
-            echo "<pre>";
-            echo print_r($_POST);
-            echo "<pre>";
+
+            $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
+            $this->db->update('t_pendaftaran', array('status_pemeriksaan2' => '1'));
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                                <div>
+                                    Data Pemeriksaan pasien berhasil ditambahkan!
+                                    <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                                </div>
+                            </div>');
+            redirect('dokter');
         }
     }
 }
