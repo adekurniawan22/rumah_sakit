@@ -1,10 +1,22 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Data Pemeriksaan <?= $user->nama_poliklinik ?></h1>
+        <h1>Data Antrian Pemeriksaan Kedua - <?= $pegawai->nama_poliklinik ?></h1>
     </div><!-- End Page Title -->
 
     <section class="section">
+        <div class="row">
+            <div class="col-xxl-3 col-md-12">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="pt-3">Panjang Antrian</h5>
+                        <p class="display-4"><?= $panjang_antri ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -14,32 +26,32 @@
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
                             <!-- Table with stripped rows -->
-                            <table id="example" class="table my-4">
+                            <table class="table my-4">
                                 <thead>
                                     <tr>
                                         <th>Nomor Rekam Medis</th>
                                         <th>Nama Pasien</th>
-                                        <th>Waktu Pemeriksaan</th>
-                                        <th class="text-center" data-sortable="false">Informasi Pemeriksaan</th>
+                                        <th class="text-center" data-sortable="false">Informasi Pasien</th>
                                         <th class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($pemeriksaan1 as $data) : ?>
+                                    <?php foreach ($antrian as $data) : ?>
                                         <tr>
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
-                                            <td><?= $data->waktu_pemeriksaan ?></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPasien<?= $data->id_pemeriksaan1 ?>" style="width: 100%;">
-                                                    Detail
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPemeriksaan1<?= $data->id_pemeriksaan1 ?>" style="width: 100%;">
+                                                    Riwayat Pemeriksaan 1
                                                 </button>
                                             </td>
                                             <td class="text-center">
-                                                <form action="<?= base_url() ?>perawat/edit_pemeriksaan" method="post">
+                                                <form action="<?= base_url() ?>dokter/tambah_pemeriksaan" method="post">
+                                                    <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran  ?>">
+                                                    <input type="hidden" name="id_pasien" value="<?= $data->id_pasien  ?>">
                                                     <input type="hidden" name="id_pemeriksaan1" value="<?= $data->id_pemeriksaan1  ?>">
                                                     <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                                        Edit <i class="bi bi-pencil-square"></i>
+                                                        Lakukan Pemeriksaan <i class="bi bi-arrow-right-square-fill"></i>
                                                 </form>
                                             </td>
                                         </tr>
@@ -56,9 +68,9 @@
     </section>
 </main><!-- End #main -->
 
-<?php foreach ($pemeriksaan1 as $dataModal) : ?>
-    <!-- Modal Pasien -->
-    <div class="modal fade" id="modalPasien<?= $dataModal->id_pemeriksaan1 ?>" tabindex="-1">
+<?php foreach ($antrian as $dataModal) : ?>
+    <!-- Modal Riwayat Pemeriksaan 1 -->
+    <div class="modal fade" id="modalPemeriksaan1<?= $dataModal->id_pemeriksaan1 ?>" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -437,8 +449,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        centerTextInColumn('#example', 3);
+        // Panggil fungsi centerTextInColumn untuk mengubah teks menjadi tengah dalam kolom "Age"
         centerTextInColumn('#example', 4);
         centerTextInColumn('#example', 5);
+        centerTextInColumn('#example', 6);
+        centerTextInColumn('#example', 7);
+        centerTextInColumn('#example', 8);
+        centerTextInColumn('#example', 9);
     });
 </script>

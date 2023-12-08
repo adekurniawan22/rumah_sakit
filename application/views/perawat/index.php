@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Data Antrian <?= $user->nama_poliklinik ?></h1>
+        <h1>Data Antrian Pemeriksaan Pertama - <?= $pegawai->nama_poliklinik ?></h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -35,14 +35,14 @@
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
                             <!-- Table with stripped rows -->
-                            <table class="table  my-4">
+                            <table class="table my-4">
                                 <thead>
                                     <tr>
                                         <th>Nomor Rekam Medis</th>
                                         <th>Nama Pasien</th>
-                                        <th>Nomor Antri</th>
-                                        <th data-sortable="false">Infromasi Pasien</th>
-                                        <th data-sortable="false">Lakukan Pemeriksaan</th>
+                                        <th class="text-center">Nomor Antri</th>
+                                        <th class="text-center" data-sortable="false">Informasi Pasien</th>
+                                        <th class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,18 +50,19 @@
                                         <tr>
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
-                                            <td><?= $data->nomor_antri ?></td>
-                                            <td>
+                                            <td class="text-center"><?= $data->nomor_antri ?></td>
+                                            <td class="text-center">
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPasien<?= $data->id_pendaftaran ?>" style="width: 100%;">
                                                     Detail
                                                 </button>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <form action="<?= base_url() ?>perawat/tambah_pemeriksaan" method="post">
                                                     <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran  ?>">
+                                                    <input type="hidden" name="id_pasien" value="<?= $data->id_pasien  ?>">
                                                     <input type="hidden" name="nomor_antri" value="<?= $data->nomor_antri  ?>">
                                                     <button type="submit" class="btn btn-primary" style="width: 100%;">
-                                                        <i class="bi bi-forward-fill"></i>
+                                                        Lakukan Pemeriksaan <i class="bi bi-arrow-right-square-fill"></i>
                                                 </form>
                                             </td>
                                         </tr>

@@ -25,6 +25,7 @@ class Pendaftaran extends CI_Controller
         $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
         $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien', 'left');
         $this->db->join('t_pembayaran', 't_pendaftaran.id_pendaftaran = t_pembayaran.id_pendaftaran', 'left');
+        $this->db->order_by('id_pendaftaran', 'DESC');
         $query = $this->db->get()->result();
         $data['pendaftaran'] = $query;
 
@@ -172,19 +173,7 @@ class Pendaftaran extends CI_Controller
                 ];
                 $this->db->insert('t_antrian', $data_nomor_antri);
             }
-            //     $this->db->select_max('nomor_antri');
-            //     $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
-            //     $nomor_antri = $this->db->get('antrian')->row()->nomor_antri + 1;
 
-            //     $this->db->where('id_pendaftaran', $id_terakhir);
-            //     $this->db->update('pendaftaran', array('nomor_antri' => $nomor_antri));
-
-            //     $data_nomor_antri = [
-            //         'id_pendaftaran' => $id_terakhir,
-            //         'id_poliklinik' => $this->input->post('id_poliklinik'),
-            //         'nomor_antri' => $nomor_antri
-            //     ];
-            //     $this->db->insert('antrian', $data_nomor_antri);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                                     <div>
                                         Pendaftaran pasien baru berhasil ditambahkan!
@@ -400,22 +389,6 @@ class Pendaftaran extends CI_Controller
 
     public function proses_edit_pendaftaran()
     {
-        $this->form_validation->set_rules('nomor_rekam_medis', 'Nomor Rekam Medis', 'required|trim|integer');
-        $this->form_validation->set_rules('nama_lengkap_pasien', 'Nomor Lengkap Pasien', 'required|trim');
-        $this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'required|trim');
-        $this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'required|callback_validate_date');
-        $this->form_validation->set_rules('kartu_identitas', 'Kartu Identitas', 'required');
-        $this->form_validation->set_rules('nomor_kartu_identitas', 'Nomor Kartu Identitas', 'required|trim|integer');
-        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('pekerjaan', 'Nomor Lengkap Pasien', 'required|trim');
-        $this->form_validation->set_rules('warga_negara', 'Warga Negara', 'required|trim');
-        $this->form_validation->set_rules('suku', 'Suku', 'required|trim');
-        $this->form_validation->set_rules('alamat_lengkap', 'Alamat Lengkap', 'required|trim');
-        $this->form_validation->set_rules('status_perkawinan', 'Status Perkawinan', 'required');
-        $this->form_validation->set_rules('agama', 'Agama', 'required');
-        $this->form_validation->set_rules('bahasa', 'Bahasa', 'required|trim');
-        $this->form_validation->set_rules('pendidikan', 'Pendidikan', 'required|trim');
-        $this->form_validation->set_rules('nomor_hp', 'Nomor HP', 'required|trim|integer');
         $this->form_validation->set_rules('jenis_pembayaran', 'Jenis Pembayaran', 'required|trim');
 
         $this->form_validation->set_rules('penanggung_jawab', 'Penanggung Jawab', 'required');
@@ -444,24 +417,6 @@ class Pendaftaran extends CI_Controller
             $this->load->view('pendaftaran/edit_pendaftaran', $data);
             $this->load->view('templates/main/footer');
         } else {
-            $data_edit_pasien = [
-                'nomor_rekam_medis' => $this->input->post('nomor_rekam_medis'),
-                'nama_lengkap_pasien' => $this->input->post('nama_lengkap_pasien'),
-                'tempat_lahir' => $this->input->post('tempat_lahir'),
-                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                'kartu_identitas' => $this->input->post('kartu_identitas'),
-                'nomor_kartu_identitas' => $this->input->post('nomor_kartu_identitas'),
-                'jenis_kelamin' => $_POST['jenis_kelamin'],
-                'pekerjaan' => $this->input->post('pekerjaan'),
-                'warga_negara' => $this->input->post('warga_negara'),
-                'suku' => $this->input->post('suku'),
-                'alamat_lengkap' => $_POST['alamat_lengkap'],
-                'status_perkawinan' => $this->input->post('status_perkawinan'),
-                'agama' => $this->input->post('agama'),
-                'bahasa' => $this->input->post('bahasa'),
-                'pendidikan' => $this->input->post('pendidikan'),
-                'nomor_hp' => $this->input->post('nomor_hp'),
-            ];
 
             $data_edit_pendaftaran  = [
                 'jenis_pembayaran' => $this->input->post('jenis_pembayaran'),
@@ -479,16 +434,31 @@ class Pendaftaran extends CI_Controller
             $data['editPendaftaran'] = $this->db->get('t_pendaftaran')->result();
             $id_poliklinik_sebelumnya = $data['editPendaftaran'][0]->id_poliklinik;
 
-            $this->db->where('id_pasien', $this->input->post('id_pasien'));
-            $this->db->update('t_pasien', $data_edit_pasien);
-
             $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
             $this->db->update('t_pendaftaran', $data_edit_pendaftaran);
-
 
             if ($this->input->post('jenis_pembayaran') == "BPJS") {
                 $this->db->where('id_pendaftaran', $id_pendaftaran);
                 $this->db->update('t_pendaftaran', array('status_pembayaran' => '1'));
+
+                $data_pembayaran  = [
+                    'id_pendaftaran' => $id_pendaftaran,
+                    'id_biaya' => '1',
+                    'nomor_antri' => '0',
+                ];
+                $this->db->insert('t_pembayaran', $data_pembayaran);
+                $this->db->select_max('nomor_antri');
+                $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
+                $nomor_antri = $this->db->get('t_antrian')->row()->nomor_antri + 1;
+
+                $this->db->where('id_pendaftaran', $id_pendaftaran);
+                $this->db->update('t_pembayaran', array('nomor_antri' => $nomor_antri));
+                $data_nomor_antri = [
+                    'id_pendaftaran' => $id_pendaftaran,
+                    'id_poliklinik' => $id_poliklinik_sebelumnya,
+                    'nomor_antri' => $nomor_antri
+                ];
+                $this->db->insert('t_antrian', $data_nomor_antri);
 
                 if ($id_poliklinik_sebelumnya != $this->input->post('id_poliklinik')) {
                     $this->db->select_max('nomor_antri');

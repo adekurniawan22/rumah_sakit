@@ -16,7 +16,7 @@
                         unset($_SESSION['message']); ?>
                         <div class="table-table-container mt-2">
                             <!-- Table with stripped rows -->
-                            <table id="example" class="table my-4">
+                            <table id="pendaftaran" class="table my-4">
                                 <thead>
                                     <tr>
                                         <th>No. Rekam Medis</th>

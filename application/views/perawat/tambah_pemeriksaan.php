@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Tambah Pendaftaran</h1>
+        <h1>Form Pemeriksaan 1</h1>
     </div><!-- End Page Title -->
     <section class="section">
         <div class="row">
@@ -10,11 +10,12 @@
                 <form role="form" action="<?= base_url() ?>perawat/proses_tambah_pemeriksaan" method="post">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Pemeriksaan Fisik</h5>
+                            <h5 class="card-title">Pemeriksaan Fisik *</h5>
                             <!-- General Form Elements -->
                             <div class="row mb-3">
                                 <label for="keadaan_umum" class="col-sm-2 col-form-label">Keadaan Umum</label>
                                 <div class="col-sm-10">
+                                    <input type="hidden" name="id_pasien" value="<?= $id_pasien ?>">
                                     <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
                                     <input type="hidden" name="nomor_antri" value="<?= $nomor_antri ?>">
                                     <input type="text" class="form-control" name="keadaan_umum" value="<?php echo set_value('keadaan_umum'); ?>">
@@ -75,7 +76,7 @@
                             </div>
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
-                            <h5 class="card-title">Tanda Vital</h5>
+                            <h5 class="card-title">Tanda Vital *</h5>
                             <!-- General Form Elements -->
                             <div class="row mb-3">
                                 <label for="tekanan_darah" class="col-sm-2 col-form-label">Tekanan Darah</label>
@@ -169,7 +170,7 @@
                             </div>
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
-                            <h5 class="card-title">Konsep Diri dan Kognotif</h5>
+                            <h5 class="card-title">Konsep Diri dan Kognotif *</h5>
 
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Pengetahuan tentang penyakit saat ini</legend>
@@ -230,7 +231,7 @@
                             </div>
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
-                            <h5 class="card-title">Status Fungsional</h5>
+                            <h5 class="card-title">Status Fungsional *</h5>
 
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Aktivitas Sehari-hari</legend>
@@ -283,7 +284,7 @@
                             </div>
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
-                            <h5 class="card-title">Riwayat Alergi</h5>
+                            <h5 class="card-title">Riwayat Alergi *</h5>
 
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Apakah ada riwayat alergi?</legend>
@@ -306,7 +307,7 @@
                             </fieldset>
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
-                            <h5 class="card-title">Status Psikologis</h5>
+                            <h5 class="card-title">Status Psikologis *</h5>
 
                             <div class="row mb-3">
                                 <label for="tidur_siang" class="col-sm-2 col-form-label">Tidur Siang</label>
@@ -365,7 +366,7 @@
                             </fieldset>
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
-                            <h5 class="card-title">Kebutuhan Sosial</h5>
+                            <h5 class="card-title">Kebutuhan Sosial *</h5>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Tinggal Bersama</label>
@@ -516,7 +517,7 @@
                             </div>
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
-                            <h5 class="card-title">Kebutuhan Biologis</h5>
+                            <h5 class="card-title">Kebutuhan Biologis *</h5>
 
                             <div class="row mb-3">
                                 <label for="eliminasi" class="col-sm-2 col-form-label">Eliminasi</label>
@@ -825,7 +826,7 @@
                             </div>
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
-                            <h5 class="card-title">Pelaksanaan Asuhan</h5>
+                            <h5 class="card-title">Pelaksanaan Asuhan *</h5>
 
                             <div class="row mb-3">
                                 <label for="analisa_masalah_keperawatan" class="col-sm-2 col-form-label">Analisa Masalah Keperawatan</label>

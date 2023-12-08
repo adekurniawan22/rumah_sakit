@@ -93,16 +93,16 @@
     <?php if ($this->session->userdata('id_role') == 3) { ?>
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link <?php echo ($title == "Antrian") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>perawat">
+                <a class="nav-link <?php echo ($title == "Antrian Pemeriksaan 1") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>perawat">
                     <i class="bi bi-ticket-detailed-fill"></i>
-                    <span>Antrian</span>
+                    <span>Antrian Pemeriksaan 1</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link <?php echo ($title == "Pemeriksaan Perawat") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>perawat/pemeriksaan">
+                <a class="nav-link <?php echo ($title == "Data Pemeriksaan 1") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>perawat/pemeriksaan">
                     <i class="bi bi-clipboard2-pulse-fill"></i>
-                    <span>Pemeriksaan Perawat</span>
+                    <span>Data Pemeriksaan 1</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 
@@ -121,6 +121,40 @@
             </li><!-- End Login Page Nav -->
         </ul>
         <!-- END SIDEBAR ROLE PERAWAT -->
+    <?php } ?>
+
+    <!-- SIDEBAR ROLE DOKTER -->
+    <?php if ($this->session->userdata('id_role') == 4) { ?>
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Antrian Pemeriksaan 2") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>dokter">
+                    <i class="bi bi-ticket-detailed-fill"></i>
+                    <span>Antrian Pemeriksaan 2</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Data Pemeriksaan 2") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>dokter/pemeriksaan">
+                    <i class="bi bi-clipboard2-pulse-fill"></i>
+                    <span>Data Pemeriksaan 2</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>dokter/profil">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profil</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#basicModal" href="">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Logout</span>
+                </a>
+            </li><!-- End Login Page Nav -->
+        </ul>
+        <!-- END SIDEBAR ROLE DOKTER -->
     <?php } ?>
 
     <!-- SIDEBAR ROLE KASIR -->
