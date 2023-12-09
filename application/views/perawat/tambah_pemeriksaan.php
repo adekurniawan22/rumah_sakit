@@ -688,9 +688,9 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Mengambil dengan ibu jqri & telunjuk" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Mengambil dengan ibu jari & telunjuk" type="checkbox">
                                         <label class="form-check-label">
-                                            Mengambil dengan ibu jqri & telunjuk
+                                            Mengambil dengan ibu jari & telunjuk
                                         </label>
                                     </div>
                                     <div class="form-check">
@@ -1078,7 +1078,7 @@
             inputTeksOpsi.setAttribute('name', name)
             radio1.checked = false;
             radio2.checked = true;
-        } else {
+        } else if (selectedOption === 'Tidak tampil') {
             inputTeksOpsi.style.display = "none";
             inputTeksOpsi.removeAttribute("name");
             radio1.checked = true;

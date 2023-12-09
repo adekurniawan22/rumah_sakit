@@ -140,11 +140,22 @@ class Perawat extends CI_Controller
                 $$field = empty($inputValue) ? "" : implode(', ', $inputValue);
             }
 
-            $status_laporan_hasil_SR = empty($status_laporan_hasil_SR) ? "" : $status_laporan_hasil_SR;
-            $imunisasi_dasar = empty($imunisasi_dasar) ? "" : $imunisasi_dasar;
-            $imunisasi_lain = empty($imunisasi_lain) ? "" : $imunisasi_lain;
-            $umur = empty($umur) ? "" : $umur;
-            $status_permintaan_pulang = empty($status_permintaan_pulang) ? "" : $status_permintaan_pulang;
+            $umur = empty($this->input->post('umur')) ? "" : $this->input->post('umur');
+            $skor_hm = empty($this->input->post('skor_hm')) ? "" : $this->input->post('skor_hm');
+            $skor_mfs = empty($this->input->post('skor_mfs')) ? "" : $this->input->post('skor_mfs');
+            $skor_omss = empty($this->input->post('skor_omss')) ? "" : $this->input->post('skor_omss');
+            $status_laporan_hasil_SR = empty($this->input->post('status_laporan_hasil_SR')) ? "" : $this->input->post('status_laporan_hasil_SR');
+            $berat_badan = empty($this->input->post('berat_badan')) ? "" : $this->input->post('berat_badan');
+            $tinggi_badan = empty($this->input->post('tinggi_badan')) ? "" : $this->input->post('tinggi_badan');
+            $imt = empty($this->input->post('imt')) ? "" : $this->input->post('imt');
+            $skor_mst = empty($this->input->post('skor_mst')) ? "" : $this->input->post('skor_mst');
+            $imunisasi_dasar = empty($this->input->post('imunisasi_dasar')) ? "" : $this->input->post('imunisasi_dasar');
+            $imunisasi_lain = empty($this->input->post('imunisasi_lain')) ? "" : $this->input->post('imunisasi_lain');
+            $keadaan_pasien_pulang = empty($this->input->post('keadaan_pasien_pulang')) ? "" : $this->input->post('keadaan_pasien_pulang');
+            // $berkas_yang_diberikan = empty($this->input->post('berkas_yang_diberikan')) ? "" : $this->input->post('berkas_yang_diberikan');
+            // $info_edukasi_yang_diberikan = empty($this->input->post('info_edukasi_yang_diberikan')) ? "" : $this->input->post('info_edukasi_yang_diberikan');
+            $status_permintaan_pulang = empty($this->input->post('status_permintaan_pulang')) ? "" : $this->input->post('status_permintaan_pulang');
+            $status_melarikan_diri = empty($this->input->post('status_melarikan_diri')) ? "" : $this->input->post('status_melarikan_diri');
 
             date_default_timezone_set('Asia/Jakarta');
             $data_pemeriksaan1  = [
@@ -181,14 +192,14 @@ class Perawat extends CI_Controller
                 'penerimaan_kondisi' => $this->input->post('penerimaan_kondisi'),
                 'tinggal_bersama' => $this->input->post('tinggal_bersama'),
                 'kebiasaan' => $this->input->post('kebiasaan'),
-                'skor_hm' => $this->input->post('skor_hm'),
-                'skor_mfs' => $this->input->post('skor_mfs'),
-                'skor_omss' => $this->input->post('skor_omss'),
+                'skor_hm' => $skor_hm,
+                'skor_mfs' => $skor_mfs,
+                'skor_omss' => $skor_omss,
                 'status_laporan_hasil_SR' => $status_laporan_hasil_SR,
-                'berat_badan' => $this->input->post('berat_badan'),
-                'tinggi_badan' => $this->input->post('tinggi_badan'),
-                'imt' => $this->input->post('imt'),
-                'skor_mst' => $this->input->post('skor_mst'),
+                'berat_badan' => $berat_badan,
+                'tinggi_badan' => $tinggi_badan,
+                'imt' => $imt,
+                'skor_mst' => $skor_mst,
                 'imunisasi_dasar' => $imunisasi_dasar,
                 'imunisasi_lain' => $imunisasi_lain,
                 'eliminasi' => $this->input->post('eliminasi'),
@@ -205,11 +216,11 @@ class Perawat extends CI_Controller
                 'planning' => $this->input->post('planning'),
                 'implementasi_dan_evaluasi' => $this->input->post('implementasi_dan_evaluasi'),
                 'edukasi' => $this->input->post('edukasi'),
-                'keadaan_pasien_pulang' => $this->input->post('keadaan_pasien_pulang'),
+                'keadaan_pasien_pulang' => $keadaan_pasien_pulang,
                 'berkas_yang_diberikan' => $berkas_yang_diberikan,
                 'info_edukasi_yang_diberikan' => $info_edukasi_yang_diberikan,
                 'status_permintaan_pulang' => $status_permintaan_pulang,
-                'status_melarikan_diri' => $this->input->post('status_melarikan_diri'),
+                'status_melarikan_diri' => $status_melarikan_diri,
                 'waktu_pemeriksaan' => date('Y-m-d H:i:s'),
                 'id_pegawai' => $this->session->userdata('id_pegawai'),
             ];
@@ -344,11 +355,11 @@ class Perawat extends CI_Controller
                 $$field = empty($inputValue) ? "" : implode(', ', $inputValue);
             }
 
-            $status_laporan_hasil_SR = empty($status_laporan_hasil_SR) ? "" : $status_laporan_hasil_SR;
-            $imunisasi_dasar = empty($imunisasi_dasar) ? "" : $imunisasi_dasar;
-            $imunisasi_lain = empty($imunisasi_lain) ? "" : $imunisasi_lain;
-            $umur = empty($umur) ? "" : $umur;
-            $status_permintaan_pulang = empty($status_permintaan_pulang) ? "" : $status_permintaan_pulang;
+            $status_laporan_hasil_SR = empty($this->input->post('status_laporan_hasil_SR')) ? "" : $this->input->post('status_laporan_hasil_SR');
+            $imunisasi_dasar = empty($this->input->post('imunisasi_dasar')) ? "" : $this->input->post('imunisasi_dasar');
+            $imunisasi_lain = empty($this->input->post('imunisasi_lain')) ? "" : $this->input->post('imunisasi_lain');
+            $umur = empty($this->input->post('umur')) ? "" : $this->input->post('umur');
+            $status_permintaan_pulang = empty($this->input->post('status_permintaan_pulang')) ? "" : $this->input->post('status_permintaan_pulang');
 
             date_default_timezone_set('Asia/Jakarta');
             $data_edit_pemeriksaan1  = [
@@ -414,10 +425,15 @@ class Perawat extends CI_Controller
                 'status_melarikan_diri' => $this->input->post('status_melarikan_diri'),
             ];
         }
-
-        echo "<pre>";
-        echo print_r($data_edit_pemeriksaan1);
-        echo "<pre>";
+        $this->db->where('id_pemeriksaan1', $this->input->post('id_pemeriksaan1'));
+        $this->db->update('t_pemeriksaan1', $data_edit_pemeriksaan1);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                                <div>
+                                    Data Pemeriksaan pasien berhasil ditambahkan!
+                                    <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                                </div>
+                            </div>');
+        redirect('perawat/pemeriksaan');
     }
 
     public function profil()

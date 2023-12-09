@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-body mt-4">
                         <!-- General Form Elements -->
-                        <form role="form" action="<?= base_url() ?>perawat/proses_edit_profil" method="post" enctype="multipart/form-data">
+                        <form role="form" action="<?= base_url() ?>dokter/proses_edit_profil" method="post" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label">Foto</label>
                                 <div class="col-sm-10">
@@ -80,7 +80,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <a class="btn btn-primary" href="<?= base_url() ?>perawat/profil">Kembali</a>
+                                    <a class="btn btn-primary" href="<?= base_url() ?>dokter/profil">Kembali</a>
                                     <button type="submit" class="btn btn-primary">Edit</button>
                                 </div>
                             </div>

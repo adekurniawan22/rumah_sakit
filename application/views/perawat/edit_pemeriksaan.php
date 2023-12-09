@@ -15,7 +15,7 @@
                             <div class="row mb-3">
                                 <label for="keadaan_umum" class="col-sm-2 col-form-label">Keadaan Umum</label>
                                 <div class="col-sm-10">
-                                    <input type="hidden" name="id_pendaftaran" value="<?= $e_pemeriksaan[0]->id_pemeriksaan1 ?>">
+                                    <input type="hidden" name="id_pemeriksaan1" value="<?= $e_pemeriksaan[0]->id_pemeriksaan1 ?>">
                                     <input type="text" class="form-control" name="keadaan_umum" value="<?php echo set_value('keadaan_umum', $e_pemeriksaan[0]->keadaan_umum); ?>">
                                     <?= form_error('keadaan_umum', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
@@ -234,13 +234,15 @@
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Aktivitas Sehari-hari</legend>
                                 <div class="col-sm-10">
-                                    <?php if ($e_pemeriksaan[0]->status_aktivitas != "Mandiri") { ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="status_aktivitas" value="<?= $e_pemeriksaan[0]->status_aktivitas ?>" <?php echo ($e_pemeriksaan[0]->status_aktivitas == $e_pemeriksaan[0]->status_aktivitas) ? 'checked' : ''; ?>>
-                                            <label class="form-check-label">
-                                                <?= $e_pemeriksaan[0]->status_aktivitas ?>
-                                            </label>
-                                        </div>
+                                    <?php if ($e_pemeriksaan[0]->status_aktivitas != "") { ?>
+                                        <?php if ($e_pemeriksaan[0]->status_aktivitas != "Mandiri") { ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="status_aktivitas" value="<?= $e_pemeriksaan[0]->status_aktivitas ?>" <?php echo ($e_pemeriksaan[0]->status_aktivitas == $e_pemeriksaan[0]->status_aktivitas) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label">
+                                                    <?= $e_pemeriksaan[0]->status_aktivitas ?>
+                                                </label>
+                                            </div>
+                                        <?php } ?>
                                     <?php } ?>
 
                                     <div class="form-check form-check-inline">
@@ -252,7 +254,11 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="status_aktivitas" value="Perlu Bantuan" onclick="toggleInputField('Tampil', 'input_teks_status_aktivitas','Mandiri', 'Perlu Bantuan')">
                                         <label class="form-check-label">
-                                            Ganti Keterangan Perlu Bantuan
+                                            <?php if ($e_pemeriksaan[0]->status_aktivitas == 'Mandiri' or $e_pemeriksaan[0]->status_aktivitas == '') { ?>
+                                                Perlu Bantuan
+                                            <?php } else { ?>
+                                                Ganti Keterangan Perlu Bantuan
+                                            <?php } ?>
                                         </label>
                                     </div>
                                     <?= form_error('status_aktivitas', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -264,13 +270,15 @@
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Muskuloskeleta</legend>
                                 <div class="col-sm-10">
-                                    <?php if ($e_pemeriksaan[0]->muskuloskeleta != "Tidak ada") { ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="muskuloskeleta" value="<?= $e_pemeriksaan[0]->muskuloskeleta ?>" <?php echo ($e_pemeriksaan[0]->muskuloskeleta == $e_pemeriksaan[0]->muskuloskeleta) ? 'checked' : ''; ?>>
-                                            <label class="form-check-label">
-                                                <?= $e_pemeriksaan[0]->muskuloskeleta ?>
-                                            </label>
-                                        </div>
+                                    <?php if ($e_pemeriksaan[0]->muskuloskeleta != "") { ?>
+                                        <?php if ($e_pemeriksaan[0]->muskuloskeleta != "Tidak ada") { ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="muskuloskeleta" value="<?= $e_pemeriksaan[0]->muskuloskeleta ?>" <?php echo ($e_pemeriksaan[0]->muskuloskeleta == $e_pemeriksaan[0]->muskuloskeleta) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label">
+                                                    <?= $e_pemeriksaan[0]->muskuloskeleta ?>
+                                                </label>
+                                            </div>
+                                        <?php } ?>
                                     <?php } ?>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="muskuloskeleta" value="Tidak ada" onclick="toggleInputField('Tidak tampil', 'input_teks_muskuloskeleta', 'Tidak ada', 'Ada')" <?php echo ($e_pemeriksaan[0]->muskuloskeleta == 'Tidak ada') ? 'checked' : ''; ?>>
@@ -281,7 +289,11 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="muskuloskeleta" value="Ada" onclick="toggleInputField('Tampil', 'input_teks_muskuloskeleta','Tidak ada', 'Ada')">
                                         <label class="form-check-label">
-                                            Ganti Keterangan Muskuloskeleta
+                                            <?php if ($e_pemeriksaan[0]->muskuloskeleta == 'Tidak ada' or $e_pemeriksaan[0]->muskuloskeleta == '') { ?>
+                                                Ada
+                                            <?php } else { ?>
+                                                Ganti Keterangan Muskuloskeleta
+                                            <?php } ?>
                                         </label>
                                     </div>
                                     <?= form_error('muskuloskeleta', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -304,13 +316,15 @@
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Apakah ada riwayat alergi?</legend>
                                 <div class="col-sm-10">
-                                    <?php if ($e_pemeriksaan[0]->alergi != "Tidak ada alergi") { ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="alergi" value="<?= $e_pemeriksaan[0]->alergi ?>" <?php echo ($e_pemeriksaan[0]->alergi == $e_pemeriksaan[0]->alergi) ? 'checked' : ''; ?>>
-                                            <label class="form-check-label">
-                                                <?= $e_pemeriksaan[0]->alergi ?>
-                                            </label>
-                                        </div>
+                                    <?php if ($e_pemeriksaan[0]->alergi != "") { ?>
+                                        <?php if ($e_pemeriksaan[0]->alergi != "Tidak ada alergi") { ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="alergi" value="<?= $e_pemeriksaan[0]->alergi ?>" <?php echo ($e_pemeriksaan[0]->alergi == $e_pemeriksaan[0]->alergi) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label">
+                                                    <?= $e_pemeriksaan[0]->alergi ?>
+                                                </label>
+                                            </div>
+                                        <?php } ?>
                                     <?php } ?>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="alergi" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo ($e_pemeriksaan[0]->alergi == 'Tidak ada alergi') ? 'checked' : ''; ?>>
@@ -321,7 +335,11 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="alergi" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')">
                                         <label class="form-check-label">
-                                            Ganti Keterangan Alergi
+                                            <?php if ($e_pemeriksaan[0]->alergi == 'Tidak ada alergi' or $e_pemeriksaan[0]->alergi == '') { ?>
+                                                Ada
+                                            <?php } else { ?>
+                                                Ganti Keterangan Alergi
+                                            <?php } ?>
                                         </label>
                                     </div>
                                     <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -351,13 +369,15 @@
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Apakah ada gangguan tidur?</legend>
                                 <div class="col-sm-10">
-                                    <?php if ($e_pemeriksaan[0]->gangguan_tidur != "Tidak ada gangguan tidur") { ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gangguan_tidur" value="<?= $e_pemeriksaan[0]->gangguan_tidur ?>" <?php echo ($e_pemeriksaan[0]->gangguan_tidur == $e_pemeriksaan[0]->gangguan_tidur) ? 'checked' : ''; ?>>
-                                            <label class="form-check-label">
-                                                <?= $e_pemeriksaan[0]->gangguan_tidur ?>
-                                            </label>
-                                        </div>
+                                    <?php if ($e_pemeriksaan[0]->gangguan_tidur != "") { ?>
+                                        <?php if ($e_pemeriksaan[0]->gangguan_tidur != "Tidak ada gangguan tidur") { ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gangguan_tidur" value="<?= $e_pemeriksaan[0]->gangguan_tidur ?>" <?php echo ($e_pemeriksaan[0]->gangguan_tidur == $e_pemeriksaan[0]->gangguan_tidur) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label">
+                                                    <?= $e_pemeriksaan[0]->gangguan_tidur ?>
+                                                </label>
+                                            </div>
+                                        <?php } ?>
                                     <?php } ?>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gangguan_tidur" value="Tidak ada gangguan tidur" onclick="toggleInputField('Tidak tampil', 'input_teks_gangguan_tidur', 'Tidak ada gangguan tidur', 'Ada gangguan tidur')" <?php echo ($e_pemeriksaan[0]->gangguan_tidur == 'Tidak ada gangguan tidur') ? 'checked' : ''; ?>>
@@ -368,7 +388,11 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gangguan_tidur" value="Ada gangguan tidur" onclick="toggleInputField('Tampil', 'input_teks_gangguan_tidur','Tidak ada gangguan tidur', 'Ada gangguan tidur')">
                                         <label class="form-check-label">
-                                            Ganti Keterangan Gangguan Tidur
+                                            <?php if ($e_pemeriksaan[0]->gangguan_tidur == 'Tidak ada gangguan tidur' or $e_pemeriksaan[0]->gangguan_tidur == '') { ?>
+                                                Ada
+                                            <?php } else { ?>
+                                                Ganti Keterangan Gangguan Tidur
+                                            <?php } ?>
                                         </label>
                                     </div>
                                     <?= form_error('gangguan_tidur', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -379,13 +403,15 @@
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Penerimaan kondisi saat ini</legend>
                                 <div class="col-sm-10">
-                                    <?php if ($e_pemeriksaan[0]->penerimaan_kondisi != "Menerima Kondisi") { ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="penerimaan_kondisi" value="<?= $e_pemeriksaan[0]->penerimaan_kondisi ?>" <?php echo ($e_pemeriksaan[0]->penerimaan_kondisi == $e_pemeriksaan[0]->penerimaan_kondisi) ? 'checked' : ''; ?>>
-                                            <label class="form-check-label">
-                                                <?= $e_pemeriksaan[0]->penerimaan_kondisi ?>
-                                            </label>
-                                        </div>
+                                    <?php if ($e_pemeriksaan[0]->penerimaan_kondisi != "") { ?>
+                                        <?php if ($e_pemeriksaan[0]->penerimaan_kondisi != "Menerima Kondisi") { ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="penerimaan_kondisi" value="<?= $e_pemeriksaan[0]->penerimaan_kondisi ?>" <?php echo ($e_pemeriksaan[0]->penerimaan_kondisi == $e_pemeriksaan[0]->penerimaan_kondisi) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label">
+                                                    <?= $e_pemeriksaan[0]->penerimaan_kondisi ?>
+                                                </label>
+                                            </div>
+                                        <?php } ?>
                                     <?php } ?>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="penerimaan_kondisi" value="Menerima Kondisi" onclick="toggleInputField('Tidak tampil', 'input_teks_penerimaan_kondisi', 'Menerima Kondisi', 'Tidak Menerima Kondisi')" <?php echo ($e_pemeriksaan[0]->penerimaan_kondisi == 'Menerima Kondisi') ? 'checked' : ''; ?>>
@@ -396,7 +422,11 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="penerimaan_kondisi" value="Tidak Menerima Kondisi" onclick="toggleInputField('Tampil', 'input_teks_penerimaan_kondisi','Menerima Kondisi', 'Tidak Menerima Kondisi')">
                                         <label class="form-check-label">
-                                            Ganti Keterangan Tidak
+                                            <?php if ($e_pemeriksaan[0]->penerimaan_kondisi == 'Menerima Kondisi' or $e_pemeriksaan[0]->penerimaan_kondisi == '') { ?>
+                                                Tidak
+                                            <?php } else { ?>
+                                                Ganti Keterangan Tidak
+                                            <?php } ?>
                                         </label>
                                     </div>
                                     <?= form_error('penerimaan_kondisi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -472,13 +502,15 @@
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Apakah sudah diberitahukan ke Dokter?</legend>
                                 <div class="col-sm-10">
-                                    <?php if ($e_pemeriksaan[0]->status_laporan_hasil_SR != "Belum dilaporkan") { ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="status_laporan_hasil_SR" value="<?= $e_pemeriksaan[0]->status_laporan_hasil_SR ?>" <?php echo ($e_pemeriksaan[0]->status_laporan_hasil_SR == $e_pemeriksaan[0]->status_laporan_hasil_SR) ? 'checked' : ''; ?>>
-                                            <label class="form-check-label">
-                                                Sudah diberitahukan pada <?= date('d-M-Y', strtotime($e_pemeriksaan[0]->status_laporan_hasil_SR)) ?>, Jam <?= date('H:i', strtotime($e_pemeriksaan[0]->status_laporan_hasil_SR)) ?>
-                                            </label>
-                                        </div>
+                                    <?php if ($e_pemeriksaan[0]->status_laporan_hasil_SR != "") { ?>
+                                        <?php if ($e_pemeriksaan[0]->status_laporan_hasil_SR != "Belum dilaporkan") { ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="status_laporan_hasil_SR" value="<?= $e_pemeriksaan[0]->status_laporan_hasil_SR ?>" <?php echo ($e_pemeriksaan[0]->status_laporan_hasil_SR == $e_pemeriksaan[0]->status_laporan_hasil_SR) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label">
+                                                    Sudah diberitahukan pada <?= $e_pemeriksaan[0]->status_laporan_hasil_SR ?>
+                                                </label>
+                                            </div>
+                                        <?php } ?>
                                     <?php } ?>
 
                                     <div class="form-check form-check-inline">
@@ -490,7 +522,11 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="status_laporan_hasil_SR" value="Sudah Dilaporkan" onclick="toggleInputField('Tampil', 'input_teks_status_laporan_hasil_SR','Belum dilaporkan', 'Sudah Dilaporkan')">
                                         <label class="form-check-label">
-                                            Ganti waktu pemberitahuan
+                                            <?php if ($e_pemeriksaan[0]->status_laporan_hasil_SR == 'Belum dilaporkan' or $e_pemeriksaan[0]->status_laporan_hasil_SR == '') { ?>
+                                                Sudah Dilaporkan
+                                            <?php } else { ?>
+                                                Ganti waktu pemberitahuan
+                                            <?php } ?>
                                         </label>
                                     </div>
                                     <?= form_error('status_laporan_hasil_SR', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -541,13 +577,15 @@
                             <fieldset class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Imunisasi Dasar</legend>
                                 <div class="col-sm-10">
-                                    <?php if ($e_pemeriksaan[0]->imunisasi_dasar != "Lengkap") { ?>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="imunisasi_dasar" value="<?= $e_pemeriksaan[0]->imunisasi_dasar ?>" <?php echo ($e_pemeriksaan[0]->imunisasi_dasar == $e_pemeriksaan[0]->imunisasi_dasar) ? 'checked' : ''; ?>>
-                                            <label class="form-check-label">
-                                                <?= $e_pemeriksaan[0]->imunisasi_dasar ?>
-                                            </label>
-                                        </div>
+                                    <?php if ($e_pemeriksaan[0]->imunisasi_dasar != "") { ?>
+                                        <?php if ($e_pemeriksaan[0]->imunisasi_dasar != "Lengkap") { ?>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="imunisasi_dasar" value="<?= $e_pemeriksaan[0]->imunisasi_dasar ?>" <?php echo ($e_pemeriksaan[0]->imunisasi_dasar == $e_pemeriksaan[0]->imunisasi_dasar) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label">
+                                                    <?= $e_pemeriksaan[0]->imunisasi_dasar ?>
+                                                </label>
+                                            </div>
+                                        <?php } ?>
                                     <?php } ?>
 
                                     <div class="form-check form-check-inline">
@@ -559,7 +597,11 @@
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="imunisasi_dasar" value="Tidak Lengkap" onclick="toggleInputField('Tampil', 'input_teks_imunisasi_dasar','Lengkap', 'Tidak Lengkap')">
                                         <label class="form-check-label">
-                                            Ganti Keterangan Tidak Lengkap
+                                            <?php if ($e_pemeriksaan[0]->imunisasi_dasar == "Lengkap" or $e_pemeriksaan[0]->imunisasi_dasar == '') { ?>
+                                                Tidak Lengkap
+                                            <?php } else { ?>
+                                                Ganti Keterangan Tidak Lengkap
+                                            <?php } ?>
                                         </label>
                                     </div>
                                     <?= form_error('imunisasi_dasar', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
@@ -676,47 +718,52 @@
                                 </div>
                             </fieldset>
 
+                            <?php $RTKB_sosial_data = explode(', ', $e_pemeriksaan[0]->RTKB_sosial) ?>
+                            <?php $RTKB_motorik_halus_data = explode(', ', $e_pemeriksaan[0]->RTKB_motorik_halus) ?>
+                            <?php $RTKB_motorik_kasar_data = explode(', ', $e_pemeriksaan[0]->RTKB_motorik_kasar) ?>
+                            <?php $RTKB_bahasa_data = explode(', ', $e_pemeriksaan[0]->RTKB_bahasa) ?>
+
                             <div class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Sosial</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_sosial[]" value="Senyum" type="checkbox" <?php echo set_checkbox('RTKB_sosial[]', 'Senyum'); ?>>
+                                        <input class="form-check-input" name="RTKB_sosial[]" value="Senyum" <?= (in_array('Senyum', $RTKB_sosial_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Senyum
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_sosial[]" value="Menggapai Mainan" type="checkbox" <?php echo set_checkbox('RTKB_sosial[]', 'Menggapai Mainan'); ?>>
+                                        <input class="form-check-input" name="RTKB_sosial[]" value="Menggapai Mainan" <?= (in_array('Menggapai Mainan', $RTKB_sosial_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Menggapai Mainan
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_sosial[]" value="Bermain Cilukba" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_sosial[]" value="Bermain Cilukba" <?= (in_array('Bermain Cilukba', $RTKB_sosial_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Bermain Cilukba
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_sosial[]" value="Minum Dengan Cangkir" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_sosial[]" value="Minum Dengan Cangkir" <?= (in_array('Minum Dengan Cangkir', $RTKB_sosial_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Minum Dengan Cangkir
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_sosial[]" value="Menggunakan Sendok" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_sosial[]" value="Menggunakan Sendok" <?= (in_array('Menggunakan Sendok', $RTKB_sosial_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Menggunakan Sendok
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_sosial[]" value="Melepaskan Pakaian" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_sosial[]" value="Melepaskan Pakaian" <?= (in_array('Melepaskan Pakaian', $RTKB_sosial_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Melepaskan Pakaian
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_sosial[]" value="Bermain Interaktif" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_sosial[]" value="Bermain Interaktif" <?= (in_array('Bermain Interaktif', $RTKB_sosial_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Bermain Interaktif
                                         </label>
@@ -729,49 +776,50 @@
                                 <legend class="col-form-label col-sm-2 pt-0">Motorik Halus</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Mengikuti Gerakan" type="checkbox">
+
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Mengikuti Gerakan" <?= (in_array('Mengikuti Gerakan', $RTKB_motorik_halus_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Mengikuti Gerakan
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Menggenggam" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Menggenggam" <?= (in_array('Menggenggam', $RTKB_motorik_halus_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Menggenggam
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Memindahkan benda dari tangan ke tangan yang lain" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Memindahkan benda dari tangan ke tangan yang lain" <?= (in_array('Memindahkan benda dari tangan ke tangan yang lain', $RTKB_motorik_halus_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Memindahkan benda dari tangan ke tangan yang lain
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Mengambil dengan ibu jqri & telunjuk" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Mengambil dengan ibu jari & telunjuk" <?= (in_array('Mengambil dengan ibu jari & telunjuk', $RTKB_motorik_halus_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
-                                            Mengambil dengan ibu jqri & telunjuk
+                                            Mengambil dengan ibu jari & telunjuk
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Menjemput benda dengan 5 jari" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Menjemput benda dengan 5 jari" <?= (in_array('Menjemput benda dengan 5 jari', $RTKB_motorik_halus_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Menjemput benda dengan 5 jari
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Mencorat-coret kertas" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Mencorat-coret kertas" <?= (in_array('Mencorat-coret kertas', $RTKB_motorik_halus_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Mencorat-coret kertas
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Membuat Garis" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Membuat Garis" <?= (in_array('Membuat Garis', $RTKB_motorik_halus_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Membuat Garis
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Meniru Membuat Garis" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_halus[]" value="Meniru Membuat Garis" <?= (in_array('Meniru Membuat Garis', $RTKB_motorik_halus_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Meniru Membuat Garis
                                         </label>
@@ -784,49 +832,49 @@
                                 <legend class="col-form-label col-sm-2 pt-0">Motorik Kasar</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Mengangkat Kepala 45 Derajat Dari Perut" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Mengangkat Kepala 45 Derajat Dari Perut" <?= (in_array('Mengangkat Kepala 45 Derajat Dari Perut', $RTKB_motorik_kasar_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Mengangkat Kepala 45 Derajat Dari Perut
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Membalikan Badan" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Membalikan Badan" <?= (in_array('Membalikan Badan', $RTKB_motorik_kasar_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Membalikan Badan
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Duduk" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Duduk" <?= (in_array('Duduk', $RTKB_motorik_kasar_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Duduk
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Berdiri" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Berdiri" <?= (in_array('Berdiri', $RTKB_motorik_kasar_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Berdiri
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Berjalan" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Berjalan" <?= (in_array('Berjalan', $RTKB_motorik_kasar_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Berjalan
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Naik Tangga" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Naik Tangga" <?= (in_array('Naik Tangga', $RTKB_motorik_kasar_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Naik Tangga
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Berdiri Dengan Satu Kaki" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Berdiri Dengan Satu Kaki" <?= (in_array('Berdiri Dengan Satu Kaki', $RTKB_motorik_kasar_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Berdiri Dengan Satu Kaki
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Mengayuh Sepeda" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_motorik_kasar[]" value="Mengayuh Sepeda" <?= (in_array('Mengayuh Sepeda', $RTKB_motorik_kasar_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Mengayuh Sepeda
                                         </label>
@@ -839,43 +887,43 @@
                                 <legend class="col-form-label col-sm-2 pt-0">Bahasa</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Mengoceh" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Mengoceh" <?= (in_array('Mengoceh', $RTKB_bahasa_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Mengoceh
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Mencari sumber suara" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Mencari sumber suara" <?= (in_array('Mencari sumber suara', $RTKB_bahasa_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Mencari sumber suara
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Mengeluarkan kata ma-ma-da-da" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Mengeluarkan kata ma-ma-da-da" <?= (in_array('Mengeluarkan kata ma-ma-da-da', $RTKB_bahasa_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Mengeluarkan kata ma-ma-da-da
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Menirukan Suara" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Menirukan Suara" <?= (in_array('Menirukan Suara', $RTKB_bahasa_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Menirukan Suara
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Dapat menyebutkan 2 suku kata" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Dapat menyebutkan 2 suku kata" <?= (in_array('Dapat menyebutkan 2 suku kata', $RTKB_bahasa_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Dapat menyebutkan 2 suku kata
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Menyebutkan Anggota Tubuh" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Menyebutkan Anggota Tubuh" <?= (in_array('Menyebutkan Anggota Tubuh', $RTKB_bahasa_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Menyebutkan Anggota Tubuh
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Menyebutkan Nama Awal dan Akhir" type="checkbox">
+                                        <input class="form-check-input" name="RTKB_bahasa[]" value="Menyebutkan Nama Awal dan Akhir" <?= (in_array('Menyebutkan Nama Awal dan Akhir', $RTKB_bahasa_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Menyebutkan Nama Awal dan Akhir
                                         </label>
@@ -931,7 +979,7 @@
                                         <option value="Dirawat" <?php echo set_select('keadaan_pasien_pulang', 'Dirawat', $e_pemeriksaan[0]->keadaan_pasien_pulang == "Dirawat"); ?>>Dirawat</option>
                                         <option value="Meninggal" <?php echo set_select('keadaan_pasien_pulang', 'Meninggal', $e_pemeriksaan[0]->keadaan_pasien_pulang == "Meninggal"); ?>>Meninggal</option>
                                         <option value="Dirujuk" <?php echo set_select('keadaan_pasien_pulang', 'Dirujuk', $e_pemeriksaan[0]->keadaan_pasien_pulang == "Dirujuk"); ?>>Dirujuk</option>
-                                        <?php if ($e_pemeriksaan[0]->keadaan_pasien_pulang != "Dirawat" && $e_pemeriksaan[0]->keadaan_pasien_pulang != "Meninggal" && $e_pemeriksaan[0]->keadaan_pasien_pulang != "Dirujuk" && $e_pemeriksaan[0]->keadaan_pasien_pulang != "Sembuh / Pulang") { ?>
+                                        <?php if ($e_pemeriksaan[0]->keadaan_pasien_pulang != "" && $e_pemeriksaan[0]->keadaan_pasien_pulang != "Dirawat" && $e_pemeriksaan[0]->keadaan_pasien_pulang != "Meninggal" && $e_pemeriksaan[0]->keadaan_pasien_pulang != "Dirujuk" && $e_pemeriksaan[0]->keadaan_pasien_pulang != "Sembuh / Pulang") { ?>
                                             <option value="<?= $e_pemeriksaan[0]->keadaan_pasien_pulang ?>" <?php echo set_select('keadaan_pasien_pulang', $e_pemeriksaan[0]->keadaan_pasien_pulang, $e_pemeriksaan[0]->keadaan_pasien_pulang == $e_pemeriksaan[0]->keadaan_pasien_pulang); ?>><?= $e_pemeriksaan[0]->keadaan_pasien_pulang ?></option>
                                         <?php }   ?>
                                     </select>
@@ -947,41 +995,44 @@
                                 </div>
                             </div>
 
+                            <?php $berkas_yang_diberikan_data = explode(', ', $e_pemeriksaan[0]->berkas_yang_diberikan) ?>
+                            <?php $info_edukasi_yang_diberikan_data = explode(', ', $e_pemeriksaan[0]->info_edukasi_yang_diberikan) ?>
+
                             <div class="row mb-3">
                                 <legend class="col-form-label col-sm-2 pt-0">Berkas yang diberikan</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="Obat-obatan" type="checkbox">
+                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="Obat-obatan" <?= (in_array('Obat-obatan', $berkas_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Obat-obatan
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="Foto Rontgen" type="checkbox">
+                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="Foto Rontgen" <?= (in_array('Foto Rontgen', $berkas_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Foto Rontgen
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="EKG" type="checkbox">
+                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="EKG" <?= (in_array('EKG', $berkas_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             EKG
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="Laboratorium" type="checkbox">
+                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="Laboratorium" <?= (in_array('Laboratorium', $berkas_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Laboratorium
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="USG" type="checkbox">
+                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="USG" <?= (in_array('USG', $berkas_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             USG
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="DLL" type="checkbox">
+                                        <input class="form-check-input" name="berkas_yang_diberikan[]" value="DLL" <?= (in_array('DLL', $berkas_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             DLL
                                         </label>
@@ -994,25 +1045,25 @@
                                 <legend class="col-form-label col-sm-2 pt-0">Info dan Edukasi yang diberikan</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
-                                        <input class="form-check-input" name="info_edukasi_yang_diberikan[]" value="Obat Pulang" type="checkbox">
+                                        <input class="form-check-input" name="info_edukasi_yang_diberikan[]" value="Obat Pulang" <?= (in_array('Obat Pulang', $info_edukasi_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Obat Pulang
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="info_edukasi_yang_diberikan[]" value="Foto Rontgen" type="checkbox">
+                                        <input class="form-check-input" name="info_edukasi_yang_diberikan[]" value="Foto Rontgen" <?= (in_array('Foto Rontgen', $info_edukasi_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Foto Rontgen
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="info_edukasi_yang_diberikan[]" value="Laboratorium" type="checkbox">
+                                        <input class="form-check-input" name="info_edukasi_yang_diberikan[]" value="Laboratorium" <?= (in_array('Laboratorium', $info_edukasi_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Laboratorium
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="info_edukasi_yang_diberikan[]" value="Kontrol Poliklinik" type="checkbox">
+                                        <input class="form-check-input" name="info_edukasi_yang_diberikan[]" value="Kontrol Poliklinik" <?= (in_array('Kontrol Poliklinik', $info_edukasi_yang_diberikan_data) ? 'checked' : ''); ?> type="checkbox">
                                         <label class="form-check-label">
                                             Kontrol Poliklinik
                                         </label>
@@ -1048,7 +1099,7 @@
                                         <option value="Minggat" <?php echo set_select('status_melarikan_diri', 'Minggat', $e_pemeriksaan[0]->status_melarikan_diri == "Minggat"); ?>>Minggat</option>
                                         <option value="Lapor Satpam" <?php echo set_select('status_melarikan_diri', 'Lapor Satpam', $e_pemeriksaan[0]->status_melarikan_diri == "Lapor Satpam"); ?>>Lapor Satpam</option>
                                         <option value="Lapor Supervisor" <?php echo set_select('status_melarikan_diri', 'Lapor Supervisor', $e_pemeriksaan[0]->status_melarikan_diri == "Lapor Supervisor"); ?>>Lapor Supervisor</option>
-                                        <?php if ($e_pemeriksaan[0]->status_melarikan_diri != "Minggat" && $e_pemeriksaan[0]->status_melarikan_diri != "Lapor Satpam" && $e_pemeriksaan[0]->status_melarikan_diri != "Lapor Supervisor") { ?>
+                                        <?php if ($e_pemeriksaan[0]->status_melarikan_diri != "" && $e_pemeriksaan[0]->status_melarikan_diri != "Minggat" && $e_pemeriksaan[0]->status_melarikan_diri != "Lapor Satpam" && $e_pemeriksaan[0]->status_melarikan_diri != "Lapor Supervisor") { ?>
                                             <option value="<?= $e_pemeriksaan[0]->status_melarikan_diri ?>" <?php echo set_select('status_melarikan_diri', $e_pemeriksaan[0]->status_melarikan_diri, $e_pemeriksaan[0]->status_melarikan_diri == $e_pemeriksaan[0]->status_melarikan_diri); ?>><?= $e_pemeriksaan[0]->status_melarikan_diri ?></option>
                                         <?php }   ?>
                                     </select>
@@ -1134,13 +1185,12 @@
 <script>
     function toggleInputField(selectedOption, id_input, value1, value2) {
         var inputTeksOpsi = document.getElementById(id_input);
-        var radio1 = document.querySelector('input[value="' + value1 + '"]');
-        var radio2 = document.querySelector('input[value="' + value2 + '"]');
+        var radio1 = document.querySelector(' input[value="' + value1 + '" ]');
+        var radio2 = document.querySelector('input[value="' + value2 + '" ]');
         var name = radio1.getAttribute("name");
-
         if (selectedOption === 'Tampil') {
             inputTeksOpsi.style.display = "block";
-            inputTeksOpsi.setAttribute('name', name)
+            inputTeksOpsi.setAttribute('name', name);
             radio1.checked = false;
             radio2.checked = true;
         } else {

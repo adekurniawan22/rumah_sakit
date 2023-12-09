@@ -184,19 +184,19 @@
                                 <legend class="col-form-label col-sm-4 pt-0">Apakah ada rencana kontrol?</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="rencana_kontrol" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Tidak ada alergi'); ?>>
-                                        <label class="form-check-label" for="gridRadios1">
+                                        <input class="form-check-input" type="radio" name="rencana_kontrol" value="Sudah Ditetapkan" id="sudahDitetapkanRadio">
+                                        <label class="form-check-label" for="sudahDitetapkanRadio">
                                             Sudah Ditetapkan
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="rencana_kontrol" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Ada alergi'); ?>>
-                                        <label class="form-check-label" for="gridRadios2">
+                                        <input class="form-check-input" type="radio" name="rencana_kontrol" value="Belum Ditetapkan" id="belumDitetapkanRadio">
+                                        <label class="form-check-label" for="belumDitetapkanRadio">
                                             Belum Ditetapkan
                                         </label>
                                     </div>
-                                    <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                                    <input type="text" class="form-control mt-3" id="input_teks_alergi" style="display: none;" placeholder="Masukkan alergi seperti apa">
+                                    <input type="text" class="form-control mt-2 mb-2 col-md-8" id="rencana_kontrol1" name="rencana_kontrol1" placeholder="Sudah ditetapkan berapa hari.." style="display: none;">
+                                    <input type="text" class="form-control mt-2 mb-2 col-md-8" id="rencana_kontrol2" name="rencana_kontrol2" placeholder="Belum ditetapkan karena.." style="display: none;">
                                 </div>
                             </fieldset>
 
@@ -204,19 +204,17 @@
                                 <legend class="col-form-label col-sm-4 pt-0">Perlu Pelayanan Home Care?</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="pelayanan_home_care" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Tidak ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="pelayanan_home_care" value="Ya" <?php echo set_radio('pelayanan_home_care', 'Ya'); ?>>
                                         <label class="form-check-label" for="gridRadios1">
                                             Ya
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="pelayanan_home_care" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="pelayanan_home_care" value="Tidak" <?php echo set_radio('pelayanan_home_care', 'Tidak'); ?>>
                                         <label class="form-check-label" for="gridRadios2">
                                             Tidak
                                         </label>
                                     </div>
-                                    <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                                    <input type="text" class="form-control mt-3" id="input_teks_alergi" style="display: none;" placeholder="Masukkan alergi seperti apa">
                                 </div>
                             </fieldset>
 
@@ -224,19 +222,17 @@
                                 <legend class="col-form-label col-sm-4 pt-0">Perlu Kontrol ke Poliklinik?</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="kontrol_ke_poliklinik" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Tidak ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="kontrol_ke_poliklinik" value="Ya" <?php echo set_radio('kontrol_ke_poliklinik', 'Ya'); ?>>
                                         <label class="form-check-label" for="gridRadios1">
                                             Ya
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="kontrol_ke_poliklinik" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="kontrol_ke_poliklinik" value="Tidak" <?php echo set_radio('kontrol_ke_poliklinik', 'Tidak'); ?>>
                                         <label class="form-check-label" for="gridRadios2">
                                             Tidak
                                         </label>
                                     </div>
-                                    <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                                    <input type="text" class="form-control mt-3" id="input_teks_alergi" style="display: none;" placeholder="Masukkan alergi seperti apa">
                                 </div>
                             </fieldset>
 
@@ -244,19 +240,17 @@
                                 <legend class="col-form-label col-sm-4 pt-0">Perlu Penggunaan Alat Medis/Bantu ?</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="perlu_penggunaan_alat" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Tidak ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="perlu_penggunaan_alat" value="Ya" <?php echo set_radio('perlu_penggunaan_alat', 'Ya'); ?>>
                                         <label class="form-check-label" for="gridRadios1">
                                             Ya
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="perlu_penggunaan_alat" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="perlu_penggunaan_alat" value="Tidak" <?php echo set_radio('perlu_penggunaan_alat', 'Tidak'); ?>>
                                         <label class="form-check-label" for="gridRadios2">
                                             Tidak
                                         </label>
                                     </div>
-                                    <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                                    <input type="text" class="form-control mt-3" id="input_teks_alergi" style="display: none;" placeholder="Masukkan alergi seperti apa">
                                 </div>
                             </fieldset>
 
@@ -264,19 +258,17 @@
                                 <legend class="col-form-label col-sm-4 pt-0">Telah dilakukan pemesanan alat?</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="telah_memesan_alat" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Tidak ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="telah_memesan_alat" value="Ya" <?php echo set_radio('telah_memesan_alat', 'Ya'); ?>>
                                         <label class="form-check-label" for="gridRadios1">
                                             Ya
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="telah_memesan_alat" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="telah_memesan_alat" value="Tidak" <?php echo set_radio('telah_memesan_alat', 'Tidak'); ?>>
                                         <label class="form-check-label" for="gridRadios2">
                                             Tidak
                                         </label>
                                     </div>
-                                    <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                                    <input type="text" class="form-control mt-3" id="input_teks_alergi" style="display: none;" placeholder="Masukkan alergi seperti apa">
                                 </div>
                             </fieldset>
 
@@ -284,19 +276,17 @@
                                 <legend class="col-form-label col-sm-4 pt-0">Dirujuk ke komunitas tertentu?</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="dirujuk_ke_komunitas" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Tidak ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="dirujuk_ke_komunitas" value="Ya" <?php echo set_radio('dirujuk_ke_komunitas', 'Ya'); ?>>
                                         <label class="form-check-label" for="gridRadios1">
                                             Ya
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="dirujuk_ke_komunitas" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="dirujuk_ke_komunitas" value="Tidak" <?php echo set_radio('dirujuk_ke_komunitas', 'Tidak'); ?>>
                                         <label class="form-check-label" for="gridRadios2">
                                             Tidak
                                         </label>
                                     </div>
-                                    <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                                    <input type="text" class="form-control mt-3" id="input_teks_alergi" style="display: none;" placeholder="Masukkan alergi seperti apa">
                                 </div>
                             </fieldset>
 
@@ -304,19 +294,17 @@
                                 <legend class="col-form-label col-sm-4 pt-0">Dirujuk ke tim terapis?</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="dirujuk_ke_terapis" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Tidak ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="dirujuk_ke_terapis" value="Ya" <?php echo set_radio('dirujuk_ke_terapis', 'Ya'); ?>>
                                         <label class="form-check-label" for="gridRadios1">
                                             Ya
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="dirujuk_ke_terapis" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="dirujuk_ke_terapis" value="Tidak" <?php echo set_radio('dirujuk_ke_terapis', 'Tidak'); ?>>
                                         <label class="form-check-label" for="gridRadios2">
                                             Tidak
                                         </label>
                                     </div>
-                                    <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                                    <input type="text" class="form-control mt-3" id="input_teks_alergi" style="display: none;" placeholder="Masukkan alergi seperti apa">
                                 </div>
                             </fieldset>
 
@@ -324,19 +312,17 @@
                                 <legend class="col-form-label col-sm-4 pt-0">Dirujuk ke ahli gizi?</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="dirujuk_ke_ahli_gizi" value="Tidak ada alergi" onclick="toggleInputField('Tidak tampil', 'input_teks_alergi', 'Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Tidak ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="dirujuk_ke_ahli_gizi" value="Ya" <?php echo set_radio('dirujuk_ke_ahli_gizi', 'Ya'); ?>>
                                         <label class="form-check-label" for="gridRadios1">
                                             Ya
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="dirujuk_ke_ahli_gizi" value="Ada alergi" onclick="toggleInputField('Tampil', 'input_teks_alergi','Tidak ada alergi', 'Ada alergi')" <?php echo set_radio('alergi', 'Ada alergi'); ?>>
+                                        <input class="form-check-input" type="radio" name="dirujuk_ke_ahli_gizi" value="Tidak" <?php echo set_radio('dirujuk_ke_ahli_gizi', 'Tidak'); ?>>
                                         <label class="form-check-label" for="gridRadios2">
                                             Tidak
                                         </label>
                                     </div>
-                                    <?= form_error('alergi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
-                                    <input type="text" class="form-control mt-3" id="input_teks_alergi" style="display: none;" placeholder="Masukkan alergi seperti apa">
                                 </div>
                             </fieldset>
 
@@ -887,6 +873,31 @@
     handleLainnya2("keadaan_pasien_pulang", "keadaan_pasien_pulang_dirawat", "Dirawat");
     handleLainnya2("keadaan_pasien_pulang", "keadaan_pasien_pulang_meninggal", "Meninggal");
     handleLainnya2("keadaan_pasien_pulang", "keadaan_pasien_pulang_dirujuk", "Dirujuk");
+</script>
+<script>
+    // Mengatur input teks untuk disembunyikan awalnya
+    var rencanaKontrol1 = document.getElementById("rencana_kontrol1");
+    var rencanaKontrol2 = document.getElementById("rencana_kontrol2");
+    rencanaKontrol1.style.display = "none";
+    rencanaKontrol2.style.display = "none";
+
+    // Menambahkan event listener untuk radio "Sudah Ditetapkan"
+    var sudahDitetapkanRadio = document.getElementById("sudahDitetapkanRadio");
+    sudahDitetapkanRadio.addEventListener("change", function() {
+        if (sudahDitetapkanRadio.checked) {
+            rencanaKontrol1.style.display = "block";
+            rencanaKontrol2.style.display = "none";
+        }
+    });
+
+    // Menambahkan event listener untuk radio "Belum Ditetapkan"
+    var belumDitetapkanRadio = document.getElementById("belumDitetapkanRadio");
+    belumDitetapkanRadio.addEventListener("change", function() {
+        if (belumDitetapkanRadio.checked) {
+            rencanaKontrol1.style.display = "none";
+            rencanaKontrol2.style.display = "block";
+        }
+    });
 </script>
 <script>
     function toggleInputField(selectedOption, id_input, value1, value2) {

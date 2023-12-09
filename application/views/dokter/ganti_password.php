@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-body mt-4">
                         <!-- General Form Elements -->
-                        <form role="form" action="<?= base_url() ?>perawat/proses_ganti_password" method="post">
+                        <form role="form" action="<?= base_url() ?>dokter/proses_ganti_password" method="post">
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Paswword sekarang</label>
                                 <div class="col-sm-10">
@@ -37,7 +37,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
-                                    <a class="btn btn-primary" href="<?= base_url() ?>perawat/profil">Kembali</a>
+                                    <a class="btn btn-primary" href="<?= base_url() ?>dokter/profil">Kembali</a>
                                     <button type="submit" class="btn btn-primary">Ubah password</button>
                                 </div>
                             </div>
