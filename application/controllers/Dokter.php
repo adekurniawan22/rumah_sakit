@@ -34,7 +34,7 @@ class Dokter extends CI_Controller
         $this->db->join('t_pemeriksaan1', 't_pendaftaran.id_pendaftaran = t_pemeriksaan1.id_pendaftaran');
         $this->db->where('id_poliklinik', $data['pegawai']->id_poliklinik);
         $this->db->where('status_pemeriksaan1', "1");
-        $this->db->where('status_pemeriksaan2', "0");
+        // $this->db->where('status_pemeriksaan2', "0");
         $this->db->where('status_pembayaran', "1");
         $this->db->limit(1);
         $data['antrian'] = $this->db->get()->result();
@@ -49,6 +49,7 @@ class Dokter extends CI_Controller
     public function tambah_pemeriksaan()
     {
         $data['nomor_antri'] = $this->input->post('nomor_antri');
+        $data['id_poliklinik'] = $this->input->post('id_poliklinik');
         $data['id_pendaftaran'] = $this->input->post('id_pendaftaran');
         $data['id_pasien'] = $this->input->post('id_pasien');
 
@@ -84,8 +85,18 @@ class Dokter extends CI_Controller
         $this->form_validation->set_rules('planning', 'Planning', 'required|trim');
         $this->form_validation->set_rules('tindakan', 'Tindakan', 'required|trim');
         $this->form_validation->set_rules('edukasi', 'Edukasi', 'required|trim');
+        $this->form_validation->set_rules('rencana_kontrol', 'Rencana Kontrol', 'required|trim');
+        $this->form_validation->set_rules('pelayanan_home_care', 'Pelayanan Home Care', 'required|trim');
+        $this->form_validation->set_rules('kontrol_ke_poliklinik', 'Kontrol Ke Poliklinik', 'required|trim');
+        $this->form_validation->set_rules('perlu_penggunaan_alat', 'Perlu Penggunaan Alat', 'required|trim');
+        $this->form_validation->set_rules('telah_memesan_alat', 'Telah Memesan Alat', 'required|trim');
+        $this->form_validation->set_rules('dirujuk_ke_komunitas', 'Dirujuk Ke Komunitas', 'required|trim');
+        $this->form_validation->set_rules('dirujuk_ke_terapis', 'Dirujuk Ke Terapis', 'required|trim');
+        $this->form_validation->set_rules('dirujuk_ke_ahli_gizi', 'Dirujuk Ke Ahli Gizi', 'required|trim');
+        $this->form_validation->set_rules('perlu_pemeriksaan_lanjut', 'Perlu Pemeriksaan Lanjut', 'required|trim');
 
         $data['nomor_antri'] = $this->input->post('nomor_antri');
+        $data['id_poliklinik'] = $this->input->post('id_poliklinik');
         $data['id_pendaftaran'] = $this->input->post('id_pendaftaran');
         $data['id_pasien'] = $this->input->post('id_pasien');
 
@@ -123,6 +134,7 @@ class Dokter extends CI_Controller
             $dirujuk_ke_komunitas = empty($this->input->post('dirujuk_ke_komunitas')) ? "" : $this->input->post('dirujuk_ke_komunitas');
             $dirujuk_ke_terapis = empty($this->input->post('dirujuk_ke_terapis')) ? "" : $this->input->post('dirujuk_ke_terapis');
             $dirujuk_ke_ahli_gizi = empty($this->input->post('dirujuk_ke_ahli_gizi')) ? "" : $this->input->post('dirujuk_ke_ahli_gizi');
+            $perlu_pemeriksaan_lanjut = empty($this->input->post('perlu_pemeriksaan_lanjut')) ? "" : $this->input->post('perlu_pemeriksaan_lanjut');
             $lain_lain = empty($this->input->post('lain_lain')) ? "" : $this->input->post('lain_lain');
 
             date_default_timezone_set('Asia/Jakarta');
@@ -150,11 +162,55 @@ class Dokter extends CI_Controller
                 'dirujuk_ke_komunitas' => $dirujuk_ke_komunitas,
                 'dirujuk_ke_terapis' => $dirujuk_ke_terapis,
                 'dirujuk_ke_ahli_gizi' => $dirujuk_ke_ahli_gizi,
+                'perlu_pemeriksaan_lanjut' => $perlu_pemeriksaan_lanjut,
                 'lain_lain' => $lain_lain,
                 'waktu_pemeriksaan2' => date('Y-m-d H:i:s')
             ];
 
             $this->db->insert('t_pemeriksaan2', $data_pemeriksaan2);
+
+            if ($this->input->post('perlu_pemeriksaan_lanjut') == 'Ya') {
+                $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
+                $cekBPJS = $this->db->get('t_pendaftaran')->result();
+
+                if ($cekBPJS[0]->jenis_pembayaran == 'BPJS') {
+
+                    $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
+                    $this->db->update('t_pendaftaran', array(
+                        'status_pemeriksaan_lanjut' => '1'
+                    ));
+
+                    date_default_timezone_set('Asia/Jakarta');
+                    $data_pembayaran  = [
+                        'id_pendaftaran' => $this->input->post('id_pendaftaran'),
+                        'id_biaya' => '2',
+                        'id_pegawai' => $this->session->userdata('id_pegawai'),
+                        'nomor_antri' => '0',
+                        'waktu_pembayaran' => date('Y-m-d H:i:s')
+                    ];
+
+                    $this->db->insert('t_pembayaran', $data_pembayaran);
+                    $id_pembayaran = $this->db->insert_id();
+
+                    $this->db->select_max('nomor_antri');
+                    $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
+                    $nomor_antri = $this->db->get('t_antrian')->row()->nomor_antri + 1;
+
+                    $this->db->where('id_pembayaran', $id_pembayaran);
+                    $this->db->update('t_pembayaran', array('nomor_antri' => $nomor_antri));
+
+                    $data_nomor_antri = [
+                        'id_pendaftaran' => $this->input->post('id_pendaftaran'),
+                        'id_poliklinik' => $this->input->post('id_poliklinik'),
+                        'nomor_antri' => $nomor_antri
+                    ];
+
+                    $this->db->insert('t_antrian', $data_nomor_antri);
+                } else {
+                    $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
+                    $this->db->update('t_pendaftaran', array('perlu_pemeriksaan_lanjut' => '1'));
+                }
+            }
 
             $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
             $this->db->update('t_pendaftaran', array('status_pemeriksaan2' => '1'));
@@ -177,15 +233,16 @@ class Dokter extends CI_Controller
         $this->db->where('t_pegawai.id_pegawai', $id_pegawai);
         $data['pegawai'] = $this->db->get()->row();
 
-        $this->db->select('t_pendaftaran.*, t_pasien.*, t_pemeriksaan2.*');
+        $this->db->select('t_pendaftaran.*, t_pasien.*, t_pemeriksaan2.*,t_poliklinik.*');
         $this->db->from('t_pendaftaran');
         $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien');
         $this->db->join('t_pemeriksaan2', 't_pendaftaran.id_pendaftaran = t_pemeriksaan2.id_pendaftaran');
-        $this->db->where('id_poliklinik', $data['pegawai']->id_poliklinik);
+        $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik');
+        $this->db->where('t_pendaftaran.id_poliklinik', $data['pegawai']->id_poliklinik);
         $this->db->where('status_pemeriksaan1', "1");
         $this->db->where('status_pemeriksaan2', "1");
         $this->db->where('status_pembayaran', "1");
-        $data['pemeriksaan1'] = $this->db->get()->result();
+        $data['pemeriksaan2'] = $this->db->get()->result();
 
         $data['title'] = "Data Pemeriksaan 2";
         $this->load->view('templates/main/header', $data);
@@ -196,8 +253,10 @@ class Dokter extends CI_Controller
 
     public function edit_pemeriksaan()
     {
-        $this->db->where('id_pemeriksaan2', $this->input->post('id_pemeriksaan2'));
-        $data['e_pemeriksaan'] = $this->db->get('t_pemeriksaan2')->result();
+        $this->db->select('t_pemeriksaan2.*, t_pendaftaran.id_poliklinik');
+        $this->db->from('t_pemeriksaan2');
+        $this->db->join('t_pendaftaran', 't_pemeriksaan2.id_pendaftaran = t_pendaftaran.id_pendaftaran');
+        $data['e_pemeriksaan'] = $this->db->get()->result();
 
         $data['title'] = "Data Pemeriksaan 2";
         $this->load->view('templates/main/header', $data);
@@ -220,10 +279,21 @@ class Dokter extends CI_Controller
         $this->form_validation->set_rules('planning', 'Planning', 'required|trim');
         $this->form_validation->set_rules('tindakan', 'Tindakan', 'required|trim');
         $this->form_validation->set_rules('edukasi', 'Edukasi', 'required|trim');
+        // $this->form_validation->set_rules('rencana_kontrol', 'Rencana Kontrol', 'required|trim');
+        $this->form_validation->set_rules('pelayanan_home_care', 'Pelayanan Home Care', 'required|trim');
+        $this->form_validation->set_rules('kontrol_ke_poliklinik', 'Kontrol Ke Poliklinik', 'required|trim');
+        $this->form_validation->set_rules('perlu_penggunaan_alat', 'Perlu Penggunaan Alat', 'required|trim');
+        $this->form_validation->set_rules('telah_memesan_alat', 'Telah Memesan Alat', 'required|trim');
+        $this->form_validation->set_rules('dirujuk_ke_komunitas', 'Dirujuk Ke Komunitas', 'required|trim');
+        $this->form_validation->set_rules('dirujuk_ke_terapis', 'Dirujuk Ke Terapis', 'required|trim');
+        $this->form_validation->set_rules('dirujuk_ke_ahli_gizi', 'Dirujuk Ke Ahli Gizi', 'required|trim');
+        $this->form_validation->set_rules('perlu_pemeriksaan_lanjut', 'Perlu Pemeriksaan Lanjut', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->db->where('id_pemeriksaan2', $this->input->post('id_pemeriksaan2'));
-            $data['e_pemeriksaan'] = $this->db->get('t_pemeriksaan2')->result();
+            $this->db->select('t_pemeriksaan2.*, t_pendaftaran.id_poliklinik');
+            $this->db->from('t_pemeriksaan2');
+            $this->db->join('t_pendaftaran', 't_pemeriksaan2.id_pendaftaran = t_pendaftaran.id_pendaftaran');
+            $data['e_pemeriksaan'] = $this->db->get()->result();
 
             $data['title'] = "Data Pemeriksaan 2";
             $this->load->view('templates/main/header', $data);
@@ -250,6 +320,7 @@ class Dokter extends CI_Controller
             $dirujuk_ke_komunitas = empty($this->input->post('dirujuk_ke_komunitas')) ? "" : $this->input->post('dirujuk_ke_komunitas');
             $dirujuk_ke_terapis = empty($this->input->post('dirujuk_ke_terapis')) ? "" : $this->input->post('dirujuk_ke_terapis');
             $dirujuk_ke_ahli_gizi = empty($this->input->post('dirujuk_ke_ahli_gizi')) ? "" : $this->input->post('dirujuk_ke_ahli_gizi');
+            $perlu_pemeriksaan_lanjut = empty($this->input->post('perlu_pemeriksaan_lanjut')) ? "" : $this->input->post('perlu_pemeriksaan_lanjut');
             $lain_lain = empty($this->input->post('lain_lain')) ? "" : $this->input->post('lain_lain');
 
             date_default_timezone_set('Asia/Jakarta');
@@ -274,11 +345,59 @@ class Dokter extends CI_Controller
                 'dirujuk_ke_komunitas' => $dirujuk_ke_komunitas,
                 'dirujuk_ke_terapis' => $dirujuk_ke_terapis,
                 'dirujuk_ke_ahli_gizi' => $dirujuk_ke_ahli_gizi,
-                'lain_lain' => $lain_lain
+                'lain_lain' => $lain_lain,
+                'perlu_pemeriksaan_lanjut' => $perlu_pemeriksaan_lanjut
             ];
 
             $this->db->where('id_pemeriksaan2', $this->input->post('id_pemeriksaan2'));
             $this->db->update('t_pemeriksaan2', $data_edit_pemeriksaan2);
+
+            if ($perlu_pemeriksaan_lanjut == 'Tidak') {
+                $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
+                $this->db->where('id_biaya', '2');
+                $this->db->delete('t_pembayaran');
+            }
+
+            if ($perlu_pemeriksaan_lanjut == 'Ya') {
+                $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
+                $cekBPJS = $this->db->get('t_pendaftaran')->result();
+
+                if ($cekBPJS[0]->jenis_pembayaran == 'BPJS') {
+
+                    $this->db->where('id_pendaftaran', $this->input->post('id_pendaftaran'));
+                    $this->db->update('t_pendaftaran', array(
+                        'status_pemeriksaan_lanjut' => '1'
+                    ));
+
+                    date_default_timezone_set('Asia/Jakarta');
+                    $data_pembayaran  = [
+                        'id_pendaftaran' => $this->input->post('id_pendaftaran'),
+                        'id_biaya' => '2',
+                        'id_pegawai' => $this->session->userdata('id_pegawai'),
+                        'nomor_antri' => '0',
+                        'waktu_pembayaran' => date('Y-m-d H:i:s')
+                    ];
+
+                    $this->db->insert('t_pembayaran', $data_pembayaran);
+                    $id_pembayaran = $this->db->insert_id();
+
+                    $this->db->select_max('nomor_antri');
+                    $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
+                    $nomor_antri = $this->db->get('t_antrian')->row()->nomor_antri + 1;
+
+                    $this->db->where('id_pembayaran', $id_pembayaran);
+                    $this->db->update('t_pembayaran', array('nomor_antri' => $nomor_antri));
+
+                    $data_nomor_antri = [
+                        'id_pendaftaran' => $this->input->post('id_pendaftaran'),
+                        'id_poliklinik' => $this->input->post('id_poliklinik'),
+                        'nomor_antri' => $nomor_antri
+                    ];
+
+                    $this->db->insert('t_antrian', $data_nomor_antri);
+                }
+            }
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                                 <div>
                                     Data Pemeriksaan pasien berhasil dirubah!
@@ -287,6 +406,17 @@ class Dokter extends CI_Controller
                             </div>');
             redirect('dokter/pemeriksaan');
         }
+    }
+
+    public function cetak_surat_pemeriksaan_lanjut()
+    {
+        $data['nama_lengkap_pasien'] = $this->input->post('nama_lengkap_pasien');
+        $data['nama_poliklinik'] = $this->input->post('nama_poliklinik');
+
+        $this->db->where('nama_biaya', "Pemeriksaan Lanjut");
+        $data['nota'] = $this->db->get('t_biaya')->result();
+
+        $this->load->view('dokter/cetak_nota', $data);
     }
 
     public function profil()

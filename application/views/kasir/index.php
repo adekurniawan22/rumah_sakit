@@ -30,7 +30,11 @@
                                             <td><?= $data->id_pendaftaran ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
                                             <td><?= $data->nomor_rekam_medis ?></td>
-                                            <td>Pemeriksaan</td>
+                                            <?php if ($data->perlu_pemeriksaan_lanjut == '1') { ?>
+                                                <td>Pemeriksaan Lanjut</td>
+                                            <?php } else { ?>
+                                                <td>Pemeriksaan</td>
+                                            <?php } ?>
                                             <td class="text-center">
                                                 <div class="d-inline-block me-1 mb-1">
                                                     <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahPembayaran<?= $data->id_pendaftaran ?>">
@@ -63,8 +67,12 @@
                 </div>
                 <div class="modal-body">
                     <form class="mt-2" action="<?= base_url() ?>kasir/proses_tambah_pembayaran" method="post">
+                        <input type="hidden" name="id_pasien" value="<?= $dataModal->id_pasien ?>">
                         <input type="hidden" name="id_poliklinik" value="<?= $dataModal->id_poliklinik ?>">
                         <input type="hidden" name="id_pendaftaran" value="<?= $dataModal->id_pendaftaran ?>">
+                        <?php if ($data->perlu_pemeriksaan_lanjut == '1') { ?>
+                            <input type="hidden" name="perlu_pemeriksaan_lanjut" value="<?= $dataModal->perlu_pemeriksaan_lanjut ?>">
+                        <?php } ?>
                         <div class="row mb-3">
                             <label class="col-sm-3 col-form-label">Jenis Biaya</label>
                             <div class="col-sm-9">

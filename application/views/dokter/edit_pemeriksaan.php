@@ -14,6 +14,8 @@
                                 <label for="keluhan_umum" class="col-sm-2 col-form-label">Keluhan Umum</label>
                                 <div class="col-sm-10">
                                     <input type="hidden" name="id_pemeriksaan2" value="<?php echo set_value('keluhan_umum', $e_pemeriksaan[0]->id_pemeriksaan2); ?>">
+                                    <input type="hidden" name="id_pendaftaran" value="<?php echo set_value('keluhan_umum', $e_pemeriksaan[0]->id_pendaftaran); ?>">
+                                    <input type="hidden" name="id_poliklinik" value="<?php echo set_value('keluhan_umum', $e_pemeriksaan[0]->id_poliklinik); ?>">
                                     <input type="text" class="form-control" name="keluhan_umum" value="<?php echo set_value('keluhan_umum', $e_pemeriksaan[0]->keluhan_umum); ?>">
                                     <?= form_error('keluhan_umum', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
@@ -173,6 +175,7 @@
 
                                     <input type="text" class="form-control mt-2 mb-2 " id="rencana_kontrol1" name="rencana_kontrol1" placeholder="Sudah ditetapkan berapa hari.." style="display: none;">
                                     <input type="text" class="form-control mt-2 mb-2 " id="rencana_kontrol2" name="rencana_kontrol2" placeholder="Belum ditetapkan karena.." style="display: none;">
+
                                 </div>
                             </fieldset>
 
@@ -191,6 +194,7 @@
                                             Tidak
                                         </label>
                                     </div>
+                                    <?= form_error('pelayanan_home_care', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </fieldset>
 
@@ -209,6 +213,7 @@
                                             Tidak
                                         </label>
                                     </div>
+                                    <?= form_error('kontrol_ke_poliklinik', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </fieldset>
 
@@ -227,6 +232,7 @@
                                             Tidak
                                         </label>
                                     </div>
+                                    <?= form_error('perlu_penggunaan_alat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </fieldset>
 
@@ -245,6 +251,7 @@
                                             Tidak
                                         </label>
                                     </div>
+                                    <?= form_error('telah_memesan_alat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </fieldset>
 
@@ -263,6 +270,7 @@
                                             Tidak
                                         </label>
                                     </div>
+                                    <?= form_error('dirujuk_ke_komunitas', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </fieldset>
 
@@ -281,6 +289,7 @@
                                             Tidak
                                         </label>
                                     </div>
+                                    <?= form_error('dirujuk_ke_terapis', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </fieldset>
 
@@ -299,6 +308,7 @@
                                             Tidak
                                         </label>
                                     </div>
+                                    <?= form_error('dirujuk_ke_ahli_gizi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </fieldset>
 
@@ -309,6 +319,25 @@
                                     <?= form_error('lain_lain', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </div>
+
+                            <fieldset class="row mb-3">
+                                <legend class="col-form-label col-sm-4 pt-0">Apakah Perlu Melakukan Pemeriksaan Lanjut?</legend>
+                                <div class="col-sm-8">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="perlu_pemeriksaan_lanjut" value="Ya" <?php echo ($e_pemeriksaan[0]->perlu_pemeriksaan_lanjut == 'Ya') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="gridRadios1">
+                                            Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="perlu_pemeriksaan_lanjut" value="Tidak" <?php echo ($e_pemeriksaan[0]->perlu_pemeriksaan_lanjut == 'Tidak') ? 'checked' : ''; ?>>
+                                        <label class="form-check-label" for="gridRadios2">
+                                            Tidak
+                                        </label>
+                                    </div>
+                                    <?= form_error('perlu_pemeriksaan_lanjut', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                                </div>
+                            </fieldset>
 
                             <div class="row mb-3">
                                 <label class="col-sm-4 col-form-label"></label>

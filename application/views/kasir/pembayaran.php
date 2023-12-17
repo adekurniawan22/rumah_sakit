@@ -16,19 +16,20 @@
                             <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
-                                        <th>ID Pendaftaran</th>
+                                        <th>ID Pembayaran</th>
                                         <th>Nama Pasien</th>
                                         <th>Nomor Rekam Medis</th>
                                         <th>Biaya</th>
                                         <th>Keterangan Pembayaran</th>
                                         <th class="text-center" data-sortable="false">Aksi</th>
                                         <th class="text-center" data-sortable="false">Cetak Antri</th>
+                                        <th class="text-center" data-sortable="false">Cetak Surat Pemeriksaan Lanjut</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($pembayaran as $data) : ?>
                                         <tr>
-                                            <td><?= $data->id_pendaftaran ?></td>
+                                            <td><?= $data->id_pembayaran ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td>Rp. <?= number_format($data->harga_biaya, 0) ?></td>
@@ -51,6 +52,22 @@
                                                         </form>
                                                     <?php } else { ?>
                                                         <span class="p-2 ">Belum Ada</span>
+                                                    <?php } ?>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="class=" d-inline-block me-1 mb-1"">
+                                                    <?php if ($data->status_pemeriksaan_lanjut == '1' and $data->id_biaya == '2') { ?>
+                                                        <form action="<?= base_url('kasir/cetak_surat_pemeriksaan_lanjut') ?>" target="_blank" method="post">
+                                                            <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
+                                                            <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
+                                                            <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
+                                                            <button type="submit" class="btn btn-primary ">
+                                                                <i class="bi bi-printer-fill"></i>
+                                                            </button>
+                                                        </form>
+                                                    <?php } else { ?>
+                                                        <span class="p-2 ">Tidak ada</span>
                                                     <?php } ?>
                                                 </div>
                                             </td>

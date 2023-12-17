@@ -22,10 +22,11 @@
                                         <th>Waktu Pemeriksaan</th>
                                         <th class="text-center" data-sortable="false">Informasi Pemeriksaan</th>
                                         <th class="text-center" data-sortable="false">Aksi</th>
+                                        <th class="text-center" data-sortable="false">Cetak Surat Pemeriksaan Lanjut</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($pemeriksaan1 as $data) : ?>
+                                    <?php foreach ($pemeriksaan2 as $data) : ?>
                                         <tr>
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
@@ -42,6 +43,22 @@
                                                         Edit <i class="bi bi-pencil-square"></i>
                                                 </form>
                                             </td>
+                                            <td class="text-center">
+                                                <div class="class=" d-inline-block me-1 mb-1"">
+                                                    <?php if ($data->status_pemeriksaan_lanjut == '1') { ?>
+                                                        <form action="<?= base_url('dokter/cetak_surat_pemeriksaan_lanjut') ?>" target="_blank" method="post">
+                                                            <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
+                                                            <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
+                                                            <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
+                                                            <button type="submit" class="btn btn-primary ">
+                                                                <i class="bi bi-printer-fill"></i>
+                                                            </button>
+                                                        </form>
+                                                    <?php } else { ?>
+                                                        <span class="p-2 ">Tidak ada</span>
+                                                    <?php } ?>
+                                                </div>
+                                            </td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -56,7 +73,7 @@
     </section>
 </main><!-- End #main -->
 
-<?php foreach ($pemeriksaan1 as $dataModal) : ?>
+<?php foreach ($pemeriksaan2 as $dataModal) : ?>
     <!-- Modal Pasien -->
     <div class="modal fade" id="modalPemeriksaan2<?= $dataModal->id_pemeriksaan2 ?>" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">

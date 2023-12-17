@@ -268,14 +268,24 @@ class Admin extends CI_Controller
 
     public function hapus_biaya()
     {
-        $this->db->where('id_biaya', $this->input->post('id_biaya'));
-        $this->db->delete('t_biaya');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+        if ($this->input->post('id_biaya') != 1 && $this->input->post('id_biaya') != 2) {
+            $this->db->where('id_biaya', $this->input->post('id_biaya'));
+            $this->db->delete('t_biaya');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
                                 Data Biaya berhasil dihapus!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" style="display: inline-block;">
+                            <div>
+                                Data Biaya ini dilarang dihapus!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        }
+
         redirect('admin/biaya');
     }
 

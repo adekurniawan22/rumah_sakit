@@ -155,7 +155,9 @@ class Pendaftaran extends CI_Controller
                 $data_pembayaran  = [
                     'id_pendaftaran' => $id_pendaftaran,
                     'id_biaya' => '1',
+                    'id_pegawai' => $this->session->userdata('id_pegawai'),
                     'nomor_antri' => '0',
+                    'waktu_pembayaran' => date('Y-m-d H:i:s')
                 ];
                 $this->db->insert('t_pembayaran', $data_pembayaran);
 
@@ -267,8 +269,11 @@ class Pendaftaran extends CI_Controller
                 $data_pembayaran  = [
                     'id_pendaftaran' => $id_pendaftaran,
                     'id_biaya' => '1',
+                    'id_pegawai' => $this->session->userdata('id_pegawai'),
                     'nomor_antri' => '0',
+                    'waktu_pembayaran' => date('Y-m-d H:i:s')
                 ];
+
                 $this->db->insert('t_pembayaran', $data_pembayaran);
 
                 $this->db->select_max('nomor_antri');
@@ -444,8 +449,11 @@ class Pendaftaran extends CI_Controller
                 $data_pembayaran  = [
                     'id_pendaftaran' => $id_pendaftaran,
                     'id_biaya' => '1',
+                    'id_pegawai' => $this->session->userdata('id_pegawai'),
                     'nomor_antri' => '0',
+                    'waktu_pembayaran' => date('Y-m-d H:i:s')
                 ];
+
                 $this->db->insert('t_pembayaran', $data_pembayaran);
                 $this->db->select_max('nomor_antri');
                 $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));

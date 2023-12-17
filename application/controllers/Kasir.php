@@ -15,8 +15,9 @@ class Kasir extends CI_Controller
         $this->db->from('t_pendaftaran');
         $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien', 'left');
         $this->db->where('status_pembayaran', "0");
+        $this->db->or_where('perlu_pemeriksaan_lanjut', "1");
         $this->db->order_by('id_pendaftaran', 'ASC'); // Urutkan berdasarkan id_pendaftaran terkecil
-        $this->db->limit(3);
+        $this->db->limit(5);
         $query = $this->db->get()->result();
         $data['a_pembayaran'] = $query;
 
@@ -31,36 +32,74 @@ class Kasir extends CI_Controller
 
     public function proses_tambah_pembayaran()
     {
-
         $id_poliklinik = $this->input->post('id_poliklinik');
         $id_pendaftaran = $this->input->post('id_pendaftaran');
         $id_biaya = $this->input->post('id_biaya');
 
-        $this->db->where('id_pendaftaran', $id_pendaftaran);
-        $this->db->update('t_pendaftaran', array('status_pembayaran' => '1'));
+        if ($this->input->post('perlu_pemeriksaan_lanjut') == '1') {
 
-        $data_pembayaran  = [
-            'id_pendaftaran' => $id_pendaftaran,
-            'id_biaya' => $id_biaya,
-            'nomor_antri' => '0',
-        ];
+            $this->db->where('id_pendaftaran', $id_pendaftaran);
+            $this->db->update('t_pendaftaran', array(
+                'status_pemeriksaan_lanjut' => '1',
+                'perlu_pemeriksaan_lanjut' => '0'
+            ));
 
-        $this->db->insert('t_pembayaran', $data_pembayaran);
+            date_default_timezone_set('Asia/Jakarta');
+            $data_pembayaran  = [
+                'id_pendaftaran' => $id_pendaftaran,
+                'id_biaya' => $id_biaya,
+                'id_pegawai' => $this->session->userdata('id_pegawai'),
+                'nomor_antri' => '0',
+                'waktu_pembayaran' => date('Y-m-d H:i:s')
+            ];
 
-        $this->db->select_max('nomor_antri');
-        $this->db->where('id_poliklinik', $id_poliklinik);
-        $nomor_antri = $this->db->get('t_antrian')->row()->nomor_antri + 1;
+            $this->db->insert('t_pembayaran', $data_pembayaran);
+            $id_pembayaran = $this->db->insert_id();
 
-        $this->db->where('id_pendaftaran', $id_pendaftaran);
-        $this->db->update('t_pembayaran', array('nomor_antri' => $nomor_antri));
+            $this->db->select_max('nomor_antri');
+            $this->db->where('id_poliklinik', $id_poliklinik);
+            $nomor_antri = $this->db->get('t_antrian')->row()->nomor_antri + 1;
 
-        $data_nomor_antri = [
-            'id_pendaftaran' => $id_pendaftaran,
-            'id_poliklinik' => $id_poliklinik,
-            'nomor_antri' => $nomor_antri
-        ];
+            $this->db->where('id_pembayaran', $id_pembayaran);
+            $this->db->update('t_pembayaran', array('nomor_antri' => $nomor_antri));
 
-        $this->db->insert('t_antrian', $data_nomor_antri);
+            $data_nomor_antri = [
+                'id_pendaftaran' => $id_pendaftaran,
+                'id_poliklinik' => $id_poliklinik,
+                'nomor_antri' => $nomor_antri
+            ];
+
+            $this->db->insert('t_antrian', $data_nomor_antri);
+        } else {
+            $this->db->where('id_pendaftaran', $id_pendaftaran);
+            $this->db->update('t_pendaftaran', array('status_pembayaran' => '1'));
+
+            $data_pembayaran  = [
+                'id_pendaftaran' => $id_pendaftaran,
+                'id_biaya' => $id_biaya,
+                'id_pegawai' => $this->session->userdata('id_pegawai'),
+                'nomor_antri' => '0',
+                'waktu_pembayaran' => date('Y-m-d H:i:s')
+            ];
+
+            $this->db->insert('t_pembayaran', $data_pembayaran);
+            $id_pembayaran = $this->db->insert_id();
+
+            $this->db->select_max('nomor_antri');
+            $this->db->where('id_poliklinik', $id_poliklinik);
+            $nomor_antri = $this->db->get('t_antrian')->row()->nomor_antri + 1;
+
+            $this->db->where('id_pembayaran', $id_pembayaran);
+            $this->db->update('t_pembayaran', array('nomor_antri' => $nomor_antri));
+
+            $data_nomor_antri = [
+                'id_pendaftaran' => $id_pendaftaran,
+                'id_poliklinik' => $id_poliklinik,
+                'nomor_antri' => $nomor_antri
+            ];
+
+            $this->db->insert('t_antrian', $data_nomor_antri);
+        }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
             <div>
                 Pembayaran berhasil!
@@ -72,7 +111,7 @@ class Kasir extends CI_Controller
 
     public function pembayaran()
     {
-        $this->db->select('t_pendaftaran.*, t_pasien.*, t_poliklinik.*, t_pembayaran.nomor_antri, t_pembayaran.id_pembayaran, t_biaya.*');
+        $this->db->select('t_pendaftaran.*, t_pasien.*, t_poliklinik.*, t_pembayaran.nomor_antri, t_pembayaran.*, t_biaya.*');
         $this->db->from('t_pendaftaran');
         $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien', 'left');
         $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
@@ -106,6 +145,17 @@ class Kasir extends CI_Controller
             </div>
         </div>');
         redirect('kasir/pembayaran');
+    }
+
+    public function cetak_surat_pemeriksaan_lanjut()
+    {
+        $data['nama_lengkap_pasien'] = $this->input->post('nama_lengkap_pasien');
+        $data['nama_poliklinik'] = $this->input->post('nama_poliklinik');
+
+        $this->db->where('nama_biaya', "Pemeriksaan Lanjut");
+        $data['nota'] = $this->db->get('t_biaya')->result();
+
+        $this->load->view('kasir/cetak_nota', $data);
     }
 
     public function profil()

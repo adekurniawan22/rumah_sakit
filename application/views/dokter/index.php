@@ -50,6 +50,7 @@
                                                     <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran  ?>">
                                                     <input type="hidden" name="id_pasien" value="<?= $data->id_pasien  ?>">
                                                     <input type="hidden" name="id_pemeriksaan1" value="<?= $data->id_pemeriksaan1  ?>">
+                                                    <input type="hidden" name="id_poliklinik" value="<?= $data->id_poliklinik  ?>">
                                                     <button type="submit" class="btn btn-primary" style="width: 100%;">
                                                         Lakukan Pemeriksaan <i class="bi bi-arrow-right-square-fill"></i>
                                                 </form>
