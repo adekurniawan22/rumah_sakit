@@ -190,6 +190,40 @@
         </ul>
         <!-- END SIDEBAR ROLE KASIR -->
     <?php } ?>
+
+    <!-- SIDEBAR ROLE FARMASI -->
+    <?php if ($this->session->userdata('id_role') == 7) { ?>
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Antrian Pengambilan Obat") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>farmasi">
+                    <i class="bi bi-ticket-detailed-fill"></i>
+                    <span>Antrian Pengambilan Obat</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Data Pengambilan Obat") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>farmasi/pengambilan_obat">
+                    <i class="bi bi-receipt"></i>
+                    <span>Data Pengambilan Obat</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>farmasi/profil">
+                    <i class="bi bi-person-fill"></i>
+                    <span>Profil</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#basicModal" href="">
+                    <i class="bi bi-box-arrow-left"></i>
+                    <span>Logout</span>
+                </a>
+            </li><!-- End Login Page Nav -->
+        </ul>
+        <!-- END SIDEBAR ROLE FARMASI -->
+    <?php } ?>
 </aside>
 
 <div class="modal fade" id="basicModal" tabindex="-1">

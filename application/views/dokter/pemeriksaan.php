@@ -22,6 +22,7 @@
                                         <th>Waktu Pemeriksaan</th>
                                         <th class="text-center" data-sortable="false">Informasi Pemeriksaan</th>
                                         <th class="text-center" data-sortable="false">Aksi</th>
+                                        <th class="text-center" data-sortable="false">Cetak Resep Obat</th>
                                         <th class="text-center" data-sortable="false">Cetak Surat Pemeriksaan Lanjut</th>
                                     </tr>
                                 </thead>
@@ -42,6 +43,19 @@
                                                     <button type="submit" class="btn btn-primary" style="width: 100%;">
                                                         Edit <i class="bi bi-pencil-square"></i>
                                                 </form>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="class=" d-inline-block me-1 mb-1"">
+                                                    <form action="<?= base_url('dokter/cetak_resep_obat') ?>" target="_blank" method="post">
+                                                        <input type="hidden" name="id_pemeriksaan2" value="<?= $data->id_pemeriksaan2 ?>">
+                                                        <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
+                                                        <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
+                                                        <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
+                                                        <button type="submit" class="btn btn-primary ">
+                                                            <i class="bi bi-printer-fill"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                             <td class="text-center">
                                                 <div class="class=" d-inline-block me-1 mb-1"">

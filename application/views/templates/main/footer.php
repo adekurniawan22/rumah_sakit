@@ -62,6 +62,57 @@
                 },
             });
         });
+
+        $(document).ready(function() {
+            var table = $('#farmasi').DataTable({
+                paging: false,
+                info: false,
+                language: {
+                    "search": "Cari:",
+                },
+            });
+
+            var selectedRowsData = {}; // Object to store data of selected rows
+            $('#selectAll').on('click', function() {
+                var rows = table.rows({
+                    'search': 'applied'
+                }).nodes();
+                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+                updateSelectedText();
+            });
+
+            // Handle click on checkbox to set "select all" control
+            $('#farmasi tbody').on('change', 'input[type="checkbox"]', function() {
+                var rowName = $(this).val(); // Menggunakan value sebagai nama obat
+                if (this.checked) {
+                    selectedRowsData[rowName] = true;
+                } else {
+                    delete selectedRowsData[rowName];
+                }
+
+                if (!this.checked) {
+                    var el = $('#selectAll').get(0);
+                    if (el && el.checked && ('indeterminate' in el)) {
+                        el.indeterminate = true;
+                    }
+                }
+                updateSelectedText();
+            });
+
+            // Handle search event
+            table.on('search.dt', function() {
+                updateSelectedText();
+            });
+
+            function updateSelectedText() {
+                var selectedText = "<ul>";
+                for (var rowName in selectedRowsData) {
+                    selectedText += "<li>" + rowName + "</li>";
+                }
+                selectedText += "</ul>";
+                $('#selectedText').html(selectedText);
+            }
+        });
     </script>
 
     <!-- Vendor JS Files -->

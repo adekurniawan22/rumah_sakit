@@ -419,6 +419,17 @@ class Dokter extends CI_Controller
         $this->load->view('dokter/cetak_nota', $data);
     }
 
+    public function cetak_resep_obat()
+    {
+        $id_pemeriksaan2 = $this->input->post('id_pemeriksaan2');
+        $data['nama_lengkap_pasien'] = $this->input->post('nama_lengkap_pasien');
+        $data['nama_poliklinik'] = $this->input->post('nama_poliklinik');
+        $this->db->where('id_pemeriksaan2', $id_pemeriksaan2);
+        $data['pemeriksaan2'] = $this->db->get('t_pemeriksaan2')->result();
+
+        $this->load->view('dokter/cetak_resep_obat', $data);
+    }
+
     public function profil()
     {
         $this->db->select('t_pegawai.*, t_role.nama_role');

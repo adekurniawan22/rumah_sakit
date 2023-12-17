@@ -304,7 +304,8 @@ class Admin extends CI_Controller
     {
         $this->db->insert('t_obat', array(
             'nama_obat' => $this->input->post('nama_obat'),
-            'harga_obat' => $this->input->post('harga_obat')
+            'harga_obat' => $this->input->post('harga_obat'),
+            'stok_obat' => $this->input->post('stok_obat'),
         ));
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
@@ -320,7 +321,8 @@ class Admin extends CI_Controller
         $this->db->where('id_obat', $this->input->post('id_obat'));
         $this->db->update('t_obat', array(
             'nama_obat' => $this->input->post('nama_obat'),
-            'harga_obat' => $this->input->post('harga_obat')
+            'harga_obat' => $this->input->post('harga_obat'),
+            'stok_obat' => $this->input->post('stok_obat')
         ));
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>

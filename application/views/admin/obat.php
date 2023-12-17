@@ -22,6 +22,7 @@
                                     <tr>
                                         <th>Nama Obat</th>
                                         <th>Harga Obat</th>
+                                        <th>Stok Obat</th>
                                         <th class="text-center" style="width: 20%;" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
@@ -30,6 +31,7 @@
                                         <tr>
                                             <td><?= $o->nama_obat ?></td>
                                             <td>Rp. <?= number_format($o->harga_obat, 0) ?></td>
+                                            <td><?= $o->stok_obat ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalEditObat<?= $o->id_obat ?>">
                                                     <i class=" bi bi-pencil-square"></i>
@@ -72,6 +74,10 @@
                                 <label class="form-label">Harga Obat</label>
                                 <input type="text" name="harga_obat" class="form-control" required>
                             </div>
+                            <div class="col-12">
+                                <label class="form-label">Stok Obat</label>
+                                <input type="text" name="stok_obat" class="form-control" required>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -105,6 +111,10 @@
                                 <div class="col-12">
                                     <label class="form-label">Harga Obat</label>
                                     <input type="text" name="harga_obat" value="<?= $edit_obat->harga_obat ?>" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Stok Obat</label>
+                                    <input type="text" name="stok_obat" value="<?= $edit_obat->stok_obat ?>" class="form-control" required>
                                 </div>
                         </div>
                     </div>

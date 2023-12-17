@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
     <!-- Favicons -->
-    <link href="<?php echo base_url() ?>assets/bootstrap/assets/img/favicon.png" rel="icon">
-    <link href="<?php echo base_url() ?>assets/bootstrap/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- <link href="<?php echo base_url() ?>assets/bootstrap/assets/img/favicon.png" rel="icon"> -->
+    <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
+    <link href="<?php echo base_url() ?>assets/img/logo.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -66,7 +67,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="<?= base_url('auth/login') ?>" class="logo d-flex align-items-center">
-                <img src="<?php echo base_url() ?>assets/bootstrap/assets/img/logo.png" alt="">
+                <img src="<?php echo base_url() ?>assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">RSUD</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
