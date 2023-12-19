@@ -10,31 +10,33 @@
                 <form role="form" action="<?= base_url() ?>dokter/proses_tambah_pemeriksaan" method="post">
                     <div class="card">
                         <div class="card-body">
-                            <table class="table mt-4">
-                                <thead>
-                                    <tr>
-                                        <th>Tanggal</th>
-                                        <th>Riwayat Pemeriksaan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($lengkap as $row) : ?>
+                            <?php if (!empty($lengkap)) { ?>
+                                <table class="table mt-4">
+                                    <thead>
                                         <tr>
-                                            <td><?= date('d-F-Y', strtotime($row->waktu_pemeriksaan2)); ?></td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalPemeriksaan1<?= $row->id_pemeriksaan1 ?>">
-                                                    Riwayat Pemeriksaan 1
-                                                </button>
-                                                <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalPemeriksaan2<?= $row->id_pemeriksaan2 ?>">
-                                                    Riwayat Pemeriksaan 2
-                                                </button>
-                                            </td>
+                                            <th>Tanggal</th>
+                                            <th>Riwayat Pemeriksaan</th>
                                         </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($lengkap as $row) : ?>
+                                            <tr>
+                                                <td><?= date('d-F-Y', strtotime($row->waktu_pemeriksaan2)); ?></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalPemeriksaan1<?= $row->id_pemeriksaan1 ?>">
+                                                        Riwayat Pemeriksaan 1
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalPemeriksaan2<?= $row->id_pemeriksaan2 ?>">
+                                                        Riwayat Pemeriksaan 2
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                                <hr class="border border-primary border-3 opacity-50 mt-4">
+                            <?php } ?>
 
-                            <hr class="border border-primary border-3 opacity-50 mt-4">
                             <h5 class="card-title">Label Pasien *</h5>
                             <input type="hidden" name="id_pasien" value="<?= $id_pasien ?>">
                             <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
@@ -176,6 +178,14 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="edukasi" value="<?php echo set_value('edukasi'); ?>">
                                     <?= form_error('edukasi', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="resep_obat" class="col-sm-2 col-form-label">Resep Obat</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="resep_obat" style="height: 100px"><?php echo set_value('resep_obat'); ?></textarea>
+                                    <?= form_error('resep_obat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </div>
 
@@ -527,7 +537,7 @@
                             <h5 class="card-title">Status Psikologis</h5>
                             <form class="row g-3">
                                 <div class="col-12">
-                                    <label class="form-label">Tidur Sinag</label>
+                                    <label class="form-label">Tidur Siang</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->tidur_siang ?>" readonly>
                                 </div>
                                 <div class="col-12">
@@ -772,11 +782,11 @@
                                     <input type="text" class="form-control" value="<?= $dataModal->pemeriksaan ?>" readonly>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label">Diganosa Utama</label>
+                                    <label class="form-label">Diagnosa Utama</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->diagnosa_utama ?>" readonly>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label">Diganosa Tambahan</label>
+                                    <label class="form-label">Diagnosa Tambahan</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->diagnosa_tambahan ?>" readonly>
                                 </div>
                                 <div class="col-12">

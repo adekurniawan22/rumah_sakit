@@ -128,11 +128,11 @@
                                     <input type="text" class="form-control" value="<?= $dataModal->pemeriksaan ?>" readonly>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label">Diganosa Utama</label>
+                                    <label class="form-label">Diagnosa Utama</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->diagnosa_utama ?>" readonly>
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label">Diganosa Tambahan</label>
+                                    <label class="form-label">Diagnosa Tambahan</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->diagnosa_tambahan ?>" readonly>
                                 </div>
                                 <div class="col-12">
@@ -146,6 +146,10 @@
                                 <div class="col-12">
                                     <label class="form-label">Edukasi</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->edukasi ?>" readonly>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Resep Obat</label>
+                                    <textarea class="form-control" style="height: 100px" readonly><?= $dataModal->resep_obat ?></textarea>
                                 </div>
                             </form>
                         </div>
@@ -189,6 +193,11 @@
                                 <div class="col-12">
                                     <label class="form-label">Lain-lain</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->lain_lain ?>" readonly>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Perlu Melakukan Pemeriksaan Lanjut</label>
+                                    <input type="text" class="form-control" value="<?= $dataModal->perlu_pemeriksaan_lanjut ?>" readonly>
                                 </div>
                             </form>
                         </div>

@@ -34,7 +34,7 @@ class Dokter extends CI_Controller
         $this->db->join('t_pemeriksaan1', 't_pendaftaran.id_pendaftaran = t_pemeriksaan1.id_pendaftaran');
         $this->db->where('id_poliklinik', $data['pegawai']->id_poliklinik);
         $this->db->where('status_pemeriksaan1', "1");
-        // $this->db->where('status_pemeriksaan2', "0");
+        $this->db->where('status_pemeriksaan2', "0");
         $this->db->where('status_pembayaran', "1");
         $this->db->limit(1);
         $data['antrian'] = $this->db->get()->result();
@@ -85,6 +85,7 @@ class Dokter extends CI_Controller
         $this->form_validation->set_rules('planning', 'Planning', 'required|trim');
         $this->form_validation->set_rules('tindakan', 'Tindakan', 'required|trim');
         $this->form_validation->set_rules('edukasi', 'Edukasi', 'required|trim');
+        $this->form_validation->set_rules('resep_obat', 'Resep Obat', 'required|trim');
         $this->form_validation->set_rules('rencana_kontrol', 'Rencana Kontrol', 'required|trim');
         $this->form_validation->set_rules('pelayanan_home_care', 'Pelayanan Home Care', 'required|trim');
         $this->form_validation->set_rules('kontrol_ke_poliklinik', 'Kontrol Ke Poliklinik', 'required|trim');
@@ -154,6 +155,7 @@ class Dokter extends CI_Controller
                 'planning' => $this->input->post('planning'),
                 'tindakan' => $this->input->post('tindakan'),
                 'edukasi' => $this->input->post('edukasi'),
+                'resep_obat' => $this->input->post('resep_obat'),
                 'rencana_kontrol' => $rencana_kontrol,
                 'pelayanan_home_care' => $pelayanan_home_care,
                 'kontrol_ke_poliklinik' => $kontrol_ke_poliklinik,
@@ -279,6 +281,7 @@ class Dokter extends CI_Controller
         $this->form_validation->set_rules('planning', 'Planning', 'required|trim');
         $this->form_validation->set_rules('tindakan', 'Tindakan', 'required|trim');
         $this->form_validation->set_rules('edukasi', 'Edukasi', 'required|trim');
+        $this->form_validation->set_rules('resep_obat', 'Resep Obat', 'required|trim');
         // $this->form_validation->set_rules('rencana_kontrol', 'Rencana Kontrol', 'required|trim');
         $this->form_validation->set_rules('pelayanan_home_care', 'Pelayanan Home Care', 'required|trim');
         $this->form_validation->set_rules('kontrol_ke_poliklinik', 'Kontrol Ke Poliklinik', 'required|trim');
@@ -337,6 +340,7 @@ class Dokter extends CI_Controller
                 'planning' => $this->input->post('planning'),
                 'tindakan' => $this->input->post('tindakan'),
                 'edukasi' => $this->input->post('edukasi'),
+                'resep_obat' => $this->input->post('resep_obat'),
                 'rencana_kontrol' => $rencana_kontrol,
                 'pelayanan_home_care' => $pelayanan_home_care,
                 'kontrol_ke_poliklinik' => $kontrol_ke_poliklinik,

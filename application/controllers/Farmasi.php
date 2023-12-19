@@ -88,6 +88,7 @@ class Farmasi extends CI_Controller
                 'id_pegawai' => $this->session->userdata('id_pegawai'),
                 'obat_yang_diambil' => $select_obat,
                 'keterangan_pengambilan_obat' => $this->input->post('keterangan_pengambilan_obat'),
+                'catatan' => $this->input->post('catatan'),
                 'waktu_pengambilan_obat' => date('Y-m-d H:i:s'),
             ];
 
@@ -168,7 +169,8 @@ class Farmasi extends CI_Controller
         } else {
             $data_pengambilan_obat = [
                 'obat_yang_diambil' => $select_obat,
-                'keterangan_pengambilan_obat' => $this->input->post('keterangan_pengambilan_obat')
+                'keterangan_pengambilan_obat' => $this->input->post('keterangan_pengambilan_obat'),
+                'catatan' => $this->input->post('catatan')
             ];
 
             $obat_sebelumnya = $data['pengambilan_obat'][0]->obat_yang_diambil;

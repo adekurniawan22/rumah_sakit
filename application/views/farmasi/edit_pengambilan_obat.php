@@ -45,7 +45,15 @@
                             <div class="row mb-3">
                                 <label for="keterangan_pengambilan_obat" class="col-sm-2 col-form-label">Keterangan Pengambilan Obat</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" name="keterangan_pengambilan_obat" style="height: 100px"><?= $pengambilan_obat[0]->keterangan_pengambilan_obat ?></textarea>
+                                    <textarea class="form-control" name="keterangan_pengambilan_obat" style="height: 100px"><?php echo set_value('keterangan_pengambilan_obat', $pengambilan_obat[0]->keterangan_pengambilan_obat); ?></textarea>
+                                    <?= form_error('keterangan_pengambilan_obat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="catatan" class="col-sm-2 col-form-label">Catatan</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="catatan" style="height: 100px"><?php echo set_value('catatan', $pengambilan_obat[0]->catatan); ?></textarea>
+                                    <?= form_error('catatan', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
                                 </div>
                             </div>
 

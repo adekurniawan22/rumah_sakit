@@ -241,7 +241,7 @@
                             <h5 class="card-title">Status Psikologis</h5>
                             <form class="row g-3">
                                 <div class="col-12">
-                                    <label class="form-label">Tidur Sinag</label>
+                                    <label class="form-label">Tidur Siang</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->tidur_siang ?>" readonly>
                                 </div>
                                 <div class="col-12">

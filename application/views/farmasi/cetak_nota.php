@@ -94,15 +94,29 @@
                 </td>
             </tr>
 
+            <?php if ($pengambilan_obat[0]->keterangan_pengambilan_obat) { ?>
+                <tr>
+                    <td>
+                        <span>Keterangan Lainnya</span>
+                    </td>
+                    <td>
+                        <span style="margin-right: 10px;">:</span>
+                    </td>
+                    <td>
+                        <span><?= $pengambilan_obat[0]->keterangan_pengambilan_obat ?></span>
+                    </td>
+                </tr>
+            <?php  } ?>
+
             <tr>
                 <td>
-                    <span>Keterangan Lainnya</span>
+                    <span>Catatan</span>
                 </td>
                 <td>
                     <span style="margin-right: 10px;">:</span>
                 </td>
                 <td>
-                    <span><?= $pengambilan_obat[0]->keterangan_pengambilan_obat ?></span>
+                    <span><?= $pengambilan_obat[0]->catatan ?></span>
                 </td>
             </tr>
         </table>

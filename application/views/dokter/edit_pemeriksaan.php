@@ -109,6 +109,14 @@
                                 </div>
                             </div>
 
+                            <div class="row mb-3">
+                                <label for="resep_obat" class="col-sm-2 col-form-label">Resep Obat</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="resep_obat" style="height: 100px"><?php echo set_value('resep_obat', $e_pemeriksaan[0]->resep_obat); ?></textarea>
+                                    <?= form_error('resep_obat', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?>
+                                </div>
+                            </div>
+
                             <hr class="border border-primary border-3 opacity-50 mt-5">
                             <h5 class="card-title">Rencana Pulang / Discharge Planning *</h5>
 

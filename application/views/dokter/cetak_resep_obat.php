@@ -117,57 +117,13 @@
             </tr>
             <tr>
                 <td>
-                    <span>Diagnosa Utama</span>
+                    <span>Resep Obat</span>
                 </td>
                 <td>
                     <span style="margin-right: 10px;">:</span>
                 </td>
                 <td>
-                    <span><?= $pemeriksaan2[0]->diagnosa_utama ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Diagnosa Tambahan</span>
-                </td>
-                <td>
-                    <span style="margin-right: 10px;">:</span>
-                </td>
-                <td>
-                    <span><?= $pemeriksaan2[0]->diagnosa_tambahan ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Planning</span>
-                </td>
-                <td>
-                    <span style="margin-right: 10px;">:</span>
-                </td>
-                <td>
-                    <span><?= $pemeriksaan2[0]->planning ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Tindakan</span>
-                </td>
-                <td>
-                    <span style="margin-right: 10px;">:</span>
-                </td>
-                <td>
-                    <span><?= $pemeriksaan2[0]->tindakan ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Edukasi</span>
-                </td>
-                <td>
-                    <span style="margin-right: 10px;">:</span>
-                </td>
-                <td>
-                    <span><?= $pemeriksaan2[0]->edukasi ?></span>
+                    <span><?= $pemeriksaan2[0]->resep_obat ?></span>
                 </td>
             </tr>
         </table>
