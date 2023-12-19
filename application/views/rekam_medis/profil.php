@@ -26,8 +26,8 @@
                                 <p>Alamat : <?= $profile[0]->alamat ?></p>
                                 <p>Nomor HP : <?= $profile[0]->nomor_hp ?> </p>
                                 <p>Tanggal akun dibuat : <?= date("d-F-Y", strtotime($profile[0]->tanggal_dibuat));  ?> </p>
-                                <a href="<?= base_url() ?>farmasi/edit_profil" class="btn btn-primary">Edit Data <i class="bi bi-pencil-square"></i></a>
-                                <a href="<?= base_url() ?>farmasi/ganti_password" class="btn btn-primary">Ganti Password <i class="bi bi-key-fill"></i></a>
+                                <a href="<?= base_url() ?>rekam_medis/edit_profil" class="btn btn-primary">Edit Data <i class="bi bi-pencil-square"></i></a>
+                                <a href="<?= base_url() ?>rekam_medis/ganti_password" class="btn btn-primary">Ganti Password <i class="bi bi-key-fill"></i></a>
                             </div>
                         </div>
                     </div><!-- End Bordered Tabs -->

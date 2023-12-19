@@ -18,6 +18,18 @@ class Pendaftaran extends CI_Controller
         }
     }
 
+    public function reset_antrian()
+    {
+        $this->db->empty_table('t_antrian');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                            Reset Antrian berhasil!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('pendaftaran');
+    }
+
     public function index()
     {
         $this->db->select('t_pendaftaran.*, t_poliklinik.nama_poliklinik, t_pasien.*, t_pembayaran.nomor_antri');

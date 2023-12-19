@@ -1,0 +1,40 @@
+{
+    "nunito": {
+        "300_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/nunito_300_italic_5564b019de9ee757b8e74969231a39c6",
+        "italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/nunito_italic_7a5e338072de710d78e80a0b7b676e13",
+        "600_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/nunito_600_italic_70540b8497fcdcad67439a1da170a6cd",
+        "bold_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/nunito_bold_italic_f7385ade290a5e83b60b5666bb14efdd",
+        "300": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/nunito_300_ee9ff98a878d2bcec5ac60166e67ac59",
+        "normal": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/nunito_normal_51264aea5373c13e99081e0e39bbfb0d",
+        "600": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/nunito_600_260a41cb865a0435c462e0b12cc10190",
+        "bold": "nunito_bold_a3fe31648353394ca5aaeaff65373ead"
+    },
+    "open sans": {
+        "300_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/open_sans_300_italic_2a14feff5d674289c57f5c256e43fbd4",
+        "italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/open_sans_italic_9d2ae317cd0b1f7bf2859a56953d7a71",
+        "600_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/open_sans_600_italic_fe60986b2b1850bd135c5b0dc7f52c6d",
+        "bold_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/open_sans_bold_italic_dcc95656a50b3b969e7a7f154b5af7ec",
+        "300": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/open_sans_300_39ef945f04dffafb40d0e4258ccaa41b",
+        "normal": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/open_sans_normal_3760d4dc48428d77234c57aacbf4be3d",
+        "600": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/open_sans_600_b1ce21e0a900a5106e97539d2f082999",
+        "bold": "open_sans_bold_76cc12ba903c653efae07dd0b62d46cf"
+    },
+    "poppins": {
+        "300_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_300_italic_56b93a487d8c28777146ffd1eef895fd",
+        "italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_italic_46da975c18aa560b0bd3b88b138916e9",
+        "500_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_500_italic_c293cb67db049e112d06248502d9b24c",
+        "600_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_600_italic_5bc21aa56d8039e2f3d1b8f790f9558d",
+        "bold_italic": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_bold_italic_1918f692c841b01acf827608eecc4cdd",
+        "300": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_300_999a4088f0da952988730996a4bec1d8",
+        "normal": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_normal_ee697d7869cb745ccf3ccccc013145ad",
+        "500": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_500_fce53b208cddccda1573b7620b579598",
+        "600": "C:\\xampp\\htdocs\\rumah_sakit\\application\\libraries\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_600_9623fbc18c38938c2057a9aae8390a42",
+        "bold": "poppins_bold_8fe618268f56b4b8f1e70e87a9e99fc0"
+    },
+    "boxicons": {
+        "normal": "boxicons_normal_e43bd09cb43bfa6db7d78cf81e79a259"
+    },
+    "remixicon": {
+        "normal": "remixicon_normal_34b28a4ed20e9582d49fd5cfe794a302"
+    }
+}

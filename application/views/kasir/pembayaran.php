@@ -44,7 +44,7 @@
                                                     <?php if ($data->nomor_antri) { ?>
                                                         <form action="<?= base_url('qr/buat_qr_code') ?>" target="_blank" method="post">
                                                             <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
-                                                            <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
+                                                            <input type="hidden" name="id_poliklinik" value="<?= $data->id_poliklinik ?>">
                                                             <input type="hidden" name="nomor_antri" value="<?= $data->nomor_antri ?>">
                                                             <button type="submit" class="btn btn-primary ">
                                                                 <i class="bi bi-printer-fill"></i>

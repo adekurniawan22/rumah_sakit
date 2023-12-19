@@ -62,7 +62,7 @@
         <pre>
         <img src="<?= base_url('assets/media/qrcode/' . $nama_file); ?>" alt="QR Code" />
         </pre>
-        <h4 class="text-center">Nomor antri adalah <?= $nomor_antri ?><br> untuk <?= $nama_poliklinik ?> </h4>
+        <h4 class="text-center">Nomor antri anda <?= $nomor_antri ?></h4>
 
         <!-- Add more content as needed -->
     </div>

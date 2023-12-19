@@ -72,12 +72,20 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
+
             <li class="nav-item">
                 <a class="nav-link <?php echo ($title == "Profil") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>pendaftaran/profil">
                     <i class="bi bi-person-fill"></i>
                     <span>Profil</span>
                 </a>
             </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#resetAntrian" href="">
+                    <i class="bi bi-x-circle-fill"></i>
+                    <span>Reset Antrian</span>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#basicModal" href="">
@@ -195,7 +203,7 @@
     <?php if ($this->session->userdata('id_role') == 6) { ?>
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link <?php echo ($title == "Data Rekam Medis") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>rekam_medis/pengambilan_obat">
+                <a class="nav-link <?php echo ($title == "Data Rekam Medis") ? "active" : "collapsed"; ?>"" href=" <?php echo base_url() ?>rekam_medis">
                     <i class="bi bi-receipt"></i>
                     <span>Data Rekam Medis</span>
                 </a>

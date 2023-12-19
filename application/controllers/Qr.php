@@ -13,8 +13,8 @@ class Qr extends CI_Controller
     public function buat_qr_code()
     {
         $qrcode['nomor_antri'] = $this->input->post('nomor_antri');
-        $qrcode['nama_poliklinik'] = $this->input->post('nama_poliklinik');
-        $data = "Nomor Antrian anda adalah " . $qrcode['nomor_antri'] . " untuk " . $qrcode['nama_poliklinik'];
+        $qrcode['id_poliklinik'] = $this->input->post('id_poliklinik');
+        $data = "http://localhost/rumah_sakit/qr/antrian_live?nomor_antri=" . $qrcode['nomor_antri'] . "&id_poliklinik=" . $qrcode['id_poliklinik'];
 
         $hex_data   = bin2hex($data);
         $save_name  = $hex_data . '.png';
@@ -45,5 +45,23 @@ class Qr extends CI_Controller
 
         // Tampilkan QR Code
         $this->load->view('pendaftaran/qr_code', $qrcode);
+    }
+
+    public function antrian_live()
+    {
+        $data['nomor_antri'] = $this->input->get('nomor_antri');
+        $id_poliklinik = $this->input->get('id_poliklinik');
+
+        // Nama poliklinik
+        $this->db->where('id_poliklinik', $id_poliklinik);
+        $data['nama_poliklinik'] = $this->db->get('t_poliklinik')->row();
+
+        //Data nomor antri sekarang
+        $this->db->select_max('nomor_antri_sekarang');
+        $this->db->where('id_poliklinik', $id_poliklinik);
+        $this->db->from('t_antrian');
+        $data['nomor_antri_sekarang'] = $this->db->get()->row();
+
+        $this->load->view('auth/antrian', $data);
     }
 }

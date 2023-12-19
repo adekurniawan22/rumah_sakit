@@ -9,12 +9,34 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body mt-3">
+                        <!-- <div class="pb-2">
+                            <button data-bs-toggle="modal" data-bs-target="#resetAntrian" href="" class="btn btn-danger">Reset antrian</button>
+                        </div> -->
+
+                        <div class="modal fade" id="resetAntrian" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Reset Antrian</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Apakah kamu yakin untuk reset antrian?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                                        <a type="button" class="btn btn-primary" href="<?= base_url() ?>pendaftaran/reset_antrian">Ya, lanjutkan</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="pb-3">
                             <a href="<?= base_url() ?>pendaftaran/tambah_pendaftaran" class="btn btn-primary">+ Tambah Pendaftaran</a>
                         </div>
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
-                        <div class="table-table-container mt-2">
+                        <div class="table-table-container mt-3">
                             <!-- Table with stripped rows -->
                             <table id="pendaftaran" class="table my-4">
                                 <thead>
@@ -83,7 +105,7 @@
                                                     <?php if ($data->nomor_antri) { ?>
                                                         <form action="<?= base_url('qr/buat_qr_code') ?>" target="_blank" method="post">
                                                             <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
-                                                            <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
+                                                            <input type="hidden" name="id_poliklinik" value="<?= $data->id_poliklinik ?>">
                                                             <input type="hidden" name="nomor_antri" value="<?= $data->nomor_antri ?>">
                                                             <button type="submit" class="btn btn-primary ">
                                                                 <i class="bi bi-printer-fill"></i>

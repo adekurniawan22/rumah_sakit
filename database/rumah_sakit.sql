@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Des 2023 pada 14.53
+-- Waktu pembuatan: 19 Des 2023 pada 20.34
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -34,14 +34,6 @@ CREATE TABLE `t_antrian` (
   `nomor_antri` int(11) NOT NULL,
   `nomor_antri_sekarang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `t_antrian`
---
-
-INSERT INTO `t_antrian` (`id_antrian`, `id_pendaftaran`, `id_poliklinik`, `nomor_antri`, `nomor_antri_sekarang`) VALUES
-(125, 173, 1, 1, 1),
-(126, 174, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -81,8 +73,8 @@ CREATE TABLE `t_obat` (
 --
 
 INSERT INTO `t_obat` (`id_obat`, `nama_obat`, `harga_obat`, `stok_obat`) VALUES
-(1, 'Paracetamol', 10000, 200),
-(12, 'Bodrex', 10000, 200),
+(1, 'Paracetamol', 10000, 199),
+(12, 'Bodrex', 10000, 199),
 (13, 'Panadol', 5000, 120),
 (14, 'Ibuprofen', 15000, 250),
 (15, 'Amoksisilin', 10000, 100),
@@ -124,7 +116,8 @@ INSERT INTO `t_pasien` (`id_pasien`, `nomor_rekam_medis`, `nama_lengkap_pasien`,
 (50, '00010010110123', 'Jamal Indrawan', 'Tempino', '2001-01-02', 'KTP', '150505220620076530', 'Laki-laki', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Ambon', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171021234'),
 (51, '00010010110915', 'Adi Suhendra', 'Tempino', '2001-09-06', 'KTP', '150505220620045132', 'Laki-laki', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Ambon', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171020987'),
 (52, '00010010110999', 'Sultan Thariq', 'Tempino', '2001-06-05', 'KTP', '150505220620010999', 'Laki-laki', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171027456'),
-(53, '00010010110888', 'Tri Mulyani', 'Tempino', '2001-04-02', 'KTP', '150505220620010888', 'Perempuan', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171021209');
+(53, '00010010110888', 'Tri Mulyani', 'Tempino', '2001-04-02', 'KTP', '150505220620010888', 'Perempuan', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171021209'),
+(54, '00010010110980', 'Fauzi Ramadhan', 'Bengkulu', '2001-04-04', 'KTP', '150505220620016555', 'Laki-laki', 'Programmer', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestong, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'SMA', '083171027936');
 
 -- --------------------------------------------------------
 
@@ -158,7 +151,8 @@ INSERT INTO `t_pegawai` (`id_pegawai`, `id_role`, `id_poliklinik`, `nomor_pegawa
 (36, 5, 0, '000192543388', 'k_ade', '$2y$10$ElpPueEn/zqwhqzUoldMveYp83M6HucR4STa2YGnyGWr8WV/VaYTq', 'Ade Kurniawan Kasir', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-06 13:30:31'),
 (37, 3, 1, '123348890216', 'p_ade', '$2y$10$QjCdpHinIM5rI1sIfiqyQeMWwO73pcADnPlqf33U.6Nsd97oI.KqO', 'Ade Kurniawan Perawat', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-07 04:13:46'),
 (38, 4, 1, '512367772771', 'd_ade', '$2y$10$rBuh/rthEFQNXTwnUbw6UegyIkxTTboYNP4kce49gSdoghUjOG/yW', 'Ade Kurniawan Dokter', 'Jalan Jambi Palembang KM 27', '083171027946', 'Laki-laki', 1, '580b57fcd9996e24bc43c4e73.png', '2023-12-08 16:22:02'),
-(39, 7, 0, '234575656799', 'f_ade', '$2y$10$g2U9kjT1oXINwvpksbHinudKIx0ZxHmTB/u2muCwWIxyuvVHKrYHS', 'Ade Kurniawan Farmasi', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-17 14:18:42');
+(39, 7, 0, '234575656799', 'f_ade', '$2y$10$g2U9kjT1oXINwvpksbHinudKIx0ZxHmTB/u2muCwWIxyuvVHKrYHS', 'Ade Kurniawan Farmasi', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-17 14:18:42'),
+(40, 6, 0, '123348890216', 'rm_ade', '$2y$10$sN4eak46HtlIPO5AHcsNj.ceQU5ZiGYjSBMJBufo4A8IJlE.odsDm', 'Ade Kurniawan Rekam Medis', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-19 17:44:42');
 
 -- --------------------------------------------------------
 
@@ -174,14 +168,6 @@ CREATE TABLE `t_pembayaran` (
   `nomor_antri` int(11) NOT NULL,
   `waktu_pembayaran` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `t_pembayaran`
---
-
-INSERT INTO `t_pembayaran` (`id_pembayaran`, `id_pendaftaran`, `id_pegawai`, `id_biaya`, `nomor_antri`, `waktu_pembayaran`) VALUES
-(87, 173, 33, 1, 1, '2023-12-17 20:12:28'),
-(88, 174, 33, 1, 2, '2023-12-17 20:12:36');
 
 -- --------------------------------------------------------
 
@@ -257,13 +243,6 @@ CREATE TABLE `t_pemeriksaan1` (
   `waktu_pemeriksaan` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `t_pemeriksaan1`
---
-
-INSERT INTO `t_pemeriksaan1` (`id_pemeriksaan1`, `id_pendaftaran`, `id_pasien`, `keadaan_umum`, `kesadaran`, `gcs`, `e`, `v`, `m`, `keluhan_umum`, `keluhan_lain`, `tekanan_darah`, `nadi`, `temperatur`, `pernapasan`, `nyeri`, `pencetus`, `kwalitas`, `lokasi`, `skala`, `durasi`, `pengetahuan_tentang_penyakit`, `perawatan_yg_dilakukan`, `perasaan`, `status_aktivitas`, `muskuloskeleta`, `kekuatan_otot`, `alergi`, `tidur_siang`, `tidur_malam`, `gangguan_tidur`, `penerimaan_kondisi`, `tinggal_bersama`, `kebiasaan`, `skor_hm`, `skor_mfs`, `skor_omss`, `status_laporan_hasil_SR`, `berat_badan`, `tinggi_badan`, `imt`, `skor_mst`, `imunisasi_dasar`, `imunisasi_lain`, `eliminasi`, `pola_makan`, `pola_minum`, `bak`, `bab`, `umur`, `RTKB_sosial`, `RTKB_motorik_halus`, `RTKB_motorik_kasar`, `RTKB_bahasa`, `analisa_masalah_keperawatan`, `planning`, `implementasi_dan_evaluasi`, `edukasi`, `keadaan_pasien_pulang`, `berkas_yang_diberikan`, `info_edukasi_yang_diberikan`, `status_permintaan_pulang`, `status_melarikan_diri`, `id_pegawai`, `waktu_pemeriksaan`) VALUES
-(60, 173, 50, 'Baik', 'Baik', '44', '55', '66', '77', 'Sakit sewaktu baru bangun tidur', 'Tidak ada', '55', '90', '30', '90', 'Tidak', '77', '88', '88', '99', '22', 'Tidak tau', 'Tidak', 'Penderitaan', 'Mandiri', 'Tidak ada', '877', 'Tidak ada alergi', '3', '7', 'Tidak ada gangguan tidur', 'Sakit ketika ingin berkattivitas sewaktu bangun tidur', 'Keluarga', 'Merokok', '7', '25', '5', 'Belum dilaporkan', '60', '170', '77', '3', 'Lengkap', 'Tidak Ada', '88', '2', '8', '5', '1', '2 Tahun', 'Senyum, Bermain Interaktif', 'Mengikuti Gerakan, Menggenggam, Memindahkan benda dari tangan ke tangan yang lain, Menjemput benda dengan 5 jari, Mencorat-coret kertas', 'Mengangkat Kepala 45 Derajat Dari Perut, Membalikan Badan, Duduk, Berdiri, Berjalan', 'Mengoceh, Mengeluarkan kata ma-ma-da-da, Menirukan Suara, Dapat menyebutkan 2 suku kata', 'Baik', 'Blabla', 'Blabla', 'Sebaiknya jangan menggosok mata', '', '', '', '', '', 37, '2023-12-17 20:24:50');
-
 -- --------------------------------------------------------
 
 --
@@ -287,6 +266,7 @@ CREATE TABLE `t_pemeriksaan2` (
   `planning` varchar(255) NOT NULL,
   `tindakan` varchar(255) NOT NULL,
   `edukasi` varchar(255) NOT NULL,
+  `resep_obat` varchar(255) NOT NULL,
   `rencana_kontrol` varchar(255) NOT NULL,
   `pelayanan_home_care` varchar(255) NOT NULL,
   `kontrol_ke_poliklinik` varchar(255) NOT NULL,
@@ -327,16 +307,6 @@ CREATE TABLE `t_pendaftaran` (
   `status_pengambilan_obat` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `t_pendaftaran`
---
-
-INSERT INTO `t_pendaftaran` (`id_pendaftaran`, `id_pasien`, `jenis_pembayaran`, `penanggung_jawab`, `nama_penanggung_jawab`, `hubungan`, `alamat_penanggung_jawab`, `nomor_hp_penanggung_jawab`, `waktu_pendaftaran`, `ketentuan_rs_ke_pasien`, `id_poliklinik`, `id_pegawai`, `status_pembayaran`, `status_pemeriksaan1`, `status_pemeriksaan2`, `perlu_pemeriksaan_lanjut`, `status_pemeriksaan_lanjut`, `status_pengambilan_obat`) VALUES
-(172, 51, 'Bayar', 'Keluarga', 'Sidiq Sanjaya Bakti', 'Teman Kampus', 'Jalan Tubagus Ismal Gang Kubangsari IV, RT 07, RW 02, Kelurahan Tugabus, Kecamatan Coblong, Kabupaten Bandung, Provinsi Jawa Barat', '081274749976', '2023-12-17 20:12:02', 'Sudah', 1, 33, '0', '0', '0', '0', '0', '0'),
-(173, 50, 'BPJS', 'Keluarga', 'Sidiq Sanjaya Bakti', 'Teman Kampus', 'Jalan Tubagus Ismal Gang Kubangsari IV, RT 07, RW 02, Kelurahan Tugabus, Kecamatan Coblong, Kabupaten Bandung, Provinsi Jawa Barat', '081274749976', '2023-12-17 20:12:28', 'Sudah', 1, 33, '1', '1', '0', '0', '0', '0'),
-(174, 52, 'BPJS', 'Keluarga', 'Sidiq Sanjaya Bakti', 'Teman Kampus', 'Jalan Tubagus Ismal Gang Kubangsari IV, RT 07, RW 02, Kelurahan Tugabus, Kecamatan Coblong, Kabupaten Bandung, Provinsi Jawa Barat', '081274749976', '2023-12-17 20:12:36', 'Sudah', 1, 33, '1', '0', '0', '0', '0', '0'),
-(175, 53, 'Bayar', 'Keluarga', 'Sidiq Sanjaya Bakti', 'Teman Kampus', 'Jalan Tubagus Ismal Gang Kubangsari IV, RT 07, RW 02, Kelurahan Tugabus, Kecamatan Coblong, Kabupaten Bandung, Provinsi Jawa Barat', '081274749976', '2023-12-17 20:12:44', 'Sudah', 1, 33, '0', '0', '0', '0', '0', '0');
-
 -- --------------------------------------------------------
 
 --
@@ -350,6 +320,7 @@ CREATE TABLE `t_pengambilan_obat` (
   `id_pegawai` int(11) NOT NULL,
   `obat_yang_diambil` varchar(255) NOT NULL,
   `keterangan_pengambilan_obat` varchar(255) NOT NULL,
+  `catatan` varchar(255) NOT NULL,
   `waktu_pengambilan_obat` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -488,7 +459,7 @@ ALTER TABLE `t_role`
 -- AUTO_INCREMENT untuk tabel `t_antrian`
 --
 ALTER TABLE `t_antrian`
-  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_biaya`
@@ -506,43 +477,43 @@ ALTER TABLE `t_obat`
 -- AUTO_INCREMENT untuk tabel `t_pasien`
 --
 ALTER TABLE `t_pasien`
-  MODIFY `id_pasien` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_pasien` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pegawai`
 --
 ALTER TABLE `t_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pembayaran`
 --
 ALTER TABLE `t_pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pemeriksaan1`
 --
 ALTER TABLE `t_pemeriksaan1`
-  MODIFY `id_pemeriksaan1` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_pemeriksaan1` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pemeriksaan2`
 --
 ALTER TABLE `t_pemeriksaan2`
-  MODIFY `id_pemeriksaan2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id_pemeriksaan2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pendaftaran`
 --
 ALTER TABLE `t_pendaftaran`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pengambilan_obat`
 --
 ALTER TABLE `t_pengambilan_obat`
-  MODIFY `id_pengambilan_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pengambilan_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_poliklinik`

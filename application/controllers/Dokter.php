@@ -62,6 +62,7 @@ class Dokter extends CI_Controller
         $this->db->join('t_pemeriksaan1', 't_pendaftaran.id_pendaftaran = t_pemeriksaan1.id_pendaftaran');
         $this->db->join('t_pemeriksaan2', 't_pendaftaran.id_pendaftaran = t_pemeriksaan2.id_pendaftaran');
         $this->db->where('t_pasien.id_pasien', $this->input->post('id_pasien'));
+        $this->db->where('t_pendaftaran.id_poliklinik', $data['id_poliklinik']);
         $data['lengkap'] = $this->db->get()->result();
 
         $data['title'] = "Antrian Pemeriksaan 2";
