@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta content="widtd=device-widtd, initial-scale=1.0" name="viewport">
 
-    <title>Cetak Surat Rekomendasi</title>
+    <title>Cetak Data Rekam Medis</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
+    <link href="<?php echo base_url() ?>assets/img/logo.png" rel="apple-touch-icon">
     <!-- Favicons -->
     <link href="<?php echo base_url() ?>assets/bootstrap/assets/img/favicon.png" rel="icon">
     <link href="<?php echo base_url() ?>assets/bootstrap/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
