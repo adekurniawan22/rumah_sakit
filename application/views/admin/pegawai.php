@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Data Pegawai</h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
@@ -15,16 +15,15 @@
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
                         <div class="table-container mt-2">
-                            <!-- Table with stripped rows -->
+
                             <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
                                         <th>Foto</th>
                                         <th>Nama</th>
-                                        <th>NP</th>
                                         <th>Role</th>
                                         <th>Status Akun</th>
-                                        <th style="width: 25%;" class="text-center" data-sortable="false">Aksi</th>
+                                        <th class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,7 +31,6 @@
                                         <tr>
                                             <td><img style="width: 60px;" src="<?= base_url('assets/img/profile/') . $user['foto'] ?>"></td>
                                             <td><?= $user['nama_lengkap'] ?></td>
-                                            <td><?= $user['nomor_pegawai'] ?></td>
                                             <td><?= $user['nama_role'] ?></td>
                                             <td><?php
                                                 if ($user['status_aktif'] == 1) {
@@ -42,27 +40,27 @@
                                                 }
                                                 ?>
                                             </td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalUser<?= $user['id_pegawai'] ?>">
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalUser<?= $user['id_pegawai'] ?>">
                                                     Detail <i class="bi bi-eye-fill"></i>
                                                 </button>
 
                                                 <form action="<?= base_url() ?>admin/edit_pegawai" method="post" class="d-inline-block">
                                                     <input type="hidden" name="id_pegawai" value="<?= $user['id_pegawai'] ?>">
-                                                    <button type="submit" class="btn btn-primary me-3 mb-1">
+                                                    <button type="submit" class="btn btn-primary me-1 mb-1">
                                                         Edit <i class="bi bi-pencil-square"></i>
                                                     </button>
                                                 </form>
 
                                                 <button type="button" class="btn btn-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#modalHapusUser<?= $user['id_pegawai'] ?>">
-                                                    <i class="bi bi-trash"></i>
+                                                    Hapus <i class="bi bi-trash"></i>
                                                 </button>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
+
                         </div>
                     </div>
                 </div>
@@ -70,10 +68,9 @@
             </div>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
 
 <?php foreach ($users as $userModal) : ?>
-
     <!-- Modal Detail -->
     <div class="modal fade" id="modalUser<?= $userModal['id_pegawai'] ?>" tabindex="-1">
         <div class="modal-dialog modal-dialog-scrollable">

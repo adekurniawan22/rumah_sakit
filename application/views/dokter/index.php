@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Data Antrian Pemeriksaan Kedua - <?= $pegawai->nama_poliklinik ?></h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
@@ -25,7 +25,7 @@
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
-                            <!-- Table with stripped rows -->
+
                             <table class="table my-4">
                                 <thead>
                                     <tr>
@@ -59,7 +59,7 @@
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
+
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
             </div>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
 
 <?php foreach ($antrian as $dataModal) : ?>
     <!-- Modal Riwayat Pemeriksaan 1 -->

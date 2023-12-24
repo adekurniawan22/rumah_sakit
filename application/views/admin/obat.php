@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Data Obat</h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
@@ -33,12 +33,12 @@
                                             <td>Rp. <?= number_format($o->harga_obat, 0) ?></td>
                                             <td><?= $o->stok_obat ?></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalEditObat<?= $o->id_obat ?>">
-                                                    <i class=" bi bi-pencil-square"></i>
+                                                <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalEditObat<?= $o->id_obat ?>">
+                                                    Edit <i class=" bi bi-pencil-square"></i>
                                                 </button>
 
-                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusObat<?= $o->id_obat ?>">
-                                                    <i class="bi bi-trash"></i>
+                                                <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusObat<?= $o->id_obat ?>">
+                                                    Hapus <i class="bi bi-trash"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -52,9 +52,9 @@
             </div>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
 
-<!-- MODAL TAMBAH POLIKLINIK -->
+<!-- MODAL TAMBAH OBAT -->
 <div class="modal fade" id="modalTambahObat" tabindex="-1">
     <div class="modal-dialog modal-dialog">
         <div class="modal-content">
@@ -90,7 +90,7 @@
     </div>
 </div>
 
-<!-- MODAL EDIT POLIKLINIK -->
+<!-- MODAL EDIT OBAT -->
 <?php foreach ($obat as $edit_obat) : ?>
     <div class="modal fade" id="modalEditObat<?= $edit_obat->id_obat ?>" tabindex="-1">
         <div class="modal-dialog modal-dialog">
@@ -128,6 +128,7 @@
         </div>
     </div>
 
+    <!-- MODAL HAPUS OBAT -->
     <div class="modal fade" id="modalHapusObat<?= $edit_obat->id_obat ?>" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

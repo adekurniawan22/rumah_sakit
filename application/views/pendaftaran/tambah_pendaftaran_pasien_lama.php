@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Tambah Pendaftaran</h1>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Pilih Pembayaran</h5>
-                        <!-- General Form Elements -->
+
                         <form role="form" action="<?= base_url() ?>pendaftaran/proses_tambah_pendaftaran_pasien_lama" method="post">
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Jenis Pembayaran</label>

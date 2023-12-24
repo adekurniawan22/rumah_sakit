@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Edit Pasien</h1>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Identitas Pasien</h5>
-                        <!-- General Form Elements -->
+
                         <form role="form" action="<?= base_url() ?>pendaftaran/proses_edit_pasien" method="post">
                             <div class="row mb-3">
                                 <label for="nomor_rekam_medis" class="col-sm-2 col-form-label">No. Rekam Medis</label>

@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Form Pemeriksaan 2</h1>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -42,7 +42,7 @@
                             <input type="hidden" name="id_pendaftaran" value="<?= $id_pendaftaran ?>">
                             <input type="hidden" name="id_poliklinik" value="<?= $id_poliklinik ?>">
 
-                            <!-- General Form Elements -->
+
 
                             <div class="row mb-3">
                                 <label for="nama_lengkap_pasien" class="col-sm-2 col-form-label">Nama Lengkap Pasien</label>

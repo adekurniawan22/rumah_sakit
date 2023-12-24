@@ -50,7 +50,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             max-width: 500px;
-            width: 50%;
+            width: 75%;
         }
     </style>
 </head>

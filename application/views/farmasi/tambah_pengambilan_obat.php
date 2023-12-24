@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Tambah Pengambilan Obat</h1>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">

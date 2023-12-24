@@ -2,14 +2,14 @@
 
     <div class="pagetitle">
         <h1>Edit Pendaftaran</h1>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
 
                 <div class="card">
                     <div class="card-body">
-                        <!-- General Form Elements -->
+
                         <form role="form" action="<?= base_url() ?>pendaftaran/proses_edit_pendaftaran" method="post">
                             <input type="hidden" name="id_pendaftaran" value="<?= $pendaftaran[0]->id_pendaftaran ?>">
 

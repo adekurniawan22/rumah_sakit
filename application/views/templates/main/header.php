@@ -9,8 +9,8 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
-    <link href="<?php echo base_url() ?>assets/img/logo.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
     <!-- Favicons -->
     <!-- <link href="<?php echo base_url() ?>assets/bootstrap/assets/img/favicon.png" rel="icon"> -->
     <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
@@ -72,16 +72,5 @@
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
-
-        <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-
-                <li class="nav-item d-block d-lg-none">
-                    <a class="nav-link nav-icon search-bar-toggle " href="#">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </li><!-- End Search Icon-->
-            </ul>
-        </nav><!-- End Icons Navigation -->
 
     </header><!-- End Header -->

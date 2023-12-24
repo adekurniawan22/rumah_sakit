@@ -8,20 +8,34 @@ class Admin extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
 
-        //Middleware Role
-        if ($this->session->userdata('id_role') == 2) {
-            redirect('pendaftaran');
-        } elseif ($this->session->userdata('id_role') == 3) {
-            redirect('perawat');
-        } else {
-            if ($this->session->userdata('id_role') != 1) {
-                redirect(base_url('auth/login'));
+        if ($this->session->userdata('id_role')) {
+            // Jika sudah memiliki session id_role, maka arahkan pengguna ke halaman yang sesuai
+            switch ($this->session->userdata('id_role')) {
+                case 2:
+                    redirect('pendaftaran');
+                    break;
+                case 3:
+                    redirect('perawat');
+                    break;
+                case 4:
+                    redirect('dokter');
+                    break;
+                case 5:
+                    redirect('kasir');
+                    break;
+                case 6:
+                    redirect('rekam_medis');
+                    break;
+                case 7:
+                    redirect('farmasi');
+                    break;
             }
         }
     }
 
     public function index()
     {
+        // Mengambil Data Jumlah Pegawai Berdasarkan Role
         $this->db->select('t_role.nama_role, COUNT(t_pegawai.id_role) as jumlah_pegawai');
         $this->db->from('t_role');
         $this->db->join('t_pegawai', 't_role.id_role = t_pegawai.id_role', 'left');
@@ -40,6 +54,7 @@ class Admin extends CI_Controller
 
     public function pegawai()
     {
+        // Mengambil Data Peagwai
         $this->db->select('t_pegawai.*, t_role.nama_role, t_poliklinik.nama_poliklinik');
         $this->db->from('t_pegawai');
         $this->db->join('t_role', 't_pegawai.id_role = t_role.id_role');
@@ -66,7 +81,7 @@ class Admin extends CI_Controller
 
     public function proses_tambah_pegawai()
     {
-        $this->form_validation->set_rules('nomor_pegawai', 'Nomor Pegawai', 'required|trim|integer');
+        $this->form_validation->set_rules('nomor_pegawai', 'Nomor Pegawai', 'required|trim|integer|is_unique[t_pegawai.nomor_pegawai]');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[t_pegawai.username]');
         $this->form_validation->set_rules('role', 'Role', 'required');
@@ -83,7 +98,7 @@ class Admin extends CI_Controller
             $this->load->view('templates/main/footer');
         } else {
             date_default_timezone_set('Asia/Jakarta');
-            $datauser  = [
+            $datapegawai  = [
                 'id_role' => $this->input->post('role'),
                 'id_poliklinik' => $this->input->post('id_poliklinik'),
                 'nomor_pegawai' => $this->input->post('nomor_pegawai'),
@@ -98,10 +113,10 @@ class Admin extends CI_Controller
                 'tanggal_dibuat' => date('Y-m-d H:i:s')
             ];
 
-            $this->db->insert('t_pegawai', $datauser);
+            $this->db->insert('t_pegawai', $datapegawai);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Pegawai baru berhasil ditambahkan!
+                                Data pegawai baru berhasil ditambahkan!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -113,7 +128,7 @@ class Admin extends CI_Controller
     {
         $this->db->where('id_pegawai', $this->input->post('id_pegawai'));
         $query = $this->db->get('t_pegawai');
-        $data['editUser'] = $query->result();
+        $data['editPegawai'] = $query->result();
 
         $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
         $data['title'] = 'Manajemen Pegawai';
@@ -151,7 +166,7 @@ class Admin extends CI_Controller
             $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Pegawai berhasil diubah!
+                                Data pegawai berhasil diubah!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -165,7 +180,7 @@ class Admin extends CI_Controller
         $this->db->delete('t_pegawai');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Pegawai berhasil dihapus!
+                                Data pegawai berhasil dihapus!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -183,23 +198,12 @@ class Admin extends CI_Controller
         $this->load->view('templates/main/footer');
     }
 
-    public function biaya()
-    {
-        $data['biaya'] = $this->db->get('t_biaya')->result();
-
-        $data['title'] = 'Manajemen Biaya';
-        $this->load->view('templates/main/header', $data);
-        $this->load->view('templates/main/sidebar', $data);
-        $this->load->view('admin/biaya', $data);
-        $this->load->view('templates/main/footer');
-    }
-
     public function proses_tambah_poliklinik()
     {
         $this->db->insert('t_poliklinik', array('nama_poliklinik' => $this->input->post('nama_poliklinik')));
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Poliklinik baru berhasil ditambahkan!
+                                Data poliklinik baru berhasil ditambahkan!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -212,7 +216,7 @@ class Admin extends CI_Controller
         $this->db->update('t_poliklinik', array('nama_poliklinik' => $this->input->post('nama_poliklinik')));
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Poliklinik berhasil dirubah!
+                                Data poliklinik berhasil diubah!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -232,8 +236,16 @@ class Admin extends CI_Controller
         redirect('admin/poliklinik');
     }
 
+    public function biaya()
+    {
+        $data['biaya'] = $this->db->get('t_biaya')->result();
 
-
+        $data['title'] = 'Manajemen Biaya';
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/biaya', $data);
+        $this->load->view('templates/main/footer');
+    }
 
     public function proses_tambah_biaya()
     {
@@ -243,7 +255,7 @@ class Admin extends CI_Controller
         ));
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Biaya baru berhasil ditambahkan!
+                                Data biaya baru berhasil ditambahkan!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -259,7 +271,7 @@ class Admin extends CI_Controller
         ));
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Biaya berhasil dirubah!
+                                Data biaya berhasil diubah!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -273,15 +285,14 @@ class Admin extends CI_Controller
             $this->db->delete('t_biaya');
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Biaya berhasil dihapus!
+                                Data biaya berhasil dihapus!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert" style="display: inline-block;">
                             <div>
-                                Data Biaya ini dilarang dihapus!
-                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                                Data biaya ini tidak bisa dihapus!
                             </div>
                         </div>');
         }
@@ -309,7 +320,7 @@ class Admin extends CI_Controller
         ));
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Obat baru berhasil ditambahkan!
+                                Data obat baru berhasil ditambahkan!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -326,7 +337,7 @@ class Admin extends CI_Controller
         ));
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Obat berhasil dirubah!
+                                Data obat berhasil diubah!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -339,7 +350,7 @@ class Admin extends CI_Controller
         $this->db->delete('t_obat');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                             <div>
-                                Data Obat berhasil dihapus!
+                                Data obat berhasil dihapus!
                                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                             </div>
                         </div>');
@@ -441,7 +452,7 @@ class Admin extends CI_Controller
             $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert" style="display: inline-block;">
                                 <div>
-                                    Profile berhasil diubah!
+                                    Profil berhasil diubah!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');

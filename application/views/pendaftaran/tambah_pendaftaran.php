@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Tambah Pendaftaran</h1>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -13,7 +13,7 @@
                             <p>Apakah pasien sudah pernah berobat sebelumnya? <a href="<?= base_url() ?>pendaftaran/pasien">Klik jika iya</a></p>
                         </div>
                         <h5 class="card-title">Identitas Pasien Baru</h5>
-                        <!-- General Form Elements -->
+
                         <form role="form" action="<?= base_url() ?>pendaftaran/proses_tambah_pendaftaran" method="post">
                             <div class="row mb-3">
                                 <label for="nomor_rekam_medis" class="col-sm-2 col-form-label">No. Rekam Medis</label>

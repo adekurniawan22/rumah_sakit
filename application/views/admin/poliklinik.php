@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Data Poliklinik</h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
@@ -17,7 +17,7 @@
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
                         <div class="table-container mt-2">
-                            <table id="example" class="table  my-4">
+                            <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
                                         <th style="width: 80%;">Nama Poliklinik</th>
@@ -29,18 +29,14 @@
                                         <tr>
                                             <td><?= $p->nama_poliklinik ?></td>
                                             <td class="text-center">
-                                                <!-- <div class="d-inline p-2"> -->
-                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalEditPoliklinik<?= $p->id_poliklinik ?>">
+                                                <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalEditPoliklinik<?= $p->id_poliklinik ?>">
                                                     Edit <i class=" bi bi-pencil-square"></i>
                                                 </button>
-                                                <!-- </div> -->
-                                                <!-- <div class="d-inline p-2"> -->
-                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusPoliklinik<?= $p->id_poliklinik ?>">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                                <!-- </div> -->
-                                            </td>
 
+                                                <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusPoliklinik<?= $p->id_poliklinik ?>">
+                                                    Hapus <i class="bi bi-trash"></i>
+                                                </button>
+                                            </td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -48,11 +44,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
 
 <!-- MODAL TAMBAH POLIKLINIK -->
 <div class="modal fade" id="modalTambahPoliklinik" tabindex="-1">
@@ -116,7 +111,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Klinik</h5>
+                    <h5 class="modal-title">Hapus Poliklinik</h5>
                 </div>
                 <div class="modal-body">
                     Apakah kamu yakin untuk menghapus poliklinik ini?

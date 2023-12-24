@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Dashboard</h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section dashboard my-3">
         <div class="row">
@@ -34,4 +34,4 @@
         </div>
     </section>
 
-</main><!-- End #main -->
+</main>

@@ -51,6 +51,15 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             max-width: 500px;
             width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .nota-container img {
+            align-self: center;
         }
     </style>
 </head>
@@ -59,10 +68,8 @@
     <div class="nota-container">
         <!-- Your content goes here -->
         <h3 class="text-center mb-4">QR Code Nomor Antri</h3>
-        <pre>
-        <img src="<?= base_url('assets/media/qrcode/' . $nama_file); ?>" alt="QR Code" />
-        </pre>
-        <h4 class="text-center">Nomor antri anda <?= $nomor_antri ?></h4>
+        <img src="<?= base_url('assets/media/qrcode/' . $nama_file); ?>" alt="QR Code" style="width: 75%;" />
+        <h4 class="text-center mt-3">Nomor antri anda <?= $nomor_antri ?></h4>
 
         <!-- Add more content as needed -->
     </div>

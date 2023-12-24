@@ -15,7 +15,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -517,9 +519,10 @@
           <li class="breadcrumb-item active">ApexCharts</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div>
 
-    <p>ApexCharts Examples. You can check the <a href="https://apexcharts.com/javascript-chart-demos/" target="_blank">official website</a> for more examples.</p>
+    <p>ApexCharts Examples. You can check the <a href="https://apexcharts.com/javascript-chart-demos/"
+        target="_blank">official website</a> for more examples.</p>
 
     <section class="section">
       <div class="row">
@@ -1020,7 +1023,7 @@
                     },
                     tooltip: {
                       y: {
-                        formatter: function(val) {
+                        formatter: function (val) {
                           return "$ " + val + " thousands"
                         }
                       }
@@ -1229,7 +1232,7 @@
                           total: {
                             show: true,
                             label: 'Total',
-                            formatter: function(w) {
+                            formatter: function (w) {
                               // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
                               return 249
                             }
@@ -1272,33 +1275,33 @@
                   }
                   new ApexCharts(document.querySelector("#bubbleChart"), {
                     series: [{
-                        name: 'Bubble1',
-                        data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
-                          min: 10,
-                          max: 60
-                        })
-                      },
-                      {
-                        name: 'Bubble2',
-                        data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
-                          min: 10,
-                          max: 60
-                        })
-                      },
-                      {
-                        name: 'Bubble3',
-                        data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
-                          min: 10,
-                          max: 60
-                        })
-                      },
-                      {
-                        name: 'Bubble4',
-                        data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
-                          min: 10,
-                          max: 60
-                        })
-                      }
+                      name: 'Bubble1',
+                      data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
+                        min: 10,
+                        max: 60
+                      })
+                    },
+                    {
+                      name: 'Bubble2',
+                      data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
+                        min: 10,
+                        max: 60
+                      })
+                    },
+                    {
+                      name: 'Bubble3',
+                      data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
+                        min: 10,
+                        max: 60
+                      })
+                    },
+                    {
+                      name: 'Bubble4',
+                      data: generateData(new Date('11 Feb 2017 GMT').getTime(), 20, {
+                        min: 10,
+                        max: 60
+                      })
+                    }
                     ],
                     chart: {
                       height: 333,
@@ -1329,7 +1332,7 @@
       </div>
     </section>
 
-  </main><!-- End #main -->
+  </main>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -1345,7 +1348,8 @@
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

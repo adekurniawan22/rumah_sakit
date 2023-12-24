@@ -2,49 +2,27 @@
 
     <div class="pagetitle">
         <h1>Data Pendaftaran</h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body mt-3">
-                        <!-- <div class="pb-2">
-                            <button data-bs-toggle="modal" data-bs-target="#resetAntrian" href="" class="btn btn-danger">Reset antrian</button>
-                        </div> -->
-
-                        <div class="modal fade" id="resetAntrian" tabindex="-1">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Reset Antrian</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Apakah kamu yakin untuk reset antrian?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                                        <a type="button" class="btn btn-primary" href="<?= base_url() ?>pendaftaran/reset_antrian">Ya, lanjutkan</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="pb-3">
                             <a href="<?= base_url() ?>pendaftaran/tambah_pendaftaran" class="btn btn-primary">+ Tambah Pendaftaran</a>
                         </div>
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
                         <div class="table-table-container mt-3">
-                            <!-- Table with stripped rows -->
+
                             <table id="pendaftaran" class="table my-4">
                                 <thead>
                                     <tr>
-                                        <th>No. Rekam Medis</th>
+                                        <th>ID Pendaftaran</th>
+                                        <th>Nama Pasien</th>
                                         <th>Tanggal Pendaftaran</th>
                                         <th>Poliklinik</th>
-                                        <th>Ketentuan RS</th>
                                         <th style="width: 30%;" class="text-center" data-sortable="false">Informasi Detail</th>
                                         <th style="width: 10%;" class="text-center" data-sortable="false">Aksi</th>
                                         <th style="width: 5%;" class="text-center" data-sortable="false">Cetak Nota</th>
@@ -54,17 +32,17 @@
                                 <tbody>
                                     <?php foreach ($pendaftaran as $data) : ?>
                                         <tr>
-                                            <td><?= $data->nomor_rekam_medis ?></td>
+                                            <td><?= $data->id_pendaftaran ?></td>
+                                            <td><?= $data->nama_lengkap_pasien ?></td>
                                             <td><?= date('d-F-Y', strtotime($data->waktu_pendaftaran)) ?>, Jam <?= date('H:i', strtotime($data->waktu_pendaftaran)) ?></td>
                                             <td><?= $data->nama_poliklinik ?></td>
-                                            <td><?= $data->ketentuan_rs_ke_pasien ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalPasien<?= $data->id_pendaftaran ?>">
-                                                    Pasien>>
+                                                    Pasien <i class="bi bi-eye-fill"></i>
                                                 </button>
 
                                                 <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalPJ<?= $data->id_pendaftaran ?>">
-                                                    Penanggung Jawab>>
+                                                    Penanggung Jawab <i class="bi bi-eye-fill"></i>
                                                 </button>
                                             </td>
                                             <td class="text-center">
@@ -120,7 +98,7 @@
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
+
                         </div>
                     </div>
                 </div>
@@ -128,7 +106,7 @@
             </div>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
 
 <?php foreach ($pendaftaran as $dataModal) : ?>
 
@@ -207,6 +185,10 @@
                                 <div class="col-12">
                                     <label class="form-label">Jenis Pembayaran</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->jenis_pembayaran ?>" readonly>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Tata tertib, Hak dan Kewajiban Pasien Diserahkan Kepada Pasien / Keluarga</label>
+                                    <input type="text" class="form-control" value="<?= $dataModal->ketentuan_rs_ke_pasien ?>" readonly>
                                 </div>
                             </form><!-- Vertical Form -->
                         </div>

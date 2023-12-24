@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Data Biaya</h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
@@ -31,12 +31,12 @@
                                             <td><?= $b->nama_biaya ?></td>
                                             <td>Rp. <?= number_format($b->harga_biaya, 0) ?></td>
                                             <td class="text-center">
-                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1 " data-bs-toggle="modal" data-bs-target="#modalEditBiaya<?= $b->id_biaya ?>">
-                                                    <i class=" bi bi-pencil-square"></i>
+                                                <button type="button" class="btn btn-primary d-inline-block me-1 mb-1 " data-bs-toggle="modal" data-bs-target="#modalEditBiaya<?= $b->id_biaya ?>">
+                                                    Edit <i class=" bi bi-pencil-square"></i>
                                                 </button>
 
-                                                <button type="button" class="btn btn-primary d-inline-block me-3 mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusBiaya<?= $b->id_biaya ?>">
-                                                    <i class="bi bi-trash"></i>
+                                                <button type="button" class="btn btn-primary d-inline-block me-1 mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusBiaya<?= $b->id_biaya ?>">
+                                                    Hapus <i class="bi bi-trash"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -50,7 +50,7 @@
             </div>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
 
 <!-- MODAL TAMBAH POLIKLINIK -->
 <div class="modal fade" id="modalTambahPoliklinik" tabindex="-1">

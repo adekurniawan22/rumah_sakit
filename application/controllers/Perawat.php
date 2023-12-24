@@ -7,6 +7,30 @@ class Perawat extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+
+        if ($this->session->userdata('id_role')) {
+            // Jika sudah memiliki session id_role, maka arahkan pengguna ke halaman yang sesuai
+            switch ($this->session->userdata('id_role')) {
+                case 1:
+                    redirect('admin');
+                    break;
+                case 2:
+                    redirect('pendaftaran');
+                    break;
+                case 4:
+                    redirect('dokter');
+                    break;
+                case 5:
+                    redirect('kasir');
+                    break;
+                case 6:
+                    redirect('rekam_medis');
+                    break;
+                case 7:
+                    redirect('farmasi');
+                    break;
+            }
+        }
     }
 
     public function index()
@@ -530,7 +554,7 @@ class Perawat extends CI_Controller
             $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert" style="display: inline-block;">
                                 <div>
-                                    Profile berhasil diubah!
+                                    Profil berhasil diubah!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');

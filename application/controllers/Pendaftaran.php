@@ -7,31 +7,34 @@ class Pendaftaran extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
-        if ($this->session->userdata('id_role') == 1) {
-            redirect('pendaftaran');
-        } elseif ($this->session->userdata('id_role') == 3) {
-            redirect('perawat');
-        } else {
-            if ($this->session->userdata('id_role') != 2) {
-                redirect(base_url('auth/login'));
+        if ($this->session->userdata('id_role')) {
+            // Jika sudah memiliki session id_role, maka arahkan pengguna ke halaman yang sesuai
+            switch ($this->session->userdata('id_role')) {
+                case 1:
+                    redirect('admin');
+                    break;
+                case 3:
+                    redirect('perawat');
+                    break;
+                case 4:
+                    redirect('dokter');
+                    break;
+                case 5:
+                    redirect('kasir');
+                    break;
+                case 6:
+                    redirect('rekam_medis');
+                    break;
+                case 7:
+                    redirect('farmasi');
+                    break;
             }
         }
     }
 
-    public function reset_antrian()
-    {
-        $this->db->empty_table('t_antrian');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
-                            <div>
-                            Reset Antrian berhasil!
-                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
-                            </div>
-                        </div>');
-        redirect('pendaftaran');
-    }
-
     public function index()
     {
+        //Mengambil Data Pendaftaran Pasien
         $this->db->select('t_pendaftaran.*, t_poliklinik.nama_poliklinik, t_pasien.*, t_pembayaran.nomor_antri');
         $this->db->from('t_pendaftaran');
         $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
@@ -305,7 +308,7 @@ class Pendaftaran extends CI_Controller
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
             <div>
-                Pendaftaran pasien berhasil ditambahkan!
+                Data pendaftaran pasien berhasil ditambahkan!
                 <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
             </div>
         </div>');
@@ -531,6 +534,18 @@ class Pendaftaran extends CI_Controller
         $this->load->view('pendaftaran/cetak_nota', $data);
     }
 
+    public function reset_antrian()
+    {
+        $this->db->empty_table('t_antrian');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
+                            <div>
+                            Reset Antrian berhasil!
+                                <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
+                            </div>
+                        </div>');
+        redirect('pendaftaran');
+    }
+
     public function profil()
     {
         $this->db->select('t_pegawai.*, t_role.nama_role');
@@ -625,7 +640,7 @@ class Pendaftaran extends CI_Controller
             $this->db->update('t_pegawai', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success mt-2" role="alert" style="display: inline-block;">
                                 <div>
-                                    Profile berhasil diubah!
+                                    Profil berhasil diubah!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');

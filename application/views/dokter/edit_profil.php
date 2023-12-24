@@ -2,13 +2,13 @@
 
     <div class="pagetitle">
         <h1>Edit Profil</h1>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body mt-4">
-                        <!-- General Form Elements -->
+
                         <form role="form" action="<?= base_url() ?>dokter/proses_edit_profil" method="post" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <label for="inputText" class="col-sm-2 col-form-label">Foto</label>

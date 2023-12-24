@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Data Pasien</h1>
-    </div><!-- End Page Title -->
+    </div>
 
     <section class="section">
         <div class="row">
@@ -12,14 +12,14 @@
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
-                            <!-- Table with stripped rows -->
+
                             <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
                                         <th>Nama Pasien</th>
                                         <th>Kartu Identitas</th>
                                         <th>No. Kartu Identitas</th>
-                                        <th style="width: 40%;" class="text-center" data-sortable="false">Aksi</th>
+                                        <th style="width: 45%;" class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,7 +31,7 @@
                                             <td class="text-center">
                                                 <div class="d-inline-block me-1 mb-1">
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPasien<?= $data->id_pasien ?>">
-                                                        Detail
+                                                        Detail <i class="bi bi-eye-fill"></i>
                                                     </button>
                                                 </div>
 
@@ -57,14 +57,14 @@
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
 
 <?php foreach ($pasien as $dataModal) : ?>
     <!-- Modal Pasien -->

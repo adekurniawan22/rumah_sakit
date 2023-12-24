@@ -2,7 +2,7 @@
 
     <div class="pagetitle">
         <h1>Edit Pemeriksaan</h1>
-    </div><!-- End Page Title -->
+    </div>
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Pemeriksaan Fisik</h5>
-                            <!-- General Form Elements -->
+
                             <div class="row mb-3">
                                 <label for="keadaan_umum" class="col-sm-2 col-form-label">Keadaan Umum</label>
                                 <div class="col-sm-10">
@@ -75,7 +75,7 @@
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
                             <h5 class="card-title">Tanda Vital</h5>
-                            <!-- General Form Elements -->
+
                             <div class="row mb-3">
                                 <label for="tekanan_darah" class="col-sm-2 col-form-label">Tekanan Darah</label>
                                 <div class="col-sm-10">
