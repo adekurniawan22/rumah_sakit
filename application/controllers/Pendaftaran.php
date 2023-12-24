@@ -64,12 +64,12 @@ class Pendaftaran extends CI_Controller
 
     public function proses_tambah_pendaftaran()
     {
-        $this->form_validation->set_rules('nomor_rekam_medis', 'Nomor Rekam Medis', 'required|trim|integer');
+        $this->form_validation->set_rules('nomor_rekam_medis', 'Nomor Rekam Medis', 'required|trim|integer|is_unique[t_pasien.nomor_rekam_medis]');
         $this->form_validation->set_rules('nama_lengkap_pasien', 'Nomor Lengkap Pasien', 'required|trim');
         $this->form_validation->set_rules('tempat_lahir', 'Tempat Lahir', 'required|trim');
         $this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'required|callback_validate_date');
         $this->form_validation->set_rules('kartu_identitas', 'Kartu Identitas', 'required');
-        $this->form_validation->set_rules('nomor_kartu_identitas', 'Nomor Kartu Identitas', 'required|trim|integer');
+        $this->form_validation->set_rules('nomor_kartu_identitas', 'Nomor Kartu Identitas', 'required|trim|integer|is_unique[t_pasien.nomor_kartu_identitas]');
         $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('pekerjaan', 'Nomor Lengkap Pasien', 'required|trim');
         $this->form_validation->set_rules('warga_negara', 'Warga Negara', 'required|trim');

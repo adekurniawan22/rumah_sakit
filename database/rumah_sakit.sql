@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Des 2023 pada 20.34
+-- Waktu pembuatan: 24 Des 2023 pada 13.47
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -73,13 +73,13 @@ CREATE TABLE `t_obat` (
 --
 
 INSERT INTO `t_obat` (`id_obat`, `nama_obat`, `harga_obat`, `stok_obat`) VALUES
-(1, 'Paracetamol', 10000, 199),
-(12, 'Bodrex', 10000, 199),
-(13, 'Panadol', 5000, 120),
-(14, 'Ibuprofen', 15000, 250),
-(15, 'Amoksisilin', 10000, 100),
-(16, 'Omeprazole', 15000, 50),
-(17, 'Loratadin', 7000, 100);
+(1, 'Paracetamol', 10000, 198),
+(2, 'Bodrex', 10000, 198),
+(13, 'Panadol', 5000, 119),
+(14, 'Ibuprofen', 15000, 247),
+(15, 'Amoksisilin', 10000, 99),
+(16, 'Omeprazole', 15000, 49),
+(17, 'Loratadin', 7000, 99);
 
 -- --------------------------------------------------------
 
@@ -116,8 +116,7 @@ INSERT INTO `t_pasien` (`id_pasien`, `nomor_rekam_medis`, `nama_lengkap_pasien`,
 (50, '00010010110123', 'Jamal Indrawan', 'Tempino', '2001-01-02', 'KTP', '150505220620076530', 'Laki-laki', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Ambon', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171021234'),
 (51, '00010010110915', 'Adi Suhendra', 'Tempino', '2001-09-06', 'KTP', '150505220620045132', 'Laki-laki', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Ambon', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171020987'),
 (52, '00010010110999', 'Sultan Thariq', 'Tempino', '2001-06-05', 'KTP', '150505220620010999', 'Laki-laki', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171027456'),
-(53, '00010010110888', 'Tri Mulyani', 'Tempino', '2001-04-02', 'KTP', '150505220620010888', 'Perempuan', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171021209'),
-(54, '00010010110980', 'Fauzi Ramadhan', 'Bengkulu', '2001-04-04', 'KTP', '150505220620016555', 'Laki-laki', 'Programmer', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestong, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'SMA', '083171027936');
+(53, '00010010110888', 'Tri Mulyani', 'Tempino', '2001-04-02', 'KTP', '150505220620010888', 'Perempuan', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171021209');
 
 -- --------------------------------------------------------
 
@@ -150,9 +149,9 @@ INSERT INTO `t_pegawai` (`id_pegawai`, `id_role`, `id_poliklinik`, `nomor_pegawa
 (33, 2, 0, '000000001067', 'pp_ade', '$2y$10$s2E6.3M7ZJh.8bdyM7abRuPZVaRVUy/PMOMs5uTKypSrE8gBoMKvG', 'Ade Kurniawan Petugas Pendaftaran', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-02 17:11:22'),
 (36, 5, 0, '000192543388', 'k_ade', '$2y$10$ElpPueEn/zqwhqzUoldMveYp83M6HucR4STa2YGnyGWr8WV/VaYTq', 'Ade Kurniawan Kasir', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-06 13:30:31'),
 (37, 3, 1, '123348890216', 'p_ade', '$2y$10$QjCdpHinIM5rI1sIfiqyQeMWwO73pcADnPlqf33U.6Nsd97oI.KqO', 'Ade Kurniawan Perawat', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-07 04:13:46'),
-(38, 4, 1, '512367772771', 'd_ade', '$2y$10$rBuh/rthEFQNXTwnUbw6UegyIkxTTboYNP4kce49gSdoghUjOG/yW', 'Ade Kurniawan Dokter', 'Jalan Jambi Palembang KM 27', '083171027946', 'Laki-laki', 1, '580b57fcd9996e24bc43c4e73.png', '2023-12-08 16:22:02'),
-(39, 7, 0, '234575656799', 'f_ade', '$2y$10$g2U9kjT1oXINwvpksbHinudKIx0ZxHmTB/u2muCwWIxyuvVHKrYHS', 'Ade Kurniawan Farmasi', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-17 14:18:42'),
-(40, 6, 0, '123348890216', 'rm_ade', '$2y$10$sN4eak46HtlIPO5AHcsNj.ceQU5ZiGYjSBMJBufo4A8IJlE.odsDm', 'Ade Kurniawan Rekam Medis', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-19 17:44:42');
+(38, 4, 1, '512367772771', 'd_ade', '$2y$10$rBuh/rthEFQNXTwnUbw6UegyIkxTTboYNP4kce49gSdoghUjOG/yW', 'Ade Kurniawan Dokter', 'Jalan Jambi Palembang KM 27', '083171027946', 'Laki-laki', 1, 'default.jpg', '2023-12-08 16:22:02'),
+(40, 6, 0, '123348890216', 'rm_ade', '$2y$10$sN4eak46HtlIPO5AHcsNj.ceQU5ZiGYjSBMJBufo4A8IJlE.odsDm', 'Ade Kurniawan Rekam Medis', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-19 17:44:42'),
+(43, 7, 0, '0001925433', 'f_ade', '$2y$10$viI9/aPqWykUo5tn8aztUOaLQqzr.tovG30whDAIt1cSwcioOKxVu', 'Ade Kurniawan Farmasi', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2023-12-24 17:14:26');
 
 -- --------------------------------------------------------
 
@@ -459,7 +458,7 @@ ALTER TABLE `t_role`
 -- AUTO_INCREMENT untuk tabel `t_antrian`
 --
 ALTER TABLE `t_antrian`
-  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_biaya`
@@ -477,43 +476,43 @@ ALTER TABLE `t_obat`
 -- AUTO_INCREMENT untuk tabel `t_pasien`
 --
 ALTER TABLE `t_pasien`
-  MODIFY `id_pasien` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id_pasien` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pegawai`
 --
 ALTER TABLE `t_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pembayaran`
 --
 ALTER TABLE `t_pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pemeriksaan1`
 --
 ALTER TABLE `t_pemeriksaan1`
-  MODIFY `id_pemeriksaan1` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id_pemeriksaan1` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pemeriksaan2`
 --
 ALTER TABLE `t_pemeriksaan2`
-  MODIFY `id_pemeriksaan2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_pemeriksaan2` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pendaftaran`
 --
 ALTER TABLE `t_pendaftaran`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pengambilan_obat`
 --
 ALTER TABLE `t_pengambilan_obat`
-  MODIFY `id_pengambilan_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pengambilan_obat` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_poliklinik`
