@@ -66,7 +66,7 @@ class Dokter extends CI_Controller
         $data['title'] = "Antrian Pemeriksaan 2";
         $this->load->view('templates/main/header', $data);
         $this->load->view('templates/main/sidebar', $data);
-        $this->load->view('dokter/index', $data); // Kirim hasil query ke tampilan
+        $this->load->view('dokter/index', $data);
         $this->load->view('templates/main/footer');
     }
 
@@ -92,7 +92,7 @@ class Dokter extends CI_Controller
         $data['title'] = "Antrian Pemeriksaan 2";
         $this->load->view('templates/main/header', $data);
         $this->load->view('templates/main/sidebar', $data);
-        $this->load->view('dokter/tambah_pemeriksaan', $data); // Kirim hasil query ke tampilan
+        $this->load->view('dokter/tambah_pemeriksaan', $data);
         $this->load->view('templates/main/footer');
     }
 
@@ -141,7 +141,7 @@ class Dokter extends CI_Controller
             $data['title'] = "Antrian Pemeriksaan 2";
             $this->load->view('templates/main/header', $data);
             $this->load->view('templates/main/sidebar', $data);
-            $this->load->view('dokter/tambah_pemeriksaan', $data); // Kirim hasil query ke tampilan
+            $this->load->view('dokter/tambah_pemeriksaan', $data);
             $this->load->view('templates/main/footer');
         } else {
 
@@ -243,7 +243,7 @@ class Dokter extends CI_Controller
             $this->db->update('t_pendaftaran', array('status_pemeriksaan2' => '1'));
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                                 <div>
-                                    Data Pemeriksaan pasien berhasil ditambahkan!
+                                    Data pemeriksaan pasien berhasil ditambahkan!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');
@@ -274,7 +274,7 @@ class Dokter extends CI_Controller
         $data['title'] = "Data Pemeriksaan 2";
         $this->load->view('templates/main/header', $data);
         $this->load->view('templates/main/sidebar', $data);
-        $this->load->view('dokter/pemeriksaan', $data); // Kirim hasil query ke tampilan
+        $this->load->view('dokter/pemeriksaan', $data);
         $this->load->view('templates/main/footer');
     }
 
@@ -307,7 +307,6 @@ class Dokter extends CI_Controller
         $this->form_validation->set_rules('tindakan', 'Tindakan', 'required|trim');
         $this->form_validation->set_rules('edukasi', 'Edukasi', 'required|trim');
         $this->form_validation->set_rules('resep_obat', 'Resep Obat', 'required|trim');
-        // $this->form_validation->set_rules('rencana_kontrol', 'Rencana Kontrol', 'required|trim');
         $this->form_validation->set_rules('pelayanan_home_care', 'Pelayanan Home Care', 'required|trim');
         $this->form_validation->set_rules('kontrol_ke_poliklinik', 'Kontrol Ke Poliklinik', 'required|trim');
         $this->form_validation->set_rules('perlu_penggunaan_alat', 'Perlu Penggunaan Alat', 'required|trim');
@@ -429,7 +428,7 @@ class Dokter extends CI_Controller
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                                 <div>
-                                    Data Pemeriksaan pasien berhasil diubah!
+                                    Data pemeriksaan pasien berhasil diubah!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');

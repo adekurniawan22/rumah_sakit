@@ -45,9 +45,10 @@ class Farmasi extends CI_Controller
         $this->db->where('status_pengambilan_obat', "0");
         $data['panjang_antri'] = $this->db->get()->num_rows();
 
-        $this->db->select('t_pendaftaran.*, t_pasien.*, t_pemeriksaan2.*');
+        $this->db->select('t_pendaftaran.*, t_pasien.*, t_poliklinik.nama_poliklinik, t_pemeriksaan2.*');
         $this->db->from('t_pendaftaran');
         $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien');
+        $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik');
         $this->db->join('t_pemeriksaan2', 't_pendaftaran.id_pendaftaran = t_pemeriksaan2.id_pendaftaran');
         $this->db->where('status_pembayaran', "1");
         $this->db->where('status_pemeriksaan1', "1");
@@ -129,7 +130,7 @@ class Farmasi extends CI_Controller
             $this->db->update('t_pendaftaran', array('status_pengambilan_obat' => '1'));
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                 <div>
-                    Data Pengambilan Obat berhasil ditambahkan!
+                    Data pengambilan obat berhasil ditambahkan!
                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                 </div>
             </div>');
@@ -222,7 +223,7 @@ class Farmasi extends CI_Controller
             $this->db->update('t_pengambilan_obat', $data_pengambilan_obat);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                 <div>
-                    Data Pengambilan Obat berhasil diubah!
+                    Data pengambilan obat berhasil diubah!
                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                 </div>
             </div>');

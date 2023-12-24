@@ -20,8 +20,9 @@
                                         <th>Nomor Rekam Medis</th>
                                         <th>Obat yang diambil</th>
                                         <th>Keterangan</th>
-                                        <th class="text-center" data-sortable="false">Aksi</th>
-                                        <th class="text-center" data-sortable="false">Cetak Nota</th>
+                                        <th>Waktu Pengambilan</th>
+                                        <th style="width: 10%;" class="text-center" data-sortable="false">Aksi</th>
+                                        <th style="width: 10%;" class="text-center" data-sortable="false">Cetak Nota</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,6 +32,7 @@
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->obat_yang_diambil ?></td>
                                             <td><?= $data->keterangan_pengambilan_obat ?></td>
+                                            <td><?= date('d-F-Y', strtotime($data->waktu_pengambilan_obat)) ?>, Jam <?= date('H:i', strtotime($data->waktu_pengambilan_obat)) ?></td>
                                             <td class="text-center">
                                                 <div class="class=" d-inline-block me-1 mb-1"">
                                                     <form action="<?= base_url('farmasi/edit_pengambilan_obat') ?>" method="post">

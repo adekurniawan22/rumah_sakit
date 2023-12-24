@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Data Pemeriksaan Kedua <?= $pegawai->nama_poliklinik ?></h1>
+        <h1>Data Pemeriksaan Kedua - <?= $pegawai->nama_poliklinik ?></h1>
     </div>
 
     <section class="section">
@@ -17,21 +17,23 @@
                             <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
+                                        <th>ID Pemeriksaan</th>
                                         <th>Nomor Rekam Medis</th>
                                         <th>Nama Pasien</th>
                                         <th>Waktu Pemeriksaan</th>
                                         <th class="text-center" data-sortable="false">Informasi Pemeriksaan</th>
-                                        <th class="text-center" data-sortable="false">Aksi</th>
-                                        <th class="text-center" data-sortable="false">Cetak Resep Obat</th>
-                                        <th class="text-center" data-sortable="false">Cetak Surat Pemeriksaan Lanjut</th>
+                                        <th style="width: 10%;" class="text-center" data-sortable="false">Aksi</th>
+                                        <th style="width: 5%;" class="text-center" data-sortable="false">Cetak Resep Obat</th>
+                                        <th style="width: 10%;" class="text-center" data-sortable="false">Cetak Surat Pemeriksaan Lanjut</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($pemeriksaan2 as $data) : ?>
                                         <tr>
+                                            <td><?= $data->id_pemeriksaan2 ?></td>
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
-                                            <td><?= $data->waktu_pemeriksaan2 ?></td>
+                                            <td><?= date('d-F-Y', strtotime($data->waktu_pemeriksaan2)) ?>, Jam <?= date('H:i', strtotime($data->waktu_pemeriksaan2)) ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPemeriksaan2<?= $data->id_pemeriksaan2 ?>" style="width: 100%;">
                                                     Detail

@@ -26,18 +26,20 @@
                             <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
-                                        <th>ID Pemeriksaan 2</th>
+                                        <th>ID Pendaftaran</th>
                                         <th>Nama Pasien</th>
                                         <th>Nomor Rekam Medis</th>
+                                        <th>Poliklinik</th>
                                         <th class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($farmasi as $data) : ?>
                                         <tr>
-                                            <td><?= $data->id_pemeriksaan2 ?></td>
+                                            <td><?= $data->id_pendaftaran ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
                                             <td><?= $data->nomor_rekam_medis ?></td>
+                                            <td><?= $data->nama_poliklinik ?></td>
                                             <td class="text-center">
                                                 <div class="class=" d-inline-block me-1 mb-1"">
                                                     <form action="<?= base_url('farmasi/tambah_pengambilan_obat') ?>" method="post">

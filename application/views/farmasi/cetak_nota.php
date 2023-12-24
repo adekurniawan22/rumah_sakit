@@ -12,8 +12,8 @@
     <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
     <link href="<?php echo base_url() ?>assets/img/logo.png" rel="apple-touch-icon">
     <!-- Favicons -->
-    <link href="<?php echo base_url() ?>assets/bootstrap/assets/img/favicon.png" rel="icon">
-    <link href="<?php echo base_url() ?>assets/bootstrap/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="<?php echo base_url() ?>assets/img/favicon.png" rel="icon">
+    <link href="<?php echo base_url() ?>assets/img/logo.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -50,7 +50,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             max-width: 500px;
-            width: 50%;
+            width: 75%;
         }
     </style>
 </head>
@@ -130,7 +130,7 @@
     </div>
 </body>
 <script>
-    // window.print()
+    window.print()
 </script>
 
 </html>

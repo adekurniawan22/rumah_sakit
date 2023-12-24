@@ -35,9 +35,6 @@ class Perawat extends CI_Controller
 
     public function index()
     {
-        date_default_timezone_set('Asia/Jakarta');
-        $today_date = date('Y-m-d');
-
         $id_pegawai = $this->session->userdata('id_pegawai');
         $this->db->select('t_pegawai.*, t_poliklinik.nama_poliklinik');
         $this->db->from('t_pegawai');
@@ -63,15 +60,14 @@ class Perawat extends CI_Controller
         $this->db->where('id_poliklinik', $data['pegawai']->id_poliklinik);
         $this->db->where('status_pemeriksaan1', "0");
         $this->db->where('status_pembayaran', "1");
-        // $this->db->where("DATE(waktu_pendaftaran) = '$today_date'");
-        $this->db->order_by('t_pembayaran.nomor_antri', 'ASC'); // Urutkan berdasarkan id_pendaftaran terkecil
+        $this->db->order_by('t_pembayaran.nomor_antri', 'ASC');
         $this->db->limit(1);
         $data['antrian'] = $this->db->get()->result();
 
         $data['title'] = "Antrian Pemeriksaan 1";
         $this->load->view('templates/main/header', $data);
         $this->load->view('templates/main/sidebar', $data);
-        $this->load->view('perawat/index', $data); // Kirim hasil query ke tampilan
+        $this->load->view('perawat/index', $data);
         $this->load->view('templates/main/footer');
     }
 
@@ -176,8 +172,6 @@ class Perawat extends CI_Controller
             $imunisasi_dasar = empty($this->input->post('imunisasi_dasar')) ? "" : $this->input->post('imunisasi_dasar');
             $imunisasi_lain = empty($this->input->post('imunisasi_lain')) ? "" : $this->input->post('imunisasi_lain');
             $keadaan_pasien_pulang = empty($this->input->post('keadaan_pasien_pulang')) ? "" : $this->input->post('keadaan_pasien_pulang');
-            // $berkas_yang_diberikan = empty($this->input->post('berkas_yang_diberikan')) ? "" : $this->input->post('berkas_yang_diberikan');
-            // $info_edukasi_yang_diberikan = empty($this->input->post('info_edukasi_yang_diberikan')) ? "" : $this->input->post('info_edukasi_yang_diberikan');
             $status_permintaan_pulang = empty($this->input->post('status_permintaan_pulang')) ? "" : $this->input->post('status_permintaan_pulang');
             $status_melarikan_diri = empty($this->input->post('status_melarikan_diri')) ? "" : $this->input->post('status_melarikan_diri');
 
@@ -262,7 +256,7 @@ class Perawat extends CI_Controller
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                                 <div>
-                                    Data Pemeriksaan pasien berhasil ditambahkan!
+                                    Data pemeriksaan 1 berhasil ditambahkan!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');
@@ -288,7 +282,7 @@ class Perawat extends CI_Controller
         $data['title'] = "Data Pemeriksaan 1";
         $this->load->view('templates/main/header', $data);
         $this->load->view('templates/main/sidebar', $data);
-        $this->load->view('perawat/pemeriksaan', $data); // Kirim hasil query ke tampilan
+        $this->load->view('perawat/pemeriksaan', $data);
         $this->load->view('templates/main/footer');
     }
 
@@ -453,7 +447,7 @@ class Perawat extends CI_Controller
         $this->db->update('t_pemeriksaan1', $data_edit_pemeriksaan1);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert" style="display: inline-block;">
                                 <div>
-                                    Data Pemeriksaan pasien berhasil ditambahkan!
+                                Data pemeriksaan 1 berhasil diubah!
                                     <i class="bi bi-check-circle-fill"></i> <!-- Menggunakan ikon tanda centang -->
                                 </div>
                             </div>');

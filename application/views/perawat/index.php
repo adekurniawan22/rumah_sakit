@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Data Antrian Pemeriksaan Pertama - <?= $pegawai->nama_poliklinik ?></h1>
+        <h1>Data Antrian Pemeriksaan 1 - <?= $pegawai->nama_poliklinik ?></h1>
     </div>
 
     <section class="section">
@@ -10,7 +10,11 @@
                 <div class="card bg-success text-white">
                     <div class="card-body">
                         <h5 class="pt-3">Nomor Antrian Saat Ini</h5>
-                        <p class="display-4"><?= $nomor_antri_sekarang->nomor_antri_sekarang ?></p>
+                        <?php if ($nomor_antri_sekarang->nomor_antri_sekarang) { ?>
+                            <p class="display-4"><?= $nomor_antri_sekarang->nomor_antri_sekarang ?></p>
+                        <?php } else { ?>
+                            <P class="display-4">Belum ada</P>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -30,11 +34,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body mt-3">
-
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
-
                             <table class="table my-4">
                                 <thead>
                                     <tr>
@@ -156,6 +158,10 @@
                                     <label class="form-label">Jenis Pembayaran</label>
                                     <input type="text" class="form-control" value="<?= $dataModal->jenis_pembayaran ?>" readonly>
                                 </div>
+                                <div class="col-12">
+                                    <label class="form-label">Tata tertib, Hak dan Kewajiban Pasien Diserahkan Kepada Pasien / Keluarga</label>
+                                    <input type="text" class="form-control" value="<?= $dataModal->ketentuan_rs_ke_pasien ?>" readonly>
+                                </div>
                             </form><!-- Vertical Form -->
                         </div>
                     </div>
@@ -167,15 +173,3 @@
         </div>
     </div>
 <?php endforeach ?>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Panggil fungsi centerTextInColumn untuk mengubah teks menjadi tengah dalam kolom "Age"
-        centerTextInColumn('#example', 4);
-        centerTextInColumn('#example', 5);
-        centerTextInColumn('#example', 6);
-        centerTextInColumn('#example', 7);
-        centerTextInColumn('#example', 8);
-        centerTextInColumn('#example', 9);
-    });
-</script>

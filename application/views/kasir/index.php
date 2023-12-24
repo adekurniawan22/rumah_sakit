@@ -19,7 +19,7 @@
                                         <th>ID Pendaftaran</th>
                                         <!-- <th>Tanggal Pendaftaran</th> -->
                                         <th>Nama Pasien</th>
-                                        <th>Nomor Rekam Medis</th>
+                                        <th>Poliklinik</th>
                                         <th>Keterangan Pembayaran</th>
                                         <th class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
@@ -29,7 +29,7 @@
                                         <tr>
                                             <td><?= $data->id_pendaftaran ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
-                                            <td><?= $data->nomor_rekam_medis ?></td>
+                                            <td><?= $data->nama_poliklinik ?></td>
                                             <?php if ($data->perlu_pemeriksaan_lanjut == '1') { ?>
                                                 <td>Pemeriksaan Lanjut</td>
                                             <?php } else { ?>

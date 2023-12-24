@@ -35,12 +35,13 @@ class Kasir extends CI_Controller
 
     public function index()
     {
-        $this->db->select('t_pendaftaran.*, t_pasien.*');
+        $this->db->select('t_pendaftaran.*, t_pasien.*, t_poliklinik.nama_poliklinik');
         $this->db->from('t_pendaftaran');
         $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien', 'left');
+        $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
         $this->db->where('status_pembayaran', "0");
         $this->db->or_where('perlu_pemeriksaan_lanjut', "1");
-        $this->db->order_by('id_pendaftaran', 'ASC'); // Urutkan berdasarkan id_pendaftaran terkecil
+        $this->db->order_by('id_pendaftaran', 'ASC');
         $this->db->limit(5);
         $query = $this->db->get()->result();
         $data['a_pembayaran'] = $query;

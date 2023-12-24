@@ -17,6 +17,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID Pendaftaran</th>
+                                        <th>No. Rekam Medis</th>
                                         <th>Nama Pasien</th>
                                         <th>Poliklinik</th>
                                         <th class="text-center" data-sortable="false">Aksi</th>
@@ -26,13 +27,14 @@
                                     <?php foreach ($rekam_medis as $data) : ?>
                                         <tr>
                                             <td><?= $data->id_pendaftaran ?></td>
+                                            <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
                                             <td><?= $data->nama_poliklinik ?></td>
                                             <td class="text-center">
                                                 <form action=" <?= base_url('rekam_medis/print') ?>" target="_blank" method="post" class="d-inline-block me-1 mb-1">
                                                     <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
                                                     <button type="submit" class="btn btn-primary ">
-                                                        <i class="bi bi-printer-fill"></i>
+                                                        Cetak <i class="bi bi-printer-fill"></i>
                                                     </button>
                                                 </form>
 
@@ -41,7 +43,7 @@
                                                     <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
                                                     <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
                                                     <button type="submit" class="btn btn-primary ">
-                                                        <i class="bi bi-download"></i>
+                                                        Download PDF <i class="bi bi-download"></i>
                                                     </button>
                                                 </form>
                                             </td>

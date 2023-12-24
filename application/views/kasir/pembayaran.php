@@ -18,12 +18,12 @@
                                     <tr>
                                         <th>ID Pembayaran</th>
                                         <th>Nama Pasien</th>
-                                        <th>Nomor Rekam Medis</th>
+                                        <th>Poliklinik</th>
                                         <th>Biaya</th>
                                         <th>Keterangan Pembayaran</th>
-                                        <th class="text-center" data-sortable="false">Aksi</th>
-                                        <th class="text-center" data-sortable="false">Cetak Antri</th>
-                                        <th class="text-center" data-sortable="false">Cetak Surat Pemeriksaan Lanjut</th>
+                                        <th class="text-center" style="width: 10%;" data-sortable="false">Aksi</th>
+                                        <th class="text-center" style="width: 10%;" data-sortable="false">Cetak Antri</th>
+                                        <th class="text-center" style="width: 15%;" data-sortable="false">Cetak Surat Pemeriksaan Lanjut</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -31,7 +31,7 @@
                                         <tr>
                                             <td><?= $data->id_pembayaran ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
-                                            <td><?= $data->nomor_rekam_medis ?></td>
+                                            <td><?= $data->nama_poliklinik ?></td>
                                             <td>Rp. <?= number_format($data->harga_biaya, 0) ?></td>
                                             <td><?= $data->nama_biaya ?></td>
                                             <td class="text-center">
