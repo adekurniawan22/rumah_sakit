@@ -14,6 +14,15 @@ class Qr extends CI_Controller
     {
         $qrcode['nomor_antri'] = $this->input->post('nomor_antri');
         $qrcode['id_poliklinik'] = $this->input->post('id_poliklinik');
+
+        $this->db->where('id_poliklinik', $this->input->post('id_poliklinik'));
+        $qrcode['poliklinik'] = $this->db->get('t_poliklinik')->result();
+
+        $this->db->where('id_biaya', $this->input->post('id_biaya'));
+        $qrcode['biaya'] = $this->db->get('t_biaya')->result();
+
+        $qrcode['nama_lengkap_pasien'] = $this->input->post('nama_lengkap_pasien');
+
         $data = "http://localhost/rumah_sakit/qr/antrian_live?nomor_antri=" . $qrcode['nomor_antri'] . "&id_poliklinik=" . $qrcode['id_poliklinik'];
 
         $hex_data   = bin2hex($data);

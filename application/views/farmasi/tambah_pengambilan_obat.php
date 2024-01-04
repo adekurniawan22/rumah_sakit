@@ -31,6 +31,7 @@
 
                             <hr class="border border-primary border-3 opacity-50 mt-5">
                             <h5 class="card-title">Data Pengambilan Obat</h5>
+                            <p style="color: red;" class="mb-4">Pastikan jumlah obat sudah benar sebelum menekan tombol tambah!</p>
 
                             <table id="farmasi" class="table table-bordered">
                                 <thead>
@@ -38,6 +39,7 @@
                                         <th><input type="checkbox" id="selectAll"></th>
                                         <th>Nama Obat</th>
                                         <th>Stok Obat</th>
+                                        <th>Jumlah Obat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,10 +48,15 @@
                                             <td><input type="checkbox" class="select-checkbox" name="select_obat[]" value="<?= $dataObat->nama_obat ?>" data-name="<?= $dataObat->nama_obat ?>"></td>
                                             <td><?= $dataObat->nama_obat ?></td>
                                             <td><?= $dataObat->stok_obat ?></td>
+                                            <td>
+                                                <input type="number" class="form-control obat-quantity" name="obat_quantity[]" data-name="<?= $dataObat->nama_obat ?>" value="0" min="0" style="display: none;">
+                                            </td>
                                         </tr>
+
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
+                            <hr class="border border-primary border-3 opacity-50 mt-5">
 
                             <div class="row mb-3 mt-4">
                                 <div class="col-sm-2">Nama Obat</div>
@@ -86,3 +93,28 @@
         </div>
     </section>
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll(".select-checkbox");
+        const quantityInputs = document.querySelectorAll(".obat-quantity");
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener("change", function() {
+                const isChecked = checkbox.checked;
+                const obatName = checkbox.getAttribute("data-name");
+
+                quantityInputs.forEach((quantityInput) => {
+                    if (quantityInput.getAttribute("data-name") === obatName) {
+                        if (isChecked) {
+                            quantityInput.style.display = "block"; // Tampilkan input
+                        } else {
+                            quantityInput.style.display = "none"; // Sembunyikan input
+                            quantityInput.value = 0; // Setel nilai menjadi 0
+                        }
+                    }
+                });
+            });
+        });
+    });
+</script>

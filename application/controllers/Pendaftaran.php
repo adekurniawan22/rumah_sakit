@@ -35,12 +35,12 @@ class Pendaftaran extends CI_Controller
     public function index()
     {
         //Mengambil Data Pendaftaran Pasien
-        $this->db->select('t_pendaftaran.*, t_poliklinik.nama_poliklinik, t_pasien.*, t_pembayaran.nomor_antri');
+        $this->db->select('t_pendaftaran.*, t_poliklinik.nama_poliklinik, t_pasien.*, t_pembayaran.*');
         $this->db->from('t_pendaftaran');
         $this->db->join('t_poliklinik', 't_pendaftaran.id_poliklinik = t_poliklinik.id_poliklinik', 'left');
         $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien', 'left');
         $this->db->join('t_pembayaran', 't_pendaftaran.id_pendaftaran = t_pembayaran.id_pendaftaran', 'left');
-        $this->db->order_by('id_pendaftaran', 'DESC');
+        $this->db->order_by('t_pendaftaran.id_pendaftaran', 'DESC');
         $query = $this->db->get()->result();
         $data['pendaftaran'] = $query;
 

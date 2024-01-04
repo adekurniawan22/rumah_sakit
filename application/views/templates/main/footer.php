@@ -66,10 +66,26 @@
 
         $(document).ready(function() {
             var table = $('#farmasi').DataTable({
-                paging: false,
-                info: false,
+                "oLanguage": {
+                    "sLengthMenu": "Tampilkan _MENU_ data",
+                    "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    "emptyTable": "Tidak ada data",
+                },
+                "lengthMenu": [
+                    [5, 10, 25, 50, -1],
+                    ["5", "10", "25", "50", "Semua"]
+                ],
+                "order": [
+                    [1, "desc"]
+                ],
                 language: {
                     "search": "Cari:",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    }
                 },
             });
 

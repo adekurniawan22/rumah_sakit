@@ -105,7 +105,7 @@ class Perawat extends CI_Controller
         $this->form_validation->set_rules('skala', 'Skala', 'required|trim');
         $this->form_validation->set_rules('durasi', 'Durasi', 'required|trim');
 
-        $this->form_validation->set_rules('pengetahuan_tentang_penyakit', 'Pengathuan tentang penyakit saat ini', 'required|trim');
+        $this->form_validation->set_rules('pengetahuan_tentang_penyakit', 'Pengetahuan tentang penyakit saat ini', 'required|trim');
         $this->form_validation->set_rules('perawatan_yg_dilakukan', 'Perawatan yang dilakukan', 'required|trim');
         $this->form_validation->set_rules('perasaan', 'Perasaan', 'required|trim');
 

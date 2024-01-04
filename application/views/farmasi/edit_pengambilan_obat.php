@@ -11,35 +11,45 @@
                     <div class="card">
                         <div class="card-body pt-4">
                             <input type="hidden" class="form-control" name="id_pengambilan_obat" value="<?php echo $pengambilan_obat[0]->id_pengambilan_obat; ?>">
-
+                            <!--  -->
+                            <hr class="border border-primary border-3 opacity-50 mt-2 mb-4">
                             <table id="farmasi" class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="selectAll"></th>
                                         <th>Nama Obat</th>
                                         <th>Stok Obat</th>
+                                        <th>Jumlah Obat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $obat_yang_diambil_data = explode(', ', $pengambilan_obat[0]->obat_yang_diambil) ?>
+                                    <?php
+                                    // Menghapus tanda kurung beserta angka di dalam string
+                                    $cleaned_string = preg_replace('/\s*\(\d+\)(,*)/', '$1', $pengambilan_obat[0]->obat_yang_diambil);;
+
+                                    $result = trim($cleaned_string, ", ");
+                                    $obat_yang_diambil_data = explode(', ', $result);
+                                    ?>
+
                                     <?php foreach ($obat as $dataObat) : ?>
                                         <tr>
-                                            <td><input type="checkbox" class="select-checkbox" name="select_obat[]" value="<?= $dataObat->nama_obat ?>" data-name="<?= $dataObat->nama_obat ?>" <?php echo (in_array($dataObat->nama_obat, $obat_yang_diambil_data)) ? 'checked' : ''; ?>></td>
-                                            <td><?= $dataObat->nama_obat ?></td>
+                                            <td><input type="checkbox" class="select-checkbox" name="select_obat[]" value="<?= $dataObat->nama_obat ?>" data-name="<?= $dataObat->nama_obat ?>"></td>
+                                            <td <?php echo (in_array($dataObat->nama_obat, $obat_yang_diambil_data)) ? 'style="background-color: green;"' : ''; ?>><?= $dataObat->nama_obat ?></td>
                                             <td><?= $dataObat->stok_obat ?></td>
+                                            <td>
+                                                <input type="number" class="form-control obat-quantity" name="obat_quantity[]" data-name="<?= $dataObat->nama_obat ?>" value="0" min="0" style="display: none;">
+                                            </td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
+                            <hr class="border border-primary border-3 opacity-50 mt-5">
 
                             <div class="row mb-3 mt-4">
                                 <div class="col-sm-2">Nama Obat</div>
+                                <div id="selectedText" class="col-sm-10"><?= form_error('select_obat[]', '<p style="font-size: 12px;color: red;" class="my-2">', '</p>'); ?></div>
                                 <div id="selectedText" class="col-sm-10">
-                                    <?php foreach ($obat_yang_diambil_data as $obat_diambil) : ?>
-                                        <ul>
-                                            <li><?= $obat_diambil ?></li>
-                                        </ul>
-                                    <?php endforeach ?>
+
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -100,6 +110,31 @@
         // Memeriksa dan mencentang kembali obat yang telah dipilih sebelumnya
         obatTerpilih.forEach(function(obat) {
             $('input[name="select_obat[]"][value="' + obat + '"]').prop('checked', true);
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll(".select-checkbox");
+        const quantityInputs = document.querySelectorAll(".obat-quantity");
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener("change", function() {
+                const isChecked = checkbox.checked;
+                const obatName = checkbox.getAttribute("data-name");
+
+                quantityInputs.forEach((quantityInput) => {
+                    if (quantityInput.getAttribute("data-name") === obatName) {
+                        if (isChecked) {
+                            quantityInput.style.display = "block"; // Tampilkan input
+                        } else {
+                            quantityInput.style.display = "none"; // Sembunyikan input
+                            quantityInput.value = 0; // Setel nilai menjadi 0
+                        }
+                    }
+                });
+            });
         });
     });
 </script>

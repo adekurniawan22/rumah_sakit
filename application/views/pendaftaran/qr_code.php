@@ -49,7 +49,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            max-width: 450px;
             width: 50%;
             display: flex;
             flex-direction: column;
@@ -61,21 +61,82 @@
         .nota-container img {
             align-self: center;
         }
+
+
+
+        td {
+            text-align: left;
+        }
     </style>
 </head>
 
 <body>
     <div class="nota-container">
         <!-- Your content goes here -->
-        <h3 class="text-center mb-4">QR Code Nomor Antri</h3>
-        <img src="<?= base_url('assets/media/qrcode/' . $nama_file); ?>" alt="QR Code" style="width: 75%;" />
-        <h4 class="text-center mt-3">Nomor antri anda <?= $nomor_antri ?></h4>
-
-        <!-- Add more content as needed -->
+        <h3 class="text-center mb-4">RESI PEMBAYARAN</h3>
+        <table>
+            <tr>
+                <td>
+                    <span>Nama Pasien</span>
+                </td>
+                <td>
+                    <span style="margin-right: 10px;">:</span>
+                </td>
+                <td>
+                    <span><?= $nama_lengkap_pasien ?></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Nama Poliklinik</span>
+                </td>
+                <td>
+                    <span style="margin-right: 10px;">:</span>
+                </td>
+                <td>
+                    <span><?= $poliklinik[0]->nama_poliklinik ?></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Keterangan</span>
+                </td>
+                <td>
+                    <span style="margin-right: 10px;">:</span>
+                </td>
+                <td>
+                    <span><?= $biaya[0]->nama_biaya ?></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Biaya</span>
+                </td>
+                <td>
+                    <span style="margin-right: 10px;">:</span>
+                </td>
+                <td>
+                    <span> Rp. <?= number_format($biaya[0]->harga_biaya, 0) ?></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Nomor Antri</span>
+                </td>
+                <td>
+                    <span style="margin-right: 10px;">:</span>
+                </td>
+                <td>
+                    <span><?= $nomor_antri ?></span>
+                </td>
+            </tr>
+        </table>
+        <img src="<?= base_url('assets/media/qrcode/' . $nama_file); ?>" alt="QR Code" style="width: 50%;" class="mt-3" />
+        <p class="mt-3"><i>(scan barcode untuk melihat nomor antri secara live)</i></p>
     </div>
 </body>
 <script>
-    window.print()
+    // window.print() 
 </script>
 
 </html>

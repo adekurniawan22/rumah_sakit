@@ -82,16 +82,28 @@ class Farmasi extends CI_Controller
 
     public function proses_tambah_pengambilan_obat()
     {
-        $this->form_validation->set_rules('select_obat[]', 'Nama Obat', 'required|callback_check_select_obat');
+        $this->form_validation->set_rules('select_obat[]', 'Nama Obat', 'required|callback_check_select_obat|callback_validate_obat');
 
-        $fields = array(
-            'select_obat',
-        );
+        $obat_terpilih = $this->input->post('select_obat');
+        $jumlah_obat = $this->input->post('obat_quantity');
+        $jumlah_obat = array_filter($jumlah_obat, function ($value) {
+            return $value != 0;
+        });
+        $jumlah_obat = array_values($jumlah_obat);
 
-        foreach ($fields as $field) {
-            $inputValue = $this->input->post($field);
-            $$field = empty($inputValue) ? "" : implode(', ', $inputValue);
+        $combined_data = array();
+        if (!empty($obat_terpilih) and !empty($jumlah_obat)) {
+            if (count($obat_terpilih) == count($jumlah_obat)) {
+                for ($i = 0; $i < count($obat_terpilih); $i++) {
+                    if ($jumlah_obat[$i] > 0) { // Hanya ambil yang memiliki jumlah obat > 0
+                        $combined_data[] = $obat_terpilih[$i] . ' (' . $jumlah_obat[$i] . ')';
+                    }
+                }
+            }
         }
+
+        // Gabungkan array menjadi satu string dengan koma sebagai pemisah
+        $combined_string = implode(', ', $combined_data);
 
         if ($this->form_validation->run() == false) {
             $id_pemeriksaan2 = $this->input->post('id_pemeriksaan2');
@@ -111,17 +123,34 @@ class Farmasi extends CI_Controller
                 'id_pendaftaran' => $this->input->post('id_pendaftaran'),
                 'id_pasien' => $this->input->post('id_pasien'),
                 'id_pegawai' => $this->session->userdata('id_pegawai'),
-                'obat_yang_diambil' => $select_obat,
+                'obat_yang_diambil' => $combined_string,
                 'keterangan_pengambilan_obat' => $this->input->post('keterangan_pengambilan_obat'),
                 'catatan' => $this->input->post('catatan'),
                 'waktu_pengambilan_obat' => date('Y-m-d H:i:s'),
             ];
 
-            $selectedObats = $this->input->post('select_obat');
-            foreach ($selectedObats as $obat) {
-                $this->db->set('stok_obat', 'stok_obat - 1', FALSE); // Misalnya, mengurangkan stok_obat sebanyak 1
-                $this->db->where('nama_obat', $obat);
-                $this->db->update('t_obat');
+            // Loop melalui obat_terpilih dan jumlah_obat untuk mengupdate stok obat
+            for ($i = 0; $i < count($obat_terpilih); $i++) {
+                $nama_obat = $obat_terpilih[$i];
+                $jumlah = $jumlah_obat[$i];
+
+                $this->db->select('stok_obat');
+                $this->db->from('t_obat');
+                $this->db->where('nama_obat', $nama_obat);
+                $query = $this->db->get();
+                $row = $query->row();
+                $stok_obat = $row->stok_obat;
+
+                // Hitung stok obat yang baru
+                $stok_obat_baru = $stok_obat - $jumlah;
+
+                // Update stok obat di database
+                $data = array(
+                    'stok_obat' => $stok_obat_baru,
+                );
+
+                $this->db->where('nama_obat', $nama_obat);
+                $this->db->update('t_obat', $data);
             }
 
             $this->db->insert('t_pengambilan_obat', $data_pengambilan_obat);
@@ -168,16 +197,29 @@ class Farmasi extends CI_Controller
 
     public function proses_edit_pengambilan_obat()
     {
-        $this->form_validation->set_rules('select_obat[]', 'Nama Obat', 'required|callback_check_select_obat');
+        $this->form_validation->set_rules('select_obat[]', 'Nama Obat', 'required|callback_check_select_obat|callback_validate_obat');
 
-        $fields = array(
-            'select_obat',
-        );
+        $obat_terpilih = $this->input->post('select_obat');
+        $jumlah_obat = $this->input->post('obat_quantity');
+        $jumlah_obat = array_filter($jumlah_obat, function ($value) {
+            return $value != 0;
+        });
+        $jumlah_obat = array_values($jumlah_obat);
 
-        foreach ($fields as $field) {
-            $inputValue = $this->input->post($field);
-            $$field = empty($inputValue) ? "" : implode(', ', $inputValue);
+
+        $combined_data = array();
+        if (!empty($obat_terpilih) and !empty($jumlah_obat)) {
+            if (count($obat_terpilih) == count($jumlah_obat)) {
+                for ($i = 0; $i < count($obat_terpilih); $i++) {
+                    if ($jumlah_obat[$i] > 0) { // Hanya ambil yang memiliki jumlah obat > 0
+                        $combined_data[] = $obat_terpilih[$i] . ' (' . $jumlah_obat[$i] . ')';
+                    }
+                }
+            }
         }
+
+        // Gabungkan array menjadi satu string dengan koma sebagai pemisah
+        $combined_string = implode(', ', $combined_data);
 
         $this->db->where('id_pengambilan_obat', $this->input->post('id_pengambilan_obat'));
         $data['pengambilan_obat'] = $this->db->get('t_pengambilan_obat')->result();
@@ -193,31 +235,51 @@ class Farmasi extends CI_Controller
             $this->load->view('templates/main/footer');
         } else {
             $data_pengambilan_obat = [
-                'obat_yang_diambil' => $select_obat,
+                'obat_yang_diambil' => $combined_string,
                 'keterangan_pengambilan_obat' => $this->input->post('keterangan_pengambilan_obat'),
                 'catatan' => $this->input->post('catatan')
             ];
 
-            $obat_sebelumnya = $data['pengambilan_obat'][0]->obat_yang_diambil;
-            $obat_baru  = $select_obat;
+            // $obat_sebelumnya = $data['pengambilan_obat'][0]->obat_yang_diambil;
+            // $obat_baru  = $combined_string;
 
-            $arrayA = explode(', ', $obat_sebelumnya);
-            $arrayB = explode(', ', $obat_baru);
+            // $arrayA = explode(', ', $obat_sebelumnya);
+            // $arrayB = explode(', ', $obat_baru);
 
-            // Cari kata yang tidak sama di antara kedua array
-            $uncommonWordsA = array_diff($arrayA, $arrayB);
-            $uncommonWordsB = array_diff($arrayB, $arrayA);
+            // // Cari kata yang tidak sama di antara kedua array
+            // $uncommonWordsA = array_diff($arrayA, $arrayB);
+            // $uncommonWordsB = array_diff($arrayB, $arrayA);
 
-            // Gabungkan array kata yang tidak sama dari kedua sisi
-            $uncommonWords = array_merge($uncommonWordsA, $uncommonWordsB);
+            // // Gabungkan array kata yang tidak sama dari kedua sisi
+            // $uncommonWords = array_merge($uncommonWordsA, $uncommonWordsB);
 
-            if (!empty($uncommonWords)) {
-                foreach ($uncommonWords as $obat) {
-                    $this->db->set('stok_obat', 'stok_obat - 1', FALSE);
-                    $this->db->where('nama_obat', $obat);
-                    $this->db->update('t_obat');
-                }
-            }
+            // if (!empty($uncommonWords)) {
+            //     for ($i = 0; $i < count($obat_terpilih); $i++) {
+            //         $nama_obat = $obat_terpilih[$i];
+            //         $jumlah = $jumlah_obat[$i];
+
+            //         // Lakukan validasi jumlah obat sesuai kebutuhan
+
+            //         // Ambil stok obat saat ini dari database
+            //         $this->db->select('stok_obat');
+            //         $this->db->from('t_obat');
+            //         $this->db->where('nama_obat', $nama_obat);
+            //         $query = $this->db->get();
+            //         $row = $query->row();
+            //         $stok_obat = $row->stok_obat;
+
+            //         // Hitung stok obat yang baru
+            //         $stok_obat_baru = $stok_obat - $jumlah;
+
+            //         // Update stok obat di database
+            //         $data = array(
+            //             'stok_obat' => $stok_obat_baru,
+            //         );
+
+            //         $this->db->where('nama_obat', $nama_obat);
+            //         $this->db->update('t_obat', $data);
+            //     }
+            // }
 
             $this->db->where('id_pengambilan_obat', $this->input->post('id_pengambilan_obat'));
             $this->db->update('t_pengambilan_obat', $data_pengambilan_obat);
@@ -228,6 +290,29 @@ class Farmasi extends CI_Controller
                 </div>
             </div>');
             redirect('farmasi/pengambilan_obat');
+        }
+    }
+
+    public function validate_obat()
+    {
+        $obat_terpilih = $this->input->post('select_obat');
+        $jumlah_obat = $this->input->post('obat_quantity');
+        $jumlah_obat = array_filter($jumlah_obat, function ($value) {
+            return $value != 0;
+        });
+        $jumlah_obat = array_values($jumlah_obat);
+
+        if (!empty($obat_terpilih) && !empty($jumlah_obat) && count($obat_terpilih) == count($jumlah_obat)) {
+            for ($i = 0; $i < count($obat_terpilih); $i++) {
+                if ($jumlah_obat[$i] <= 0) { // Validasi: Jumlah obat harus lebih besar dari 0
+                    $this->form_validation->set_message('validate_obat', 'Jumlah obat harus lebih besar dari 0');
+                    return false; // Set validasi ke false jika ada kesalahan
+                }
+            }
+            return true; // Validasi berhasil
+        } else {
+            $this->form_validation->set_message('validate_obat', 'Jumlah obat tidak boleh 0');
+            return false; // Set validasi ke false jika ada kesalahan
         }
     }
 

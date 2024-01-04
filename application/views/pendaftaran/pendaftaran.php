@@ -85,6 +85,8 @@
                                                             <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
                                                             <input type="hidden" name="id_poliklinik" value="<?= $data->id_poliklinik ?>">
                                                             <input type="hidden" name="nomor_antri" value="<?= $data->nomor_antri ?>">
+                                                            <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
+                                                            <input type="hidden" name="id_biaya" value="<?= $data->id_biaya ?>">
                                                             <button type="submit" class="btn btn-primary ">
                                                                 <i class="bi bi-printer-fill"></i>
                                                             </button>
