@@ -30,6 +30,8 @@ class Farmasi extends CI_Controller
                     redirect('rekam_medis');
                     break;
             }
+        } else {
+            redirect(base_url());
         }
     }
 

@@ -30,6 +30,8 @@ class Perawat extends CI_Controller
                     redirect('farmasi');
                     break;
             }
+        } else {
+            redirect(base_url());
         }
     }
 
