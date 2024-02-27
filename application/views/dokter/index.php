@@ -26,11 +26,12 @@
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
 
-                            <table class="table my-4">
+                            <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
                                         <th>Nomor Rekam Medis</th>
                                         <th>Nama Pasien</th>
+                                        <th class="text-center">Nomor Antrian</th>
                                         <th class="text-center" data-sortable="false">Informasi Pasien</th>
                                         <th class="text-center" data-sortable="false">Aksi</th>
                                     </tr>
@@ -40,6 +41,7 @@
                                         <tr>
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->nama_lengkap_pasien ?></td>
+                                            <td class="text-center"><?= $data->nomor_antri ?></td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPemeriksaan1<?= $data->id_pemeriksaan1 ?>" style="width: 100%;">
                                                     Riwayat Pemeriksaan 1

@@ -43,13 +43,21 @@ class Admin extends CI_Controller
         $this->db->join('t_pegawai', 't_role.id_role = t_pegawai.id_role', 'left');
         $this->db->where_in('t_role.id_role', array(2, 3, 4, 5, 6, 7));
         $this->db->group_by('t_role.nama_role');
-        $query = $this->db->get();
-        $result = $query->result();
+        $data['pegawai'] = $this->db->get()->result();
+
+        $data['poliklinik'] = $this->db->get('t_poliklinik')->result();
+
+        $this->db->select('jenis_pembayaran, COUNT(*) as total');
+        $this->db->from('t_pendaftaran');
+        $this->db->where("DATE_FORMAT(waktu_pendaftaran, '%Y-%m') = DATE_FORMAT(NOW(), '%Y-%m')");
+        $this->db->group_by('jenis_pembayaran');
+        $data['pendaftaran'] = $this->db->get()->result();
+
 
         $data['title'] = "Dashboard Pegawai";
         $this->load->view('templates/main/header', $data);
         $this->load->view('templates/main/sidebar', $data);
-        $this->load->view('admin/index', ['result' => $result]);
+        $this->load->view('admin/index', $data);
         $this->load->view('templates/main/footer');
     }
 

@@ -81,13 +81,6 @@
             </li><!-- End Profile Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#resetAntrian" href="">
-                    <i class="bi bi-x-circle-fill"></i>
-                    <span>Reset Antrian</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#basicModal" href="">
                     <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span>
@@ -260,24 +253,6 @@
         <!-- END SIDEBAR ROLE FARMASI -->
     <?php } ?>
 </aside>
-
-<div class="modal fade" id="resetAntrian" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Reset Antrian</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Apakah kamu yakin untuk reset antrian?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                <a type="button" class="btn btn-primary" href="<?= base_url() ?>pendaftaran/reset_antrian">Ya, lanjutkan</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="basicModal" tabindex="-1">
     <div class="modal-dialog">

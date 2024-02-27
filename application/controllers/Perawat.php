@@ -55,6 +55,10 @@ class Perawat extends CI_Controller
         $data['nomor_antri_sekarang'] = $this->db->get()->row();
 
         //Data Antrian Pasien Berikutnya
+        date_default_timezone_set('Asia/Jakarta');
+        $current_time = date('Y-m-d H:i:s');
+        $six_hours_ago = date('Y-m-d H:i:s', strtotime('-6 hours', strtotime($current_time)));
+        $six_hours_ahead = date('Y-m-d H:i:s', strtotime('+6 hours', strtotime($current_time)));
         $this->db->select('t_pendaftaran.*, t_pasien.*, t_pembayaran.nomor_antri');
         $this->db->from('t_pendaftaran');
         $this->db->join('t_pasien', 't_pendaftaran.id_pasien = t_pasien.id_pasien');
@@ -62,8 +66,9 @@ class Perawat extends CI_Controller
         $this->db->where('id_poliklinik', $data['pegawai']->id_poliklinik);
         $this->db->where('status_pemeriksaan1', "0");
         $this->db->where('status_pembayaran', "1");
+        $this->db->where('t_pembayaran.waktu_pembayaran >=', $six_hours_ago);
+        $this->db->where('t_pembayaran.waktu_pembayaran <=', $six_hours_ahead);
         $this->db->order_by('t_pembayaran.nomor_antri', 'ASC');
-        $this->db->limit(1);
         $data['antrian'] = $this->db->get()->result();
 
         $data['title'] = "Antrian Pemeriksaan 1";

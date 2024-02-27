@@ -15,7 +15,6 @@
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
                         <div class="table-table-container mt-3">
-
                             <table id="pendaftaran" class="table my-4">
                                 <thead>
                                     <tr>
@@ -63,7 +62,7 @@
                                             </td>
 
                                             <td class="text-center">
-                                                <div class="class=" d-inline-block me-1 mb-1"">
+                                                <div class=" d-inline-block me-1 mb-1">
                                                     <?php if ($data->status_pembayaran == "1") { ?>
                                                         <span>Lunas</span>
                                                     <?php } else { ?>
@@ -79,14 +78,18 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                <div class="class=" d-inline-block me-1 mb-1"">
-                                                    <?php if ($data->nomor_antri) { ?>
+                                                <div class=" d-inline-block me-1 mb-1">
+                                                    <?php
+                                                    $this->db->where('id_pendaftaran', $data->id_pendaftaran);
+                                                    $pembayaran = $this->db->get('t_pembayaran')->row();
+                                                    ?>
+                                                    <?php if ($pembayaran) { ?>
                                                         <form action="<?= base_url('qr/buat_qr_code') ?>" target="_blank" method="post">
                                                             <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
                                                             <input type="hidden" name="id_poliklinik" value="<?= $data->id_poliklinik ?>">
-                                                            <input type="hidden" name="nomor_antri" value="<?= $data->nomor_antri ?>">
+                                                            <input type="hidden" name="nomor_antri" value="<?= $pembayaran->nomor_antri ?>">
                                                             <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
-                                                            <input type="hidden" name="id_biaya" value="<?= $data->id_biaya ?>">
+                                                            <input type="hidden" name="id_biaya" value="<?= $pembayaran->id_biaya ?>">
                                                             <button type="submit" class="btn btn-primary ">
                                                                 <i class="bi bi-printer-fill"></i>
                                                             </button>
@@ -257,8 +260,8 @@
                 </div>
                 <div class="modal-footer">
                     <form action="<?= base_url() ?>pendaftaran/hapus_pendaftaran" method="post">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
                         <input type="hidden" name="id_pendaftaran" value="<?= $dataModal->id_pendaftaran ?>">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
                         <button type="submit" class="btn btn-primary">Ya, lanjutkan</button>
                     </form>
                 </div>

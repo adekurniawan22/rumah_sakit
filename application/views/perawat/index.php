@@ -37,7 +37,7 @@
                         <?= $this->session->flashdata('message');
                         unset($_SESSION['message']); ?>
                         <div class="table-container">
-                            <table class="table my-4">
+                            <table id="example" class="table my-4">
                                 <thead>
                                     <tr>
                                         <th>Nomor Rekam Medis</th>

@@ -50,7 +50,7 @@
                     ["5", "10", "25", "50", "Semua"]
                 ],
                 "order": [
-                    [1, "desc"]
+                    [1, "asc"]
                 ],
                 language: {
                     "search": "Cari:",

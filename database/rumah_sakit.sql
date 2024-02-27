@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Jan 2024 pada 03.15
+-- Waktu pembuatan: 27 Feb 2024 pada 19.17
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -34,6 +34,13 @@ CREATE TABLE `t_antrian` (
   `nomor_antri` int(11) NOT NULL,
   `nomor_antri_sekarang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `t_antrian`
+--
+
+INSERT INTO `t_antrian` (`id_antrian`, `id_pendaftaran`, `id_poliklinik`, `nomor_antri`, `nomor_antri_sekarang`) VALUES
+(145, 2, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -68,6 +75,13 @@ CREATE TABLE `t_obat` (
   `stok_obat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `t_obat`
+--
+
+INSERT INTO `t_obat` (`id_obat`, `nama_obat`, `harga_obat`, `stok_obat`) VALUES
+(18, 'parasetamol', 10000, 88);
+
 -- --------------------------------------------------------
 
 --
@@ -101,7 +115,12 @@ CREATE TABLE `t_pasien` (
 INSERT INTO `t_pasien` (`id_pasien`, `nomor_rekam_medis`, `nama_lengkap_pasien`, `tempat_lahir`, `tanggal_lahir`, `kartu_identitas`, `nomor_kartu_identitas`, `jenis_kelamin`, `pekerjaan`, `warga_negara`, `suku`, `alamat_lengkap`, `status_perkawinan`, `agama`, `bahasa`, `pendidikan`, `nomor_hp`) VALUES
 (1, '00010010110289', 'Ade Kurniawan', 'Tempino', '2001-06-22', 'KTP', '150505220620010101', 'Laki-laki', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Minang', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171027936'),
 (2, '00010010110999', 'Sultan Thariq', 'Tempino', '2001-06-05', 'KTP', '150505220620010999', 'Laki-laki', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171027456'),
-(3, '00010010110888', 'Tri Mulyani', 'Tempino', '2001-04-02', 'KTP', '150505220620010888', 'Perempuan', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171021209');
+(3, '00010010110888', 'Tri Mulyani', 'Tempino', '2001-04-02', 'KTP', '150505220620010888', 'Perempuan', 'Wiraswasta', 'Warga Negara Indonesia', 'Suku Jawa', 'Jalan Jambi Palembang KM 27, RT 12, RW 04, Kelurahan Tempino, Kecamatan Mestonh, Kabupaten Muaro Jambi, Provinsi Jambi', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '083171021209'),
+(59, '12312441', 'ahmad', 'tidore', '1997-03-05', 'KTP', '1232132', 'Laki-laki', 'wirausaha', 'Warga Negara Indonesia', 'Suku Ambon', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01, RT 01, RW 02, Kelurahan 003, Kecamatan tihu, Kabupaten Bandung, Provinsi maluku', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '081244475835'),
+(60, '23123123', 'fani', 'maluku', '1997-02-06', 'KTP', '312134441231', 'Perempuan', 'kasir', 'Warga Negara Indonesia', 'Suku Ambon', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01, RT 31, RW 21, Kelurahan 02, Kecamatan tihu, Kabupaten poca, Provinsi maluku', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '081244475835'),
+(61, '231231612', 'jeje', 'maluku', '1997-02-06', 'KTP', '3121344413124', 'Perempuan', 'kasir', 'Warga Negara Indonesia', 'Suku Ambon', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01, RT 31, RW 21, Kelurahan 02, Kecamatan tihu, Kabupaten poca, Provinsi maluku', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '081244475835'),
+(62, '231266717', 'gery', 'maluku', '1997-02-06', 'KTP', '12599912', 'Perempuan', 'kasir', 'Warga Negara Indonesia', 'Suku Ambon', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01, RT 31, RW 21, Kelurahan 02, Kecamatan tihu, Kabupaten poca, Provinsi maluku', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '081244475835'),
+(63, '2312123134', 'gilan', 'maluku', '1997-02-06', 'KTP', '312134441999', 'Perempuan', 'kasir', 'Warga Negara Indonesia', 'Suku Ambon', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01, RT 31, RW 21, Kelurahan 02, Kecamatan tihu, Kabupaten poca, Provinsi maluku', 'Belum Menikah', 'Islam', 'Bahasa Indonesia', 'S1', '081244475835');
 
 -- --------------------------------------------------------
 
@@ -130,7 +149,13 @@ CREATE TABLE `t_pegawai` (
 --
 
 INSERT INTO `t_pegawai` (`id_pegawai`, `id_role`, `id_poliklinik`, `nomor_pegawai`, `username`, `password`, `nama_lengkap`, `alamat`, `nomor_hp`, `jenis_kelamin`, `status_aktif`, `foto`, `tanggal_dibuat`) VALUES
-(1, 1, 0, '000192543355', 'admin', '$2y$10$4748PJfzCTIYXX1JFHqvkeG2yUlKgwFdXDSFupVHx.EZjNlna9mTq', 'Admin', 'Jalan Jambi - Palembang KM 27', '083171027946', 'Laki-laki', 1, '580b57fcd9996e24bc43c4e72.png', '2023-11-21 14:13:06');
+(1, 1, 0, '000192543355', 'admin', '$2y$10$4748PJfzCTIYXX1JFHqvkeG2yUlKgwFdXDSFupVHx.EZjNlna9mTq', 'Admin', 'Jalan Jambi - Palembang KM 27', '083171027946', 'Laki-laki', 1, '580b57fcd9996e24bc43c4e72.png', '2023-11-21 14:13:06'),
+(45, 2, 0, '123348890216', 'pp_vali', '$2y$10$2p4AG2vKVBHIfzozvZJZS.igGiJtDIfSao85bWHtxro7nQfi8xoA.', 'Krisna', 'Jalan Jambi Palembang KM 27', '083171027936', 'Laki-laki', 1, 'default.jpg', '2024-01-02 13:22:40'),
+(46, 3, 1, '000000001209', 'p_vali', '$2y$10$q5SesFE0xkbpobP8X1qxKOIaoMHZUD6mEBKcCd2PO/2WgnkGPhMbS', 'Muhammad Indra Zulfian Tuanaya', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01', '081244475835', 'Laki-laki', 1, 'default.jpg', '2024-01-02 13:45:31'),
+(47, 4, 1, '000000001298', 'd_vali', '$2y$10$c/zhRAljF./vWqUs/tp0re23WhXUMLLfKY1SHxmK6Sn2Mm0398jJC', 'Agung', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01', '081244475835', 'Laki-laki', 1, 'default.jpg', '2024-01-02 13:46:39'),
+(48, 5, 0, '000000001121', 'k_vali', '$2y$10$KSTic3.lFF3OKTCUggG5P.lu812ct/Y0nKN6UCyrhvsrK6SNoBHNy', 'Wahyu', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01', '081244475835', 'Perempuan', 1, 'default.jpg', '2024-01-02 13:47:10'),
+(49, 7, 0, '000000001111', 'f_vali', '$2y$10$z1UDcluzmfRFFO5oNzK1k.IxMSJPyu31vdri6ZijGAA0zA0DspcXC', 'Meli', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01', '081244475835', 'Laki-laki', 1, 'default.jpg', '2024-01-02 13:47:44'),
+(50, 6, 0, '000000001011', 'r_vali', '$2y$10$uctv9o/PBuuof77izIgxruvXNvY3hKttKXwGaeufN/pK8NoZA/wvG', 'Indra', 'jl. tubagus ismail\r\nBLOCK II, GANG ANGKLUNG RT/RW: 05/01', '081244475835', 'Laki-laki', 1, 'default.jpg', '2024-01-02 13:48:32');
 
 -- --------------------------------------------------------
 
@@ -146,6 +171,13 @@ CREATE TABLE `t_pembayaran` (
   `nomor_antri` int(11) NOT NULL,
   `waktu_pembayaran` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `t_pembayaran`
+--
+
+INSERT INTO `t_pembayaran` (`id_pembayaran`, `id_pendaftaran`, `id_pegawai`, `id_biaya`, `nomor_antri`, `waktu_pembayaran`) VALUES
+(12, 2, 45, 1, 1, '2024-02-28 00:50:38');
 
 -- --------------------------------------------------------
 
@@ -285,6 +317,14 @@ CREATE TABLE `t_pendaftaran` (
   `status_pengambilan_obat` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `t_pendaftaran`
+--
+
+INSERT INTO `t_pendaftaran` (`id_pendaftaran`, `id_pasien`, `jenis_pembayaran`, `penanggung_jawab`, `nama_penanggung_jawab`, `hubungan`, `alamat_penanggung_jawab`, `nomor_hp_penanggung_jawab`, `waktu_pendaftaran`, `ketentuan_rs_ke_pasien`, `id_poliklinik`, `id_pegawai`, `status_pembayaran`, `status_pemeriksaan1`, `status_pemeriksaan2`, `perlu_pemeriksaan_lanjut`, `status_pemeriksaan_lanjut`, `status_pengambilan_obat`) VALUES
+(2, 1, 'BPJS', 'Pribadi', 'Ade Kurniawan', 'Suami', 'Jalan Jambi Palembang KM 27, RT 22, RW 22, Kelurahan dsfdsf, Kecamatan sdfsdf, Kabupaten Jambi, Provinsi sdfsdf', '083171027936', '2024-02-08 00:50:38', 'Sudah', 1, 45, '1', '0', '0', '0', '0', '0'),
+(4, 1, 'Bayar', 'Perusahaan', 'Ade Kurniawan', 'Suami', 'Jalan Jambi Palembang KM 27, RT 2, RW 2, Kelurahan fdsfs, Kecamatan fsdf, Kabupaten Jambi, Provinsi sdfs', '083171027936', '2024-02-28 00:51:11', 'Sudah', 7, 45, '0', '0', '0', '0', '0', '0');
+
 -- --------------------------------------------------------
 
 --
@@ -319,11 +359,14 @@ CREATE TABLE `t_poliklinik` (
 
 INSERT INTO `t_poliklinik` (`id_poliklinik`, `nama_poliklinik`) VALUES
 (1, 'Poliklinik Mata'),
-(2, 'Poliklinik Kulit'),
+(2, 'Poliklinik bedah mulut'),
 (3, 'Poliklinik Saraf'),
 (7, 'Poliklinik THT (Telinga, Hidung, Tenggorokan)'),
 (8, 'Poliklinik Gigi'),
-(9, 'Poliklinik Kandungan');
+(9, 'Poliklinik Anak'),
+(11, 'Poliklinik Kesehatan Ibu dan Anak (KIA)'),
+(12, 'Poliklinik Penyakit Dalam'),
+(13, 'Polklinik Jantung');
 
 -- --------------------------------------------------------
 
@@ -390,7 +433,8 @@ ALTER TABLE `t_pegawai`
 -- Indeks untuk tabel `t_pembayaran`
 --
 ALTER TABLE `t_pembayaran`
-  ADD PRIMARY KEY (`id_pembayaran`);
+  ADD PRIMARY KEY (`id_pembayaran`),
+  ADD KEY `id_pendaftaran` (`id_pendaftaran`);
 
 --
 -- Indeks untuk tabel `t_pemeriksaan1`
@@ -408,8 +452,7 @@ ALTER TABLE `t_pemeriksaan2`
 -- Indeks untuk tabel `t_pendaftaran`
 --
 ALTER TABLE `t_pendaftaran`
-  ADD PRIMARY KEY (`id_pendaftaran`),
-  ADD KEY `id_poliklinik` (`id_poliklinik`);
+  ADD PRIMARY KEY (`id_pendaftaran`);
 
 --
 -- Indeks untuk tabel `t_pengambilan_obat`
@@ -437,7 +480,7 @@ ALTER TABLE `t_role`
 -- AUTO_INCREMENT untuk tabel `t_antrian`
 --
 ALTER TABLE `t_antrian`
-  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id_antrian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_biaya`
@@ -449,55 +492,55 @@ ALTER TABLE `t_biaya`
 -- AUTO_INCREMENT untuk tabel `t_obat`
 --
 ALTER TABLE `t_obat`
-  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pasien`
 --
 ALTER TABLE `t_pasien`
-  MODIFY `id_pasien` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_pasien` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pegawai`
 --
 ALTER TABLE `t_pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pembayaran`
 --
 ALTER TABLE `t_pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pemeriksaan1`
 --
 ALTER TABLE `t_pemeriksaan1`
-  MODIFY `id_pemeriksaan1` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pemeriksaan1` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pemeriksaan2`
 --
 ALTER TABLE `t_pemeriksaan2`
-  MODIFY `id_pemeriksaan2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pemeriksaan2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pendaftaran`
 --
 ALTER TABLE `t_pendaftaran`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_pengambilan_obat`
 --
 ALTER TABLE `t_pengambilan_obat`
-  MODIFY `id_pengambilan_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_pengambilan_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_poliklinik`
 --
 ALTER TABLE `t_poliklinik`
-  MODIFY `id_poliklinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_poliklinik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_role`
@@ -513,20 +556,20 @@ ALTER TABLE `t_role`
 -- Ketidakleluasaan untuk tabel `t_antrian`
 --
 ALTER TABLE `t_antrian`
-  ADD CONSTRAINT `t_antrian_ibfk_1` FOREIGN KEY (`id_poliklinik`) REFERENCES `t_poliklinik` (`id_poliklinik`),
-  ADD CONSTRAINT `t_antrian_ibfk_2` FOREIGN KEY (`id_pendaftaran`) REFERENCES `t_pendaftaran` (`id_pendaftaran`) ON DELETE CASCADE;
+  ADD CONSTRAINT `t_antrian_ibfk_1` FOREIGN KEY (`id_poliklinik`) REFERENCES `t_poliklinik` (`id_poliklinik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_antrian_ibfk_2` FOREIGN KEY (`id_pendaftaran`) REFERENCES `t_pendaftaran` (`id_pendaftaran`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `t_pegawai`
 --
 ALTER TABLE `t_pegawai`
-  ADD CONSTRAINT `t_pegawai_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `t_role` (`id_role`);
+  ADD CONSTRAINT `t_pegawai_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `t_role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `t_pendaftaran`
+-- Ketidakleluasaan untuk tabel `t_pembayaran`
 --
-ALTER TABLE `t_pendaftaran`
-  ADD CONSTRAINT `t_pendaftaran_ibfk_1` FOREIGN KEY (`id_poliklinik`) REFERENCES `t_poliklinik` (`id_poliklinik`);
+ALTER TABLE `t_pembayaran`
+  ADD CONSTRAINT `t_pembayaran_ibfk_1` FOREIGN KEY (`id_pendaftaran`) REFERENCES `t_pendaftaran` (`id_pendaftaran`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
