@@ -4,9 +4,16 @@
     <?php if ($this->session->userdata('id_role') == 1) { ?>
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link <?php echo ($title == "Dashboard Pegawai") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin"">
-                <i class=" bi bi-grid"></i>
+                <a class="nav-link <?php echo ($title == "Dashboard Pegawai") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin">
+                    <i class=" bi bi-grid"></i>
                     <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link <?php echo ($title == "Laporan") ? "active" : "collapsed"; ?>" href="<?php echo base_url() ?>admin/laporan">
+                    <i class="bi bi-grid"></i>
+                    <span>Laporan (<?php echo date('Y'); ?>)</span>
                 </a>
             </li>
 

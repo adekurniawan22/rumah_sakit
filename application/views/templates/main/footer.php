@@ -39,6 +39,57 @@
         });
 
         $(document).ready(function() {
+            $('#example2').DataTable({
+                "oLanguage": {
+                    "sLengthMenu": "Tampilkan _MENU_ data",
+                    "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    "emptyTable": "Tidak ada data",
+                },
+                "lengthChange": false,
+                "order": [
+                    [0, "asc"]
+                ],
+                language: {
+                    "search": "Cari:",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    }
+                },
+            });
+        });
+
+
+
+        $(document).ready(function() {
+            $('#example3').DataTable({
+                "oLanguage": {
+                    "sLengthMenu": "Tampilkan _MENU_ data",
+                    "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    "emptyTable": "Tidak ada data",
+                },
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    ["10", "25", "50", "Semua"]
+                ],
+                "order": [
+                    [0, "asc"]
+                ],
+                language: {
+                    "search": "Cari:",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Selanjutnya",
+                        "previous": "Sebelumnya"
+                    }
+                },
+            });
+        });
+
+        $(document).ready(function() {
             $('#pendaftaran').DataTable({
                 "oLanguage": {
                     "sLengthMenu": "Tampilkan _MENU_ data",

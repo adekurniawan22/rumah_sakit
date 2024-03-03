@@ -1,7 +1,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Data Antrian Pembayaran</h1>
+        <h1>Data Antrian Pengambilan Obat</h1>
     </div>
 
     <section class="section">
@@ -41,12 +41,12 @@
                                             <td><?= $data->nomor_rekam_medis ?></td>
                                             <td><?= $data->nama_poliklinik ?></td>
                                             <td class="text-center">
-                                                <div class="class=" d-inline-block me-1 mb-1"">
-                                                    <form action="<?= base_url('farmasi/tambah_pengambilan_obat') ?>" method="post">
-                                                        <input type="hidden" name="id_pemeriksaan2" value="<?= $data->id_pemeriksaan2 ?>">
-                                                        <button type="submit" class="btn btn-primary ">
-                                                            <i class="bi bi-arrow-right-square-fill"></i> Proses
-                                                        </button>
+                                                <div class=" d-inline-block me-1 mb-1"">
+                                                    <form action=" <?= base_url('farmasi/tambah_pengambilan_obat') ?>" method="post">
+                                                    <input type="hidden" name="id_pemeriksaan2" value="<?= $data->id_pemeriksaan2 ?>">
+                                                    <button type="submit" class="btn btn-primary ">
+                                                        <i class="bi bi-arrow-right-square-fill"></i> Proses
+                                                    </button>
                                                     </form>
                                                 </div>
                                             </td>

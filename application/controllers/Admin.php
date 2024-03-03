@@ -61,6 +61,290 @@ class Admin extends CI_Controller
         $this->load->view('templates/main/footer');
     }
 
+    public function laporan()
+    {
+        $tahun = date('Y');
+        $bulan_sekarang = date('m');
+        $query_bulan = "SELECT 
+                    LPAD(number, 2, '0') AS bulan, 
+                    CASE
+                        WHEN number = 1 THEN 'Januari'
+                        WHEN number = 2 THEN 'Februari'
+                        WHEN number = 3 THEN 'Maret'
+                        WHEN number = 4 THEN 'April'
+                        WHEN number = 5 THEN 'Mei'
+                        WHEN number = 6 THEN 'Juni'
+                        WHEN number = 7 THEN 'Juli'
+                        WHEN number = 8 THEN 'Agustus'
+                        WHEN number = 9 THEN 'September'
+                        WHEN number = 10 THEN 'Oktober'
+                        WHEN number = 11 THEN 'November'
+                        WHEN number = 12 THEN 'Desember'
+                    END AS nama_bulan
+                FROM 
+                    (SELECT 1 AS number 
+                    UNION SELECT 2 
+                    UNION SELECT 3 
+                    UNION SELECT 4 
+                    UNION SELECT 5 
+                    UNION SELECT 6 
+                    UNION SELECT 7 
+                    UNION SELECT 8 
+                    UNION SELECT 9 
+                    UNION SELECT 10 
+                    UNION SELECT 11 
+                    UNION SELECT 12) AS months
+                WHERE 
+                    number <= $bulan_sekarang";
+
+        $data_bulan = $this->db->query($query_bulan)->result_array();
+        $query_jumlah_data = "SELECT 
+            DATE_FORMAT(p.waktu_pendaftaran, '%m') AS bulan,
+            SUM(CASE WHEN p2.bulan_pertama = DATE_FORMAT(p.waktu_pendaftaran, '%Y-%m') THEN 1 ELSE 0 END) AS pasien_baru,
+            SUM(CASE WHEN p2.bulan_pertama != DATE_FORMAT(p.waktu_pendaftaran, '%Y-%m') THEN 1 ELSE 0 END) AS pasien_lama,
+            COUNT(DISTINCT CASE WHEN p.jenis_pembayaran = 'BPJS' THEN p.id_pasien END) AS jumlah_bpjs,
+            COUNT(DISTINCT CASE WHEN p.jenis_pembayaran = 'Bayar' THEN p.id_pasien END) AS jumlah_bayar,
+            COUNT(DISTINCT CASE WHEN tp.jenis_kelamin = 'Laki-laki' THEN p.id_pasien END) AS jumlah_laki_laki,
+            COUNT(DISTINCT CASE WHEN tp.jenis_kelamin = 'Perempuan' THEN p.id_pasien END) AS jumlah_perempuan,
+            COUNT(DISTINCT pe2.diagnosa_utama) AS jumlah_diagnosa_utama,
+            GROUP_CONCAT(DISTINCT pe2.diagnosa_utama SEPARATOR ', ') AS diagnosa_utama
+        FROM t_pendaftaran p
+        JOIN (
+            SELECT 
+                id_pasien,
+                MIN(DATE_FORMAT(waktu_pendaftaran, '%Y-%m')) AS bulan_pertama
+            FROM t_pendaftaran
+            GROUP BY id_pasien
+        ) p2 ON p.id_pasien = p2.id_pasien
+        LEFT JOIN t_pasien tp ON p.id_pasien = tp.id_pasien
+        LEFT JOIN t_pemeriksaan2 pe2 ON p.id_pendaftaran = pe2.id_pendaftaran
+        WHERE YEAR(p.waktu_pendaftaran) = $tahun
+        AND DATE_FORMAT(p.waktu_pendaftaran, '%m') <= $bulan_sekarang
+        GROUP BY DATE_FORMAT(p.waktu_pendaftaran, '%m')";
+
+        $data_jumlah_data = $this->db->query($query_jumlah_data)->result_array();
+
+        $jumlah_data_per_bulan = array();
+
+        foreach ($data_bulan as $bulan) {
+            $jumlah_data_per_bulan[$bulan['bulan']] = array(
+                'pasien_baru' => 0,
+                'pasien_lama' => 0,
+                'jumlah_bpjs' => 0,
+                'jumlah_bayar' => 0,
+                'jumlah_laki_laki' => 0,
+                'jumlah_perempuan' => 0,
+                'jumlah_diagnosa_utama' => 0,
+                'diagnosa_utama' => array()
+            );
+        }
+
+        foreach ($data_jumlah_data as $jumlah_data) {
+            $bulan = $jumlah_data['bulan'];
+            $jumlah_data_per_bulan[$bulan]['pasien_baru'] = $jumlah_data['pasien_baru'];
+            $jumlah_data_per_bulan[$bulan]['pasien_lama'] = $jumlah_data['pasien_lama'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_bpjs'] = $jumlah_data['jumlah_bpjs'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_bayar'] = $jumlah_data['jumlah_bayar'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_laki_laki'] = $jumlah_data['jumlah_laki_laki'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_perempuan'] = $jumlah_data['jumlah_perempuan'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_diagnosa_utama'] = $jumlah_data['jumlah_diagnosa_utama'];
+
+            $diagnosa_utama_array = explode(', ', $jumlah_data['diagnosa_utama']);
+            foreach ($diagnosa_utama_array as $diagnosa) {
+                $jumlah_data_per_bulan[$bulan]['diagnosa_utama'][] = $diagnosa;
+            }
+        }
+
+        $data['data_bulan'] = $data_bulan;
+        $data['jumlah_data_per_bulan'] = $jumlah_data_per_bulan;
+        $data['diagnosa_utama'] = $jumlah_data_per_bulan;
+
+        // Ambil data obat dari tabel t_obat
+        $query = $this->db->get('t_obat')->result_array();
+
+        // Bangun array untuk menyimpan data jumlah pengembalian obat per bulan
+        $data_pengembalian_obat = array();
+
+        // Inisialisasi array dengan 0 untuk setiap bulan untuk setiap obat
+        foreach ($query as $row) {
+            $data_pengembalian_obat[$row['id_obat']] = array(
+                'nama_obat' => $row['nama_obat'],
+                'stok_obat' => $row['stok_obat'],
+                'jumlah_pengembalian_obat' => array_fill(1, date('m'), 0) // Hanya inisialisasi hingga bulan sekarang
+            );
+        }
+
+        // Ambil data jumlah pengembalian obat dari tabel t_pengambilan_obat
+        $tahun_sekarang = date('Y');
+        $this->db->select('obat_yang_diambil, MONTH(waktu_pengambilan_obat) as bulan, SUM(jumlah) as jumlah_pengembalian');
+        $this->db->where("YEAR(waktu_pengambilan_obat) = $tahun_sekarang");
+        $this->db->group_by('obat_yang_diambil, MONTH(waktu_pengambilan_obat)');
+        $result = $this->db->get('t_pengambilan_obat')->result_array();
+
+        // Masukkan jumlah pengembalian obat ke dalam array yang sudah dibuat
+        foreach ($result as $row) {
+            $obat_yang_diambil = $row['obat_yang_diambil'];
+            $bulan = $row['bulan'];
+            $jumlah_pengembalian = $row['jumlah_pengembalian'];
+            $data_pengembalian_obat[$obat_yang_diambil]['jumlah_pengembalian_obat'][$bulan] = $jumlah_pengembalian;
+        }
+
+        // Siapkan data untuk dikirimkan ke halaman view
+        $data['data_pengembalian_obat'] = $data_pengembalian_obat;
+        $data['nama_bulan_indonesia'] = array(
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        );
+        $data['bulan_sekarang'] = date('n');
+
+        $data['title'] = "Laporan";
+        $this->load->view('templates/main/header', $data);
+        $this->load->view('templates/main/sidebar', $data);
+        $this->load->view('admin/laporan', $data);
+        $this->load->view('templates/main/footer');
+    }
+
+    public function cetak_laporan_pasien()
+    {
+        $tahun = date('Y');
+        $bulan_sekarang = date('m');
+        $query_bulan = "SELECT 
+                    LPAD(number, 2, '0') AS bulan, 
+                    CASE
+                        WHEN number = 1 THEN 'Januari'
+                        WHEN number = 2 THEN 'Februari'
+                        WHEN number = 3 THEN 'Maret'
+                        WHEN number = 4 THEN 'April'
+                        WHEN number = 5 THEN 'Mei'
+                        WHEN number = 6 THEN 'Juni'
+                        WHEN number = 7 THEN 'Juli'
+                        WHEN number = 8 THEN 'Agustus'
+                        WHEN number = 9 THEN 'September'
+                        WHEN number = 10 THEN 'Oktober'
+                        WHEN number = 11 THEN 'November'
+                        WHEN number = 12 THEN 'Desember'
+                    END AS nama_bulan
+                FROM 
+                    (SELECT 1 AS number 
+                    UNION SELECT 2 
+                    UNION SELECT 3 
+                    UNION SELECT 4 
+                    UNION SELECT 5 
+                    UNION SELECT 6 
+                    UNION SELECT 7 
+                    UNION SELECT 8 
+                    UNION SELECT 9 
+                    UNION SELECT 10 
+                    UNION SELECT 11 
+                    UNION SELECT 12) AS months
+                WHERE 
+                    number <= $bulan_sekarang";
+
+        $data_bulan = $this->db->query($query_bulan)->result_array();
+        $query_jumlah_data = "SELECT 
+            DATE_FORMAT(p.waktu_pendaftaran, '%m') AS bulan,
+            SUM(CASE WHEN p2.bulan_pertama = DATE_FORMAT(p.waktu_pendaftaran, '%Y-%m') THEN 1 ELSE 0 END) AS pasien_baru,
+            SUM(CASE WHEN p2.bulan_pertama != DATE_FORMAT(p.waktu_pendaftaran, '%Y-%m') THEN 1 ELSE 0 END) AS pasien_lama,
+            COUNT(DISTINCT CASE WHEN p.jenis_pembayaran = 'BPJS' THEN p.id_pasien END) AS jumlah_bpjs,
+            COUNT(DISTINCT CASE WHEN p.jenis_pembayaran = 'Bayar' THEN p.id_pasien END) AS jumlah_bayar,
+            COUNT(DISTINCT CASE WHEN tp.jenis_kelamin = 'Laki-laki' THEN p.id_pasien END) AS jumlah_laki_laki,
+            COUNT(DISTINCT CASE WHEN tp.jenis_kelamin = 'Perempuan' THEN p.id_pasien END) AS jumlah_perempuan,
+            COUNT(DISTINCT pe2.diagnosa_utama) AS jumlah_diagnosa_utama,
+            GROUP_CONCAT(DISTINCT pe2.diagnosa_utama SEPARATOR ', ') AS diagnosa_utama
+        FROM t_pendaftaran p
+        JOIN (
+            SELECT 
+                id_pasien,
+                MIN(DATE_FORMAT(waktu_pendaftaran, '%Y-%m')) AS bulan_pertama
+            FROM t_pendaftaran
+            GROUP BY id_pasien
+        ) p2 ON p.id_pasien = p2.id_pasien
+        LEFT JOIN t_pasien tp ON p.id_pasien = tp.id_pasien
+        LEFT JOIN t_pemeriksaan2 pe2 ON p.id_pendaftaran = pe2.id_pendaftaran
+        WHERE YEAR(p.waktu_pendaftaran) = $tahun
+        AND DATE_FORMAT(p.waktu_pendaftaran, '%m') <= $bulan_sekarang
+        GROUP BY DATE_FORMAT(p.waktu_pendaftaran, '%m')";
+
+        $data_jumlah_data = $this->db->query($query_jumlah_data)->result_array();
+
+        $jumlah_data_per_bulan = array();
+
+        foreach ($data_bulan as $bulan) {
+            $jumlah_data_per_bulan[$bulan['bulan']] = array(
+                'pasien_baru' => 0,
+                'pasien_lama' => 0,
+                'jumlah_bpjs' => 0,
+                'jumlah_bayar' => 0,
+                'jumlah_laki_laki' => 0,
+                'jumlah_perempuan' => 0,
+                'jumlah_diagnosa_utama' => 0,
+                'diagnosa_utama' => array()
+            );
+        }
+
+        foreach ($data_jumlah_data as $jumlah_data) {
+            $bulan = $jumlah_data['bulan'];
+            $jumlah_data_per_bulan[$bulan]['pasien_baru'] = $jumlah_data['pasien_baru'];
+            $jumlah_data_per_bulan[$bulan]['pasien_lama'] = $jumlah_data['pasien_lama'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_bpjs'] = $jumlah_data['jumlah_bpjs'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_bayar'] = $jumlah_data['jumlah_bayar'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_laki_laki'] = $jumlah_data['jumlah_laki_laki'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_perempuan'] = $jumlah_data['jumlah_perempuan'];
+            $jumlah_data_per_bulan[$bulan]['jumlah_diagnosa_utama'] = $jumlah_data['jumlah_diagnosa_utama'];
+
+            $diagnosa_utama_array = explode(', ', $jumlah_data['diagnosa_utama']);
+            foreach ($diagnosa_utama_array as $diagnosa) {
+                $jumlah_data_per_bulan[$bulan]['diagnosa_utama'][] = $diagnosa;
+            }
+        }
+
+        $data['data_bulan'] = $data_bulan;
+        $data['jumlah_data_per_bulan'] = $jumlah_data_per_bulan;
+        $data['diagnosa_utama'] = $jumlah_data_per_bulan;
+
+        $this->load->view('admin/cetak_laporan_pasien', $data);
+    }
+
+    public function cetak_laporan_obat()
+    {
+        // Ambil data obat dari tabel t_obat
+        $query = $this->db->get('t_obat')->result_array();
+
+        // Bangun array untuk menyimpan data jumlah pengembalian obat per bulan
+        $data_pengembalian_obat = array();
+
+        // Inisialisasi array dengan 0 untuk setiap bulan untuk setiap obat
+        foreach ($query as $row) {
+            $data_pengembalian_obat[$row['id_obat']] = array(
+                'nama_obat' => $row['nama_obat'],
+                'stok_obat' => $row['stok_obat'],
+                'jumlah_pengembalian_obat' => array_fill(1, date('m'), 0) // Hanya inisialisasi hingga bulan sekarang
+            );
+        }
+
+        // Ambil data jumlah pengembalian obat dari tabel t_pengambilan_obat
+        $tahun_sekarang = date('Y');
+        $this->db->select('obat_yang_diambil, MONTH(waktu_pengambilan_obat) as bulan, SUM(jumlah) as jumlah_pengembalian');
+        $this->db->where("YEAR(waktu_pengambilan_obat) = $tahun_sekarang");
+        $this->db->group_by('obat_yang_diambil, MONTH(waktu_pengambilan_obat)');
+        $result = $this->db->get('t_pengambilan_obat')->result_array();
+
+        // Masukkan jumlah pengembalian obat ke dalam array yang sudah dibuat
+        foreach ($result as $row) {
+            $obat_yang_diambil = $row['obat_yang_diambil'];
+            $bulan = $row['bulan'];
+            $jumlah_pengembalian = $row['jumlah_pengembalian'];
+            $data_pengembalian_obat[$obat_yang_diambil]['jumlah_pengembalian_obat'][$bulan] = $jumlah_pengembalian;
+        }
+
+        // Siapkan data untuk dikirimkan ke halaman view
+        $data['data_pengembalian_obat'] = $data_pengembalian_obat;
+        $data['nama_bulan_indonesia'] = array(
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        );
+        $data['bulan_sekarang'] = date('n');
+
+        $this->load->view('admin/cetak_laporan_obat', $data);
+    }
 
     public function pegawai()
     {

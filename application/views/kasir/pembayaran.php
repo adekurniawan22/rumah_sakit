@@ -40,37 +40,37 @@
                                                 </button>
                                             </td>
                                             <td class="text-center">
-                                                <div class="class=" d-inline-block me-1 mb-1"">
+                                                <div class=" d-inline-block me-1 mb-1"">
                                                     <?php if ($data->nomor_antri) { ?>
-                                                        <form action="<?= base_url('qr/buat_qr_code') ?>" target="_blank" method="post">
-                                                            <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
-                                                            <input type="hidden" name="id_poliklinik" value="<?= $data->id_poliklinik ?>">
-                                                            <input type="hidden" name="nomor_antri" value="<?= $data->nomor_antri ?>">
-                                                            <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
-                                                            <input type="hidden" name="id_biaya" value="<?= $data->id_biaya ?>">
-                                                            <button type="submit" class="btn btn-primary ">
-                                                                <i class="bi bi-printer-fill"></i>
-                                                            </button>
-                                                        </form>
-                                                    <?php } else { ?>
-                                                        <span class="p-2 ">Belum Ada</span>
-                                                    <?php } ?>
+                                                        <form action=" <?= base_url('qr/buat_qr_code') ?>" target="_blank" method="post">
+                                                    <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
+                                                    <input type="hidden" name="id_poliklinik" value="<?= $data->id_poliklinik ?>">
+                                                    <input type="hidden" name="nomor_antri" value="<?= $data->nomor_antri ?>">
+                                                    <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
+                                                    <input type="hidden" name="id_biaya" value="<?= $data->id_biaya ?>">
+                                                    <button type="submit" class="btn btn-primary ">
+                                                        <i class="bi bi-printer-fill"></i>
+                                                    </button>
+                                                    </form>
+                                                <?php } else { ?>
+                                                    <span class="p-2 ">Belum Ada</span>
+                                                <?php } ?>
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                <div class="class=" d-inline-block me-1 mb-1"">
+                                                <div class=" d-inline-block me-1 mb-1"">
                                                     <?php if ($data->status_pemeriksaan_lanjut == '1' and $data->id_biaya == '2') { ?>
-                                                        <form action="<?= base_url('kasir/cetak_surat_pemeriksaan_lanjut') ?>" target="_blank" method="post">
-                                                            <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
-                                                            <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
-                                                            <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
-                                                            <button type="submit" class="btn btn-primary ">
-                                                                <i class="bi bi-printer-fill"></i>
-                                                            </button>
-                                                        </form>
-                                                    <?php } else { ?>
-                                                        <span class="p-2 ">Tidak ada</span>
-                                                    <?php } ?>
+                                                        <form action=" <?= base_url('kasir/cetak_surat_pemeriksaan_lanjut') ?>" target="_blank" method="post">
+                                                    <input type="hidden" name="id_pendaftaran" value="<?= $data->id_pendaftaran ?>">
+                                                    <input type="hidden" name="nama_poliklinik" value="<?= $data->nama_poliklinik ?>">
+                                                    <input type="hidden" name="nama_lengkap_pasien" value="<?= $data->nama_lengkap_pasien ?>">
+                                                    <button type="submit" class="btn btn-primary ">
+                                                        <i class="bi bi-printer-fill"></i>
+                                                    </button>
+                                                    </form>
+                                                <?php } else { ?>
+                                                    <span class="p-2 ">Tidak ada</span>
+                                                <?php } ?>
                                                 </div>
                                             </td>
                                         </tr>
