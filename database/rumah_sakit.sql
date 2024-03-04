@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Mar 2024 pada 22.40
+-- Waktu pembuatan: 04 Mar 2024 pada 06.13
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -81,13 +81,13 @@ CREATE TABLE `t_obat` (
 --
 
 INSERT INTO `t_obat` (`id_obat`, `nama_obat`, `harga_obat`, `stok_obat`) VALUES
-(18, 'parasetamol', 10000, 86),
+(18, 'parasetamol', 10000, 85),
 (19, 'neuralgin', 12000, 47),
 (20, 'grantusif', 11000, 50),
-(21, 'neo napacin', 8000, 49),
+(21, 'neo napacin', 8000, 45),
 (22, 'dexametasone', 11000, 50),
 (23, 'Cetirizine', 15000, 50),
-(24, 'Vitamin c', 12000, 34),
+(24, 'Vitamin c', 12000, 30),
 (25, 'ibuprofen', 11000, 50),
 (26, 'Loperamide Hydrochloride', 15000, 46),
 (27, 'DRAMAMINE', 12000, 100);
@@ -271,7 +271,7 @@ CREATE TABLE `t_pemeriksaan1` (
 
 INSERT INTO `t_pemeriksaan1` (`id_pemeriksaan1`, `id_pendaftaran`, `id_pasien`, `keadaan_umum`, `kesadaran`, `gcs`, `e`, `v`, `m`, `keluhan_umum`, `keluhan_lain`, `tekanan_darah`, `nadi`, `temperatur`, `pernapasan`, `nyeri`, `pencetus`, `kwalitas`, `lokasi`, `skala`, `durasi`, `pengetahuan_tentang_penyakit`, `perawatan_yg_dilakukan`, `perasaan`, `status_aktivitas`, `muskuloskeleta`, `kekuatan_otot`, `alergi`, `tidur_siang`, `tidur_malam`, `gangguan_tidur`, `penerimaan_kondisi`, `tinggal_bersama`, `kebiasaan`, `skor_hm`, `skor_mfs`, `skor_omss`, `status_laporan_hasil_SR`, `berat_badan`, `tinggi_badan`, `imt`, `skor_mst`, `imunisasi_dasar`, `imunisasi_lain`, `eliminasi`, `pola_makan`, `pola_minum`, `bak`, `bab`, `umur`, `RTKB_sosial`, `RTKB_motorik_halus`, `RTKB_motorik_kasar`, `RTKB_bahasa`, `analisa_masalah_keperawatan`, `planning`, `implementasi_dan_evaluasi`, `edukasi`, `keadaan_pasien_pulang`, `berkas_yang_diberikan`, `info_edukasi_yang_diberikan`, `status_permintaan_pulang`, `status_melarikan_diri`, `id_pegawai`, `waktu_pemeriksaan`) VALUES
 (7, 5, 64, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'Tidak', 'a', 'a', 'a', 'a', 'a', 'Tidak tau', 'Mengerti', 'Kecewa', 'Mandiri', 'Tidak ada', 'a', 'Tidak ada alergi', 'a', 'a', 'Tidak ada gangguan tidur', 'Menerima Kondisi', 'Keluarga', 'a', '', '', '', '', '', '', '', '', '', '', 'a', 'a', 'a', 'a', 'a', '', '', '', '', '', 'a', 'a', 'a', 'a', '', '', '', '', '', 46, '2024-03-01 08:46:12'),
-(8, 6, 64, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'Tidak', 'a', 'a', 'a', 'a', 'a', 'Tidak tau', 'Mengerti', 'Kecewa', 'Mandiri', 'Tidak ada', 'a', 'Tidak ada alergi', 'a', 'a', 'Tidak ada gangguan tidur', 'Menerima Kondisi', 'Keluarga', 'a', '', '', '', '', '', '', '', '', '', '', 'a', 'a', 'a', 'a', 'a', '', '', '', '', '', 'a', 'a', 'a', 'a', '', '', '', '', '', 46, '2024-03-01 08:46:12');
+(8, 2, 64, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'Tidak', 'a', 'a', 'a', 'a', 'a', 'Tidak tau', 'Mengerti', 'Kecewa', 'Mandiri', 'Tidak ada', 'a', 'Tidak ada alergi', 'a', 'a', 'Tidak ada gangguan tidur', 'Menerima Kondisi', 'Keluarga', 'a', '', '', '', '', '', '', '', '', '', '', 'a', 'a', 'a', 'a', 'a', '', '', '', '', '', 'a', 'a', 'a', 'a', '', '', '', '', '', 46, '2024-03-01 08:46:12');
 
 -- --------------------------------------------------------
 
@@ -315,8 +315,8 @@ CREATE TABLE `t_pemeriksaan2` (
 --
 
 INSERT INTO `t_pemeriksaan2` (`id_pemeriksaan2`, `id_pendaftaran`, `id_pasien`, `id_pegawai`, `keluhan_umum`, `riwayat_penyakit_sekarang`, `riwayat_alergi`, `riwayat_penyakit_dahulu`, `riwayat_pengobatan`, `riwayat_penyakit_keluarga`, `pemeriksaan`, `diagnosa_utama`, `diagnosa_tambahan`, `planning`, `tindakan`, `edukasi`, `resep_obat`, `rencana_kontrol`, `pelayanan_home_care`, `kontrol_ke_poliklinik`, `perlu_penggunaan_alat`, `telah_memesan_alat`, `dirujuk_ke_komunitas`, `dirujuk_ke_terapis`, `dirujuk_ke_ahli_gizi`, `lain_lain`, `perlu_pemeriksaan_lanjut`, `waktu_pemeriksaan2`) VALUES
-(5, 5, 64, 47, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'Belum Ditetapkan karena kagak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'a', 'Tidak', '2024-03-01 08:48:42'),
-(6, 6, 64, 47, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'ab', 'ab', 'a', 'a', 'a', 'a', 'Belum Ditetapkan karena kagak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'a', 'Tidak', '2024-03-01 08:48:42');
+(5, 5, 64, 47, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'Diagnosa 1', 'a', 'a', 'a', 'a', 'a', 'Belum Ditetapkan karena kagak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'a', 'Tidak', '2024-03-01 08:48:42'),
+(6, 2, 64, 47, 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'Diagnosa 2', 'ab', 'a', 'a', 'a', 'a', 'Belum Ditetapkan karena kagak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'Tidak', 'a', 'Tidak', '2024-03-01 08:48:42');
 
 -- --------------------------------------------------------
 
@@ -350,8 +350,8 @@ CREATE TABLE `t_pendaftaran` (
 --
 
 INSERT INTO `t_pendaftaran` (`id_pendaftaran`, `id_pasien`, `jenis_pembayaran`, `penanggung_jawab`, `nama_penanggung_jawab`, `hubungan`, `alamat_penanggung_jawab`, `nomor_hp_penanggung_jawab`, `waktu_pendaftaran`, `ketentuan_rs_ke_pasien`, `id_poliklinik`, `id_pegawai`, `status_pembayaran`, `status_pemeriksaan1`, `status_pemeriksaan2`, `perlu_pemeriksaan_lanjut`, `status_pemeriksaan_lanjut`, `status_pengambilan_obat`) VALUES
-(5, 1, 'BPJS', 'Pribadi', 'a', 'Kerabat', 'a, RT 0, RW 0, Kelurahan 02, Kecamatan a, Kabupaten a, Provinsi a', '0', '2024-03-01 08:43:36', 'Sudah', 1, 45, '1', '1', '1', '0', '0', '1'),
-(6, 3, 'BPJS', 'Pribadi', 'a', 'Kerabat', 'a, RT 0, RW 0, Kelurahan 02, Kecamatan a, Kabupaten a, Provinsi a', '0', '2024-03-01 08:43:36', 'Sudah', 1, 45, '1', '1', '1', '0', '0', '1');
+(2, 3, 'BPJS', 'Pribadi', 'a', 'Kerabat', 'a, RT 0, RW 0, Kelurahan 02, Kecamatan a, Kabupaten a, Provinsi a', '0', '2024-03-01 08:43:36', 'Sudah', 1, 45, '1', '1', '1', '0', '0', '1'),
+(5, 1, 'BPJS', 'Pribadi', 'a', 'Kerabat', 'a, RT 0, RW 0, Kelurahan 02, Kecamatan a, Kabupaten a, Provinsi a', '0', '2024-03-01 08:43:36', 'Sudah', 1, 45, '1', '1', '1', '0', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -376,10 +376,9 @@ CREATE TABLE `t_pengambilan_obat` (
 --
 
 INSERT INTO `t_pengambilan_obat` (`id_pengambilan_obat`, `id_pendaftaran`, `id_pasien`, `id_pegawai`, `obat_yang_diambil`, `jumlah`, `catatan`, `keterangan_pengambilan_obat`, `waktu_pengambilan_obat`) VALUES
-(30, 5, 64, 49, 24, 5, 'tes', 'keterangan', '2024-03-03 21:36:31'),
-(31, 5, 64, 49, 26, 1, 'tes', 'keterangan', '2024-03-03 21:36:31'),
-(32, 6, 64, 49, 24, 3, 'tes', 'Keterangan', '2024-03-03 21:43:13'),
-(33, 6, 64, 49, 21, 1, 'tes', 'Keterangan', '2024-03-03 21:43:13');
+(34, 2, 64, 49, 24, 4, '3 x 1', 'Keterangan', '2024-03-04 04:59:40'),
+(35, 2, 64, 49, 18, 1, '2 x1', 'Keterangan', '2024-03-04 04:59:40'),
+(36, 2, 64, 49, 21, 4, '2 x 4', 'Keterangan', '2024-03-04 04:59:40');
 
 -- --------------------------------------------------------
 
@@ -573,7 +572,7 @@ ALTER TABLE `t_pendaftaran`
 -- AUTO_INCREMENT untuk tabel `t_pengambilan_obat`
 --
 ALTER TABLE `t_pengambilan_obat`
-  MODIFY `id_pengambilan_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_pengambilan_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `t_poliklinik`

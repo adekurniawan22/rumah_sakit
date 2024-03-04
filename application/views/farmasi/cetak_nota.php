@@ -30,6 +30,7 @@
 
     <!-- Template Main CSS File -->
     <link href="<?php echo base_url() ?>assets/bootstrap/assets/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             margin: 0;
@@ -49,8 +50,19 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            max-width: 700px;
             width: 75%;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .card.border-dashed {
+            border-style: dashed;
+            border-color: #333;
+            border-width: 2px;
+            border-radius: 0;
         }
     </style>
 </head>
@@ -58,77 +70,54 @@
 <body>
     <div class="nota-container">
         <!-- Your content goes here -->
-        <h3 class="text-center mb-5">Nota Pengambilan Obat</h3>
-        <table>
-            <tr>
-                <td>
-                    <span>Nama Pasien</span>
-                </td>
-                <td>
-                    <span style="margin-right: 10px;">:</span>
-                </td>
-                <td>
-                    <span><?= $pengambilan_obat[0]->nama_lengkap_pasien  ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Nama Poliklinik</span>
-                </td>
-                <td>
-                    <span style="margin-right: 10px;">:</span>
-                </td>
-                <td>
-                    <span><?= $pengambilan_obat[0]->nama_poliklinik  ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Nama Obat</span>
-                </td>
-                <td>
-                    <span style="margin-right: 10px;">:</span>
-                </td>
-                <td>
-                    <span><?= $pengambilan_obat[0]->obat_yang_diambil  ?></span>
-                </td>
-            </tr>
+        <div class="row">
+            <div class="col-12">
+                <h3 class="text-center mb-3">Nota Pengambilan Obat</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">Nama Pasien : <strong><?= $pengambilan_obat[0]->nama_lengkap_pasien  ?></strong></p>
+                        <p class="card-text">Nama Poliklinik : <strong><?= $pengambilan_obat[0]->nama_poliklinik  ?></strong></p>
+                        <p class="card-text">Keterangan : <strong><?= $pengambilan_obat[0]->keterangan_pengambilan_obat  ?></strong></p>
 
-            <?php if ($pengambilan_obat[0]->keterangan_pengambilan_obat) { ?>
-                <tr>
-                    <td>
-                        <span>Keterangan Lainnya</span>
-                    </td>
-                    <td>
-                        <span style="margin-right: 10px;">:</span>
-                    </td>
-                    <td>
-                        <span><?= $pengambilan_obat[0]->keterangan_pengambilan_obat ?></span>
-                    </td>
-                </tr>
-            <?php  } ?>
-
-            <tr>
-                <td>
-                    <span>Catatan</span>
-                </td>
-                <td>
-                    <span style="margin-right: 10px;">:</span>
-                </td>
-                <td>
-                    <span><?= $pengambilan_obat[0]->catatan ?></span>
-                </td>
-            </tr>
-        </table>
-        <?php
-        date_default_timezone_set('Asia/Jakarta');
-        ?>
-        <div class="d-flex justify-content-end" style="margin-top: 50px;"><?= date('d-F-Y') ?></div><br>
-        <div class="d-flex justify-content-end" style="margin-top: -20px;">Jam <?= date('H:i') ?></div><br>
-        <div class="d-flex justify-content-end" style="margin-top: 60px;">RSUD Dr. H. ISHAK UMARELLA</div>
-        <!-- Add more content as needed -->
+                        <?php
+                        date_default_timezone_set('Asia/Jakarta');
+                        ?>
+                        <div class="d-flex justify-content-end" style="margin-top: 50px;"><?= date('d-F-Y') ?></div><br>
+                        <div class="d-flex justify-content-end" style="margin-top: -20px;">Jam <?= date('H:i') ?></div><br>
+                        <div class="d-flex justify-content-end" style="margin-top: 60px;">RSUD Dr. H. ISHAK UMARELLA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <?php
+            $this->db->where('id_pendaftaran', $pengambilan_obat[0]->id_pendaftaran);
+            $query = $this->db->get('t_pengambilan_obat')->result();
+            ?>
+            <?php foreach ($query as $q) : ?>
+                <?php
+                $this->db->where('id_obat', $q->obat_yang_diambil);
+                $obat = $this->db->get('t_obat')->row();
+                ?>
+                <div class="col-6">
+                    <div class="card border-dashed">
+                        <div class="card-body">
+                            <p class="m-3">Nama Obat: <?= $obat->nama_obat ?></p>
+                            <p class="m-3">Jumlah Obat: <?= $q->jumlah ?> pcs</p>
+                            <p class="m-3">Catatan Obat: <?= $q->catatan ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script>
     window.print()
 </script>
